@@ -1,0 +1,85 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using LewisFam.Stocks.ThirdParty.Webull.Models;
+
+namespace LewisFam.Stocks.ThirdParty.Webull
+{
+    public sealed partial class WebullDataService
+    {
+        internal static class Helper
+        {
+
+            #region Options
+            
+            /// <summary>The base uri_ options.</summary>
+            //private const string BaseUri_Options = "https://quoteapi.webullbroker.com/api/quote/option/"; stopped working 11/09/2020.
+            private const string BaseUri_Options = "https://quoteapi.webullfintech.com/api/quote/option/";
+
+            //    var filtered = options.Where(w => w.StrikePrice == strikePrice && w.Direction == optionType);
+            //    return filtered.ToList();
+            //}
+            /// <summary>The base uri_ search.</summary>
+            private const string BaseUri_Search = "https://infoapi.webullbroker.com/api/search/tickerSearchV5?hasNumber=0&clientOrder=3&queryNumber=30&keys=";
+
+            //public static IList<IOption> FilterToList(IEnumerable<IOption> options, long tickerId = 0, DirectionType optionType = DirectionType.Call, double strikePrice = 0)
+            //{
+            //    //var id = await FindStockIdAsync(symbol);
+            //    //var options = await GetAllOptionsAsync(id.Value);
+            //    if (tickerId != 0)
+            //        return options.Where(w => w.TickerId == tickerId).ToList();
+            /// <summary>The query params_ options.</summary>
+            private const string Params_Options = "/list?count=-1&includeWeekly=1&direction=all&queryAll=0";
+
+            /// <summary>Builds the uri.</summary>
+            /// <param name="tickerId">The ticker id.</param>
+            /// <param name="expDate"> The exp date.</param>
+            /// <returns>An Uri.</returns>
+            public static Uri BuildUri(long tickerId, DateTimeOffset expDate) => new Uri($"{BaseUri_Options}{tickerId}{Params_Options}&expireDate={expDate:yyyy-MM-dd}");
+
+            /// <summary>Builds the uri.</summary>
+            /// <param name="tickerId">The ticker id.</param>
+            /// <returns>An Uri.</returns>
+            public static Uri BuildUriGetOptions(long tickerId)
+            {
+                return new Uri($"{BaseUri_Options}{tickerId}{Params_Options}");
+            }
+
+            #endregion
+
+            #region Stocks
+
+            private const string BaseUri_Stocks = "https://quotes-gw.webullfintech.com/api/bgw/quote/realtime?";
+
+            //https://quotes-gw.webullfintech.com/api/quote/charts/query?tickerIds=913256135&period=d1
+            private const string BaseUri_StockChart = "https://quotes-gw.webullfintech.com/api/quote/charts/query?";
+
+            private const string Params_StockChart = "period=d1&tickerIds=";
+
+            private const string Params_Stocks_Realtime = "includeSecu=1&delay=0&more=1&ids=";
+
+            public static Uri BuildUriStockChartData(long tickerId) => new Uri($"{BaseUri_StockChart}{Params_StockChart}{tickerId}");
+
+            public static Uri BuildUriRealTimeStockQuotes(IEnumerable<long> tickerIds) => new Uri($"{BaseUri_Stocks}{Params_Stocks_Realtime}{parseIds_Trim(tickerIds)}");
+            //https://quotes-gw.webullfintech.com/api/bgw/quote/realtime?ids=913354090%2C913243250%2C913243251%2C913256135%2C913303964&includeSecu=1&delay=0&more=1
+
+            private static string parseIds_Trim(IEnumerable<long> tickerIds)
+            {
+                var myString = parseIds(tickerIds);
+                return myString.Substring(0, myString.Length-3);
+            }
+
+            private static string parseIds(IEnumerable<long> tickerIds) => tickerIds.Aggregate(string.Empty, (current, symbol) => $"{current}{symbol.ToString()}%2C");
+
+            #endregion
+
+            /// <summary>Builds the uri.</summary>
+            /// <param name="symbol">The symbol.</param>
+            /// <returns>An Uri.</returns>
+            public static Uri BuildUriSearchSymbol(string symbol)
+            {
+                return new Uri($"{BaseUri_Search}{symbol}");
+            }
+        }
+    }
+}
