@@ -3,15 +3,18 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using LewisFam.Stocks.Models;
+using LewisFam.Stocks.ThirdParty.Cnbc;
+using LewisFam.Stocks.ThirdParty.Cnbc.Models;
 using LewisFam.Stocks.ThirdParty.Webull;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 
 namespace LewisFam.Stocks
 {
     /// <summary>Stocks</summary>
-    public static partial class Stocks
+    public static partial class StocksUtil
     {
         private static readonly WebullDataService _webull = new WebullDataService();
+        private static readonly CnbcDataService _cnbc = new CnbcDataService();
 
         /// <summary>Gets a sample stock list.</summary>
         public static IList<Stock> StockList2021 => new List<Stock>
@@ -57,8 +60,8 @@ namespace LewisFam.Stocks
         /// <param name="symbol">The symbol.</param>
         /// <returns>A IRealTimeStockQuote.</returns>
         /// <remarks>
-        /// This method finds the symbol id with an http request before calling the <seealso cref="GetRealTimeMarketQuoteAsync(long)"/> method. If possible, please use the
-        /// <seealso cref="GetRealTimeMarketQuoteAsync(long)"/> to reduce the unnecessary http requests.
+        /// If possible, please use the <seealso cref="GetRealTimeMarketQuoteAsync(long)"/> method to reduce unnecessary http requests.
+        /// This method finds the symbol id with an http request before calling the <seealso cref="GetRealTimeMarketQuoteAsync(long)"/> method. 
         /// </remarks>
         public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol)
         {
@@ -72,13 +75,15 @@ namespace LewisFam.Stocks
         /// <returns>A IRealTimeStockQuote.</returns>
         public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(long tickerId)
         {
+            //using var wbull = new WebullDataService();
+            //return await wbull.GetRealTimeMarketQuoteAsync(tickerId);
             return await _webull.GetRealTimeMarketQuoteAsync(tickerId);
         }
 
         /// <summary>Gets the real time quotes task.</summary>
         /// <param name="tickerIds">The ticker ids.</param>
         /// <returns>A list of IRealTimeStockQuote.</returns>
-        public static async Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(IEnumerable<long> tickerIds)
+        public static async Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<long> tickerIds)
         {
             return await _webull.GetRealTimeMarketQuotesAsync(tickerIds);
         }
@@ -86,17 +91,27 @@ namespace LewisFam.Stocks
         /// <summary>Tos the symbol list.</summary>
         /// <param name="webullStocks">The webull stocks.</param>
         /// <returns>A list of string.</returns>
-        public static IEnumerable<string> ToSymbolList(this IEnumerable<Stock> webullStocks)
+        public static ICollection<string> ToSymbolList(this IEnumerable<Stock> webullStocks)
         {
-            return webullStocks?.Select(s => s?.Symbol)?.ToList();
+            return webullStocks?.Select(s => s?.Symbol).ToList();
         }
 
         /// <summary>Tos the ticker id list.</summary>
         /// <param name="webullStocks">The webull stocks.</param>
         /// <returns>A list of long.</returns>
-        public static IEnumerable<long> ToTickerIdList(this IEnumerable<Stock> webullStocks)
+        public static ICollection<long> ToTickerIdList(this IEnumerable<Stock> webullStocks)
         {
             return webullStocks?.Select(s => s.TickerId).ToList();
+        }
+
+        public static async Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId)
+        {
+            return await _webull.GetStockChartDataAsync(tickerId);
+        }
+
+        public static async Task<ICnbcRealTimeStockQuote> GetTest()
+        {
+           return  await _cnbc.GetRealTimeMarketQuoteAsync("spce");
         }
     }
 }

@@ -4,7 +4,7 @@ using LewisFam.Stocks.Internal.Models;
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
     /// <summary>A stock class.</summary>
-    public class Stock : BaseStock
+    public class Stock : BaseStock // LewisFam.Stocks.Models.Stock
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Stock"/> class.
@@ -24,6 +24,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
             TickerId = tickerId;            
         }
 
+        ///<inheritdoc/>
         public override string ToString()
         {
             return $"{Symbol},{TickerId}";
@@ -43,7 +44,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         /// <summary>
         /// Gets or sets the ticker id.
         /// </summary>
-        public long TickerId { get; set; }
+        public virtual long TickerId { get; set; }
 
         /////// <summary>
         /////// Gets the vendor.

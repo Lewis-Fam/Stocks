@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using LewisFam.Stocks.Internal.Models;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.Models.Enums;
-using LewisFam.Stocks.Models.z;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {

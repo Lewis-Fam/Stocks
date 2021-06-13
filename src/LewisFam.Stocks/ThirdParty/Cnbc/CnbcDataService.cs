@@ -20,7 +20,7 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc
         internal event EventHandler<QueryCompletedEventArgs> OnQuote;
 
         /// <inheritdoc/>
-        public async Task<Cnbc.Models.IStockQuote> GetRealTimeMarketQuoteAsync(string symbol)
+        public async Task<ICnbcRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol)
         {
             if (string.IsNullOrEmpty(symbol)) return null;
                        
@@ -31,9 +31,9 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc
         }
      
         /// <inheritdoc/>
-        public async Task<IEnumerable<IStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<string> symbols, int batchSize = 20)
+        public async Task<IEnumerable<ICnbcRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<string> symbols, int batchSize = 20)
         {
-            var rtn = new List<IStockQuote>();
+            var rtn = new List<ICnbcRealTimeStockQuote>();
             //If symbols.Count == 1 the request fails. Therefore, append a fake or real symbol.
             //or use the GetMarketQuoteAsync(string)
             //var s = symbols;

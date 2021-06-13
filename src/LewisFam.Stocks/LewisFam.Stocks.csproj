@@ -31,16 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LewisFam.Common" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\lewisfam\LewisFam.Common\src\LewisFam.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models.z\g\!H\" />
   </ItemGroup>
 
 </Project>

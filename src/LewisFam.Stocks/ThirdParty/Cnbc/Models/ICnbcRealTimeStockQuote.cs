@@ -3,7 +3,7 @@ using LewisFam.Stocks.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Cnbc.Models
 {
-    public interface IStockQuote : LewisFam.Stocks.Models.IStockQuoteBase
+    public interface ICnbcRealTimeStockQuote : LewisFam.Stocks.Models.IStockQuoteBase
     {  
         double Change { get; set; }
 
@@ -21,7 +21,7 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc.Models
 
         long Volume { get; set; }        
 
-        IList<IStockQuote> Datas { get; set; }
+        IList<ICnbcRealTimeStockQuote> Datas { get; set; }
         string AltName { get; set; }
 
         string AltSymbol { get; set; }
