@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace LewisFam.Stocks.Models
-{
+{   
     public interface IRealTimeStockQuote : IStockQuote
     {
         int TickerId { get; set; }

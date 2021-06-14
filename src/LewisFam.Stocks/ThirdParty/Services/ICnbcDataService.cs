@@ -12,14 +12,14 @@ namespace LewisFam.Stocks.ThirdParty.Services
     {
         /// <summary>Get a realtime CNBC market quote async.</summary>
         /// <param name="symbol">The symbol.</param>
-        /// <returns><see cref="IStockQuote"/></returns>
-        Task<Cnbc.Models.IStockQuote> GetRealTimeMarketQuoteAsync(string symbol);
+        /// <returns><see cref="ICnbcRealTimeStockQuote"/></returns>
+        Task<ICnbcRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol);
 
         /// <summary>Gets realtime CNBC market quotes async.</summary>
         /// <param name="symbols">  The symbols.</param>
         /// <param name="batchSize">The batch size.</param>
-        /// <returns><see cref="IStockQuote"/></returns>
-        Task<IEnumerable<Cnbc.Models.IStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<string> symbols, int batchSize = 20);                                                              
+        /// <returns><see cref="ICnbcRealTimeStockQuote"/></returns>
+        Task<IEnumerable<ICnbcRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<string> symbols, int batchSize = 20);                                                              
 
         /// <summary>Gets Price bars.</summary>
         /// <param name="symbol">       The symbol.</param>

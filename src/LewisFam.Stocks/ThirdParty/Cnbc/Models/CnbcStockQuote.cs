@@ -2,7 +2,7 @@
 
 namespace LewisFam.Stocks.ThirdParty.Cnbc.Models
 {
-    public partial class CnbcStockQuote  : LewisFam.Stocks.ThirdParty.Cnbc.Models.IStockQuote
+    public partial class CnbcStockQuote  : LewisFam.Stocks.ThirdParty.Cnbc.Models.ICnbcRealTimeStockQuote
     {
         public CnbcStockQuote()
         {
@@ -82,7 +82,7 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc.Models
         public virtual long Volume { get; set; }
 
         public virtual string StockName { get; set; }
-        public virtual IList<IStockQuote> Datas { get; set; }
+        public virtual IList<ICnbcRealTimeStockQuote> Datas { get; set; }
 
         public virtual double Price {get; set;}
 

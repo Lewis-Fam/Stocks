@@ -6,6 +6,14 @@ namespace LewisFam.Stocks.Internal.Models
     public abstract class BaseDataService : IDisposable
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="BaseDataService"/> class.
+        /// </summary>
+        protected BaseDataService()
+        {
+            Debug.WriteLine($"{nameof(BaseDataService)}");
+        }
+
+        /// <summary>
         /// Gets the client.
         /// </summary>
         internal HttpClient Client { get; } = new HttpClient();

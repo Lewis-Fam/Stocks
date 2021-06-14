@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 
+
 namespace LewisFam.Stocks.ThirdParty.Services
 {
     public interface IWebullDataService : IDisposable
@@ -45,7 +46,7 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <param name="tickerIds">The ticker ids.</param>
         /// <param name="batchSize">The batch size.</param>
         /// <returns>A list of IStockQuoteDataGrid.</returns>
-        Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(IEnumerable<long> tickerIds, int batchSize = 50);
+        Task<IList<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<long> tickerIds, int batchSize = 50);
 
         /// <summary>Gets the stock chart data async.</summary>
         /// <param name="tickerId">The ticker id.</param>

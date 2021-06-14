@@ -8,7 +8,9 @@ namespace LewisFam.Stocks.Internal.Models
     /// </summary>
     public abstract class BaseStock : IStock
     {
-        //[NotMapped]
+        /// <summary>
+        /// Gets or sets the symbol.
+        /// </summary>
         public virtual string Symbol { get; set; }
 
         protected virtual Vendor? Vendor { get; set; }
