@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using LewisFam.Interfaces;
-using LewisFam.Stocks.Internal;
 using LewisFam.Stocks.ThirdParty.Robinhood.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Services

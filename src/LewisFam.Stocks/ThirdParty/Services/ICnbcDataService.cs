@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LewisFam.Interfaces;
 using LewisFam.Stocks.ThirdParty.Cnbc.Models;
 using LewisFam.Well_Known.Enums;
 
@@ -8,7 +9,7 @@ using LewisFam.Well_Known.Enums;
 namespace LewisFam.Stocks.ThirdParty.Services
 {
     
-    public interface ICnbcDataService : IDisposable
+    public interface ICnbcDataService : IDataService
     {
         /// <summary>Get a realtime CNBC market quote async.</summary>
         /// <param name="symbol">The symbol.</param>

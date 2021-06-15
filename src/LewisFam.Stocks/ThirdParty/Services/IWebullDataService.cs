@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using LewisFam.Interfaces;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 
 
 namespace LewisFam.Stocks.ThirdParty.Services
 {
-    public interface IWebullDataService : IDisposable
+    public interface IWebullDataService : IDataService
     {
         IEnumerable<IWebullOptionQuote> AllOptions { get; }
 

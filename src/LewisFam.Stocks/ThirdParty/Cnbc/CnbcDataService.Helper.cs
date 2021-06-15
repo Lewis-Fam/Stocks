@@ -4,8 +4,14 @@ using System.Linq;
 
 namespace LewisFam.Stocks.ThirdParty.Cnbc
 {
+    /// <summary>
+    /// The cnbc data service.
+    /// </summary>
     public sealed partial class CnbcDataService
     {
+        /// <summary>
+        /// The cnbc data service helper class.
+        /// </summary>
         static class Helper
         {
             internal const string BaseUriCharts = "https://ts-api.cnbc.com/harmony/app/bars";
