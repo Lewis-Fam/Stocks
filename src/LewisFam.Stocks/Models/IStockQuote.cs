@@ -4,7 +4,9 @@ namespace LewisFam.Stocks.Models
 {
     public interface IStockQuote : IStockQuoteBase
     {
-        int TickerId { get; set; }
+        long Volume { get; set; }  
+
+        long TickerId { get; set; }
         string Name { get; set; }
         string Symbol { get; set; }
         DateTime TradeTime { get; set; }

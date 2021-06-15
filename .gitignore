@@ -338,7 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-/src/LewisFam.Stocks.Tests
 /src/LewisFam.Stocks/Models.z
 /LewisFam.Stocks.EntityFrameworkCore
 /LewisFam.Stocks_EntityFrameworkCore_19.sln

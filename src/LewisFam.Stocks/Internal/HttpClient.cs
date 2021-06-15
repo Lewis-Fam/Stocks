@@ -68,10 +68,10 @@ namespace LewisFam.Stocks.Internal
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
+
             if (disposing)
             {
                 _client?.Dispose();
-                //Dispose();
             }
         }
 

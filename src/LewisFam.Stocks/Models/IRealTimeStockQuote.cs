@@ -4,7 +4,7 @@ namespace LewisFam.Stocks.Models
 {   
     public interface IRealTimeStockQuote : IStockQuote
     {
-        int TickerId { get; set; }
+        long TickerId { get; set; }
         int ExchangeId { get; set; }
         int Type { get; set; }
         int[] SecType { get; set; }

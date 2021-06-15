@@ -12,7 +12,7 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc
         /// <summary>
         /// The cnbc data service helper class.
         /// </summary>
-        static class Helper
+        private static class Helper
         {
             internal const string BaseUriCharts = "https://ts-api.cnbc.com/harmony/app/bars";
 

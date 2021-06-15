@@ -9,7 +9,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
     /// </summary>
     public class WebullStockQuote : BindableObject, IRealTimeStockQuote
     {
-        private int _tickerId;
+        private long _tickerId;
         private int _exchangeId;
         private int _type;
         private int[] _secType;
@@ -67,7 +67,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         private string _limitUp;
         private string _limitDown;
 
-        public int TickerId
+        public long TickerId
         {
             get => _tickerId;
             set => SetProperty(ref _tickerId, value);
