@@ -47,10 +47,14 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <returns>A list of IStockQuoteDataGrid.</returns>
         Task<IList<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<long> tickerIds, int batchSize = 50);
 
-        /// <summary>Gets the stock chart data async.</summary>
+        /// <summary>
+        /// Gets the stock chart data async.
+        /// </summary>
         /// <param name="tickerId">The ticker id.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="count">The max count.</param>
         /// <returns>A list of IChartData.</returns>
-        Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId);
+        Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId, ChartDataType type = ChartDataType.d1, int count = 800);
 
         /// <summary>Searches the symbol async.</summary>
         /// <param name="symbol">The symbol.</param>

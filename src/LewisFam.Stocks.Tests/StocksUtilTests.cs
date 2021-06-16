@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
+using LewisFam.Utils.Json;
 
 namespace LewisFam.Stocks.Tests
 {
@@ -25,6 +26,7 @@ namespace LewisFam.Stocks.Tests
         {
             var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(StocksUtil.StockList2021.ToTickerIdList());
             Assert.IsTrue(quotes.Count() == 29, "quotes.Count() == 29");
+            Console.WriteLine($"Quotes: {await quotes.SerializeObjectToJsonAsync()}");
         }
 
         [TestMethod()]
@@ -32,6 +34,25 @@ namespace LewisFam.Stocks.Tests
         {
             var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(StocksUtil.StockList2021.Take(4).ToTickerIdList());
             Assert.IsTrue(quotes.Count() == 4);
+            Console.WriteLine($"Quotes: {await quotes.SerializeObjectToJsonAsync()}");
+        }
+
+        [TestMethod()]
+        public async Task GetStockChartDataAsyncTest()
+        {
+            var chartDatas = await StocksUtil.GetStockChartDataAsync(StocksUtil.StockList2021[0].TickerId, ChartDataType.m120);
+            foreach (var chartData in chartDatas)
+            {
+                foreach (var o in chartData.Data)
+                {
+                    var split = o.ToString()?.Split(",");
+                    foreach (var s in split)
+                    {
+                        var shd = new StockChartDataModel();
+                        shd.TradeTimeUnix = s[0];
+                    }
+                }
+            }
         }
     }
 }

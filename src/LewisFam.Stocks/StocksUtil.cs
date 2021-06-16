@@ -13,11 +13,8 @@ namespace LewisFam.Stocks
     /// <summary>Stocks</summary>
     public static partial class StocksUtil
     {
-        private static readonly WebullDataService _webull = new WebullDataService();
-        private static readonly CnbcDataService _cnbc = new CnbcDataService();
-
         /// <summary>Gets a sample stock list.</summary>
-        public static IList<Stock> StockList2021 => new List<Stock>
+        public static IReadOnlyList<Stock> StockList2021 => new List<Stock>
         {
             new Stock("SPCE", 950052430),
             new Stock("ROKU", 925376726),
@@ -65,7 +62,8 @@ namespace LewisFam.Stocks
         /// </remarks>
         public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol)
         {
-            var id = await _webull.FindStockIdAsync(symbol);
+            using var wb = new WebullDataService();
+            var id = await wb.FindStockIdAsync(symbol);
             if (id != null) return await GetRealTimeMarketQuoteAsync(id.Value);
             return null;
         }
@@ -75,9 +73,9 @@ namespace LewisFam.Stocks
         /// <returns>A IRealTimeStockQuote.</returns>
         public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(long tickerId)
         {
-            //using var wbull = new WebullDataService();
-            //return await wbull.GetRealTimeMarketQuoteAsync(tickerId);
-            return await _webull.GetRealTimeMarketQuoteAsync(tickerId);
+            using var wb = new WebullDataService();
+            return await wb.GetRealTimeMarketQuoteAsync(tickerId);
+            //return await _webull.GetRealTimeMarketQuoteAsync(tickerId);
         }
 
         /// <summary>Gets the real time quotes task.</summary>
@@ -85,7 +83,9 @@ namespace LewisFam.Stocks
         /// <returns>A list of IRealTimeStockQuote.</returns>
         public static async Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<long> tickerIds)
         {
-            return await _webull.GetRealTimeMarketQuotesAsync(tickerIds);
+            using var wb = new WebullDataService();
+            return await wb.GetRealTimeMarketQuotesAsync(tickerIds);
+            //return await _webull.GetRealTimeMarketQuotesAsync(tickerIds);
         }
 
         /// <summary>Tos the symbol list.</summary>
@@ -104,14 +104,23 @@ namespace LewisFam.Stocks
             return webullStocks?.Select(s => s.TickerId).ToList();
         }
 
-        public static async Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId)
+        /// <summary>
+        /// Gets the stock chart data async.
+        /// </summary>
+        /// <param name="tickerId">The ticker id.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>A list of IChartData.</returns>
+        public static async Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId, ChartDataType type = ChartDataType.d1, int count = 800)
         {
-            return await _webull.GetStockChartDataAsync(tickerId);
+            using var wb = new WebullDataService();
+            return await wb.GetStockChartDataAsync(tickerId, type, count);
+            //return await _webull.GetStockChartDataAsync(tickerId, type, count);
         }
 
-        public static async Task<ICnbcRealTimeStockQuote> GetTest()
-        {
-           return  await _cnbc.GetRealTimeMarketQuoteAsync("spce");
-        }
+        //static async Task<ICnbcRealTimeStockQuote> GetTest()
+        //{
+        //   return  await _cnbc.GetRealTimeMarketQuoteAsync("spce");
+        //}
     }
 }

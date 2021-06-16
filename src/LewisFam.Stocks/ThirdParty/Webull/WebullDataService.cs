@@ -107,19 +107,17 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                 batchIndex++;
             } 
             
-            Debug.WriteLine($"{nameof(GetRealTimeMarketQuotesAsync)} : dataTake3={await rtn.Take(3).SerializeObjectToJsonAsync()}");
+            Debug.WriteLine($"{nameof(GetRealTimeMarketQuotesAsync)} : dataTake4={await rtn.Take(4).SerializeObjectToJsonAsync()}");
             return rtn;
         }
 
-        /// <summary>Gets the stock chart data async.</summary>
-        /// <param name="tickerId">The ticker id.</param>
-        /// <returns>A list of IChartData.</returns>
-        public async Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId)
+        /// <inheritdoc/>
+        public async Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId, ChartDataType type = ChartDataType.d1, int count = 800)
         {
-            Uri = Helper.BuildUriStockChartData(tickerId);
-            Debug.WriteLine($"{nameof(GetStockChartDataAsync)} : {nameof(tickerId)}={tickerId} : {nameof(Uri)}={Uri}");
-            var data = await Client.GetAsync<List<ChartData>>(Helper.BuildUriStockChartData(tickerId));
-            Debug.WriteLine($"{nameof(GetStockChartDataAsync)} : data.Data.Take3={await data[0].Data.Take(3).SerializeObjectToJsonAsync()}");
+            Uri = Helper.BuildUriStockChartData(tickerId, type, count);
+            Debug.WriteLine($"{nameof(GetStockChartDataAsync)} : {nameof(tickerId)}={tickerId} : {nameof(type)}={type} : {nameof(count)}={count} : {nameof(Uri)}={Uri}");
+            var data = await Client.GetAsync<List<ChartData>>(Uri);
+            Debug.WriteLine($"{nameof(GetStockChartDataAsync)} : data.Data.Take_11={await data[0].Data.Take(11).SerializeObjectToJsonAsync()}");
             return data;
         }
 
@@ -129,13 +127,11 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                 processOption(item);
         }
 
-        /// <summary>Searches the symbol async.</summary>
-        /// <param name="symbol">The symbol.</param>
-        /// <returns>A list of stocks.</returns>
+        /// <inheritdoc/>
         public async Task<IEnumerable<Stock>> SearchSymbolAsync(string symbol)
         {
-            Debug.WriteLine($"{nameof(WebullDataService)} : {nameof(SearchSymbolAsync)} : {symbol}");
             Uri = Helper.BuildUriSearchSymbol(symbol);
+            Debug.WriteLine($"{nameof(WebullDataService)} : {nameof(SearchSymbolAsync)} : {symbol} : {nameof(Uri)}={Uri}");
             var jsonString = await Client.GetJsonAsync(Uri, "stockAndEtfs");
             var result = JToken.Parse(jsonString).ToObject<IEnumerable<Stock>>();
             return result;

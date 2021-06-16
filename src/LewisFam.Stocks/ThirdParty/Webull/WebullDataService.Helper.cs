@@ -60,6 +60,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull
 
             public static Uri BuildUriStockChartData(long tickerId) => new Uri($"{BaseUri_StockChart}{Params_StockChart}{tickerId}");
 
+            public static Uri BuildUriStockChartData(long tickerIds, ChartDataType type, int count = 800) => new Uri($"{BaseUri_StockChart}{nameof(tickerIds)}={tickerIds}&{nameof(type)}={type}&{nameof(count)}={count}");
+
             public static Uri BuildUriRealTimeStockQuotes(IEnumerable<long> tickerIds) => new Uri($"{BaseUri_Stocks}{Params_Stocks_Realtime}{parseIds_Trim(tickerIds)}");
             //https://quotes-gw.webullfintech.com/api/bgw/quote/realtime?ids=913354090%2C913243250%2C913243251%2C913256135%2C913303964&includeSecu=1&delay=0&more=1
 

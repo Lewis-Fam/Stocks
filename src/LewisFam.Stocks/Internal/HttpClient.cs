@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -86,6 +87,11 @@ namespace LewisFam.Stocks.Internal
                 Debug.Assert(_client.DefaultRequestHeaders != null, "_client.DefaultRequestHeaders != null");
                 _client.DefaultRequestHeaders.Add(_headers[i].Key, _headers[i].Value);
             }
+        }
+
+        public void AddAuthToken(string accessToken)
+        {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         }
     }
 }

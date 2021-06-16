@@ -1,7 +1,28 @@
 ﻿using System;
+using LewisFam.Stocks.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
+    public enum ChartDataType
+    {
+        m1,
+        m5,
+        m120,
+        m240,
+        d1,
+    }
+
+    public class StockChartDataModel 
+    {
+        public long TradeTimeUnix { get; set; }
+        public double Last { get; set; }
+        public double Close { get; set; }
+        public double High { get; set; }
+        public double Low { get; set; }
+        public double Open { get; set; }
+        public long Volume { get; set; }
+    }
+
     public class ChartData //: IMetaData<object>
         : IChartData
     {
