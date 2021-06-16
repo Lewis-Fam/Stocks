@@ -55,6 +55,28 @@ namespace LewisFam.Stocks
             new Stock("ANTM", 913324548),
         };
 
+        public static IEnumerable<T> GetRandomElements<T>(this IEnumerable<T> items, int elementsCount = int.MaxValue)
+        {
+            return items.OrderBy(x => Guid.NewGuid()).Take(elementsCount).ToList();
+        }
+
+        public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptions(long tickerId)
+        {
+            try
+            {
+
+                using var wb = new WebullDataService();
+                return await wb.GetAllOptionsAsync(tickerId);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return null;
+        }
+
         /// <summary>Gets the real time quote async.</summary>
         /// <param name="symbol">The symbol.</param>
         /// <returns>A IRealTimeStockQuote.</returns>
@@ -90,22 +112,6 @@ namespace LewisFam.Stocks
             //return await _webull.GetRealTimeMarketQuotesAsync(tickerIds);
         }
 
-        /// <summary>Tos the symbol list.</summary>
-        /// <param name="webullStocks">The webull stocks.</param>
-        /// <returns>A list of string.</returns>
-        public static ICollection<string> ToSymbolList(this IEnumerable<Stock> webullStocks)
-        {
-            return webullStocks?.Select(s => s?.Symbol).ToList();
-        }
-
-        /// <summary>Tos the ticker id list.</summary>
-        /// <param name="webullStocks">The webull stocks.</param>
-        /// <returns>A list of long.</returns>
-        public static ICollection<long> ToTickerIdList(this IEnumerable<Stock> webullStocks)
-        {
-            return webullStocks?.Select(s => s.TickerId).ToList();
-        }
-
         /// <summary>
         /// Gets the stock chart data async.
         /// </summary>
@@ -128,6 +134,21 @@ namespace LewisFam.Stocks
             return null;
         }
 
+        /// <summary>Tos the symbol list.</summary>
+        /// <param name="webullStocks">The webull stocks.</param>
+        /// <returns>A list of string.</returns>
+        public static ICollection<string> ToSymbolList(this IEnumerable<Stock> webullStocks)
+        {
+            return webullStocks?.Select(s => s?.Symbol).ToList();
+        }
+
+        /// <summary>Tos the ticker id list.</summary>
+        /// <param name="webullStocks">The webull stocks.</param>
+        /// <returns>A list of long.</returns>
+        public static ICollection<long> ToTickerIdList(this IEnumerable<Stock> webullStocks)
+        {
+            return webullStocks?.Select(s => s.TickerId).ToList();
+        }
         //static async Task<ICnbcRealTimeStockQuote> GetTest()
         //{
         //   return  await _cnbc.GetRealTimeMarketQuoteAsync("spce");
