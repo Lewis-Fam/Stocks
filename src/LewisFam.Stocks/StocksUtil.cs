@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -113,9 +115,17 @@ namespace LewisFam.Stocks
         /// <returns>A list of IChartData.</returns>
         public static async Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId, ChartDataType type = ChartDataType.d1, int count = 800)
         {
-            using var wb = new WebullDataService();
-            return await wb.GetStockChartDataAsync(tickerId, type, count);
-            //return await _webull.GetStockChartDataAsync(tickerId, type, count);
+            try
+            {
+                using var wb = new WebullDataService();
+                return await wb.GetStockChartDataAsync(tickerId, type, count);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Debug.WriteLine(e);
+            }
+
+            return null;
         }
 
         //static async Task<ICnbcRealTimeStockQuote> GetTest()

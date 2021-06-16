@@ -86,8 +86,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             Uri = Uri = Helper.BuildUriRealTimeStockQuotes(ids);
             Debug.WriteLine($"{nameof(GetRealTimeMarketQuoteAsync)} : {nameof(tickerId)}={tickerId} : {nameof(Uri)}={Uri}");
             var data = await Client.GetAsync<List<WebullStockQuote>>(Uri);
-            Debug.WriteLine($"{nameof(GetRealTimeMarketQuoteAsync)} : data={await data.SerializeObjectToJsonAsync()}");
-            return data.FirstOrDefault();
+            return data?.FirstOrDefault();
         }
 
         ///<inheritdoc/>
@@ -107,18 +106,21 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                 batchIndex++;
             } 
             
-            Debug.WriteLine($"{nameof(GetRealTimeMarketQuotesAsync)} : dataTake4={await rtn.Take(4).SerializeObjectToJsonAsync()}");
+            
             return rtn;
         }
 
         /// <inheritdoc/>
         public async Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId, ChartDataType type = ChartDataType.d1, int count = 800)
         {
+            var rtn = new List<ChartData>();
             Uri = Helper.BuildUriStockChartData(tickerId, type, count);
             Debug.WriteLine($"{nameof(GetStockChartDataAsync)} : {nameof(tickerId)}={tickerId} : {nameof(type)}={type} : {nameof(count)}={count} : {nameof(Uri)}={Uri}");
             var data = await Client.GetAsync<List<ChartData>>(Uri);
-            Debug.WriteLine($"{nameof(GetStockChartDataAsync)} : data.Data.Take_11={await data[0].Data.Take(11).SerializeObjectToJsonAsync()}");
-            return data;
+            if (data != null) 
+                rtn.AddRange(data);
+            
+            return rtn;
         }
 
         void ProcessOption(ProcessOptionDelegate processOption)
