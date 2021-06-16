@@ -90,7 +90,8 @@ namespace LewisFam.Stocks.Tests
         [TestMethod()]
         public async Task GetAllStockOptionsTest()
         {
-            _stock = StocksUtil.StockList2021.GetRandomElements(5).First();
+            _stock = StocksUtil.StockList2021.GetRandomElements(1).First();
+            Console.WriteLine(_stock);
             var options = (await StocksUtil.GetAllStockOptions(_stock.TickerId));
             //Assert.IsNotNull(options, "options == null");
             Console.WriteLine(await options.Take(2).SerializeObjectToJsonAsync());
