@@ -16,8 +16,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Tests
         {
             using var webull = new WebullDataService();
             var stock = await webull.FindStockAsync("spce");
-            if (stock != null)
-                Console.WriteLine(await stock.ToJsonAsync()); //Debug.WriteLine($"{stock.Symbol},{stock.TickerId}");
+            Assert.IsNotNull(stock, "stock == null");
+            Console.WriteLine(stock); 
         }
 
         [TestMethod()]
@@ -41,7 +41,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Tests
         public async Task GetRealTimeMarketQuoteTest()
         {
             using var webull = new WebullDataService();
-            var quote = await webull.GetRealTimeMarketQuoteAsync(StocksUtil.StockList2021[0].TickerId);
+            var stock = StocksUtil.StockList2021.GetRandomElements(1).First();
+            var quote = await webull.GetRealTimeMarketQuoteAsync(stock.TickerId);
             Console.WriteLine(quote.Symbol);
         }
 
@@ -56,8 +57,9 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Tests
         [TestMethod()]
         public async Task GetStockChartDataAsyncTest()
         {
-           using var webull = new WebullDataService(); 
-           var data = await webull.GetStockChartDataAsync(StocksUtil.StockList2021[0].TickerId);
+           using var webull = new WebullDataService();
+           var stock = StocksUtil.StockList2021.GetRandomElements(1).First();
+           var data = await webull.GetStockChartDataAsync(stock.TickerId);
            Console.WriteLine(await data.SerializeObjectToJsonAsync());
         }
     }

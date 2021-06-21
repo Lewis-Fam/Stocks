@@ -14,14 +14,14 @@ namespace LewisFam.Stocks.Tests
     [TestClass()]
     public class StocksUtilTests
     {
-        private IEnumerable<IChartData> _chartDatas;
-        private long _invalidTickerId = 9500524;
+        private IEnumerable<IChartData> _chartDataItems;
+        private const long InvalidTickerId = 9500524;
         private Stock _stock;
 
         [TestMethod()]
         public async Task GetRealTimeQuoteAsync_InvalidSymbol_Test()
         {
-            var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(_invalidTickerId);
+            var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(InvalidTickerId);
             Assert.IsNull(quote, "quote != null");
         }
 
@@ -37,8 +37,10 @@ namespace LewisFam.Stocks.Tests
         public async Task GetRealTimeQuotesAsyncTest()
         {
             var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(StocksUtil.StockList2021.ToTickerIdList());
-            Assert.IsTrue(quotes.Count() == 29, "quotes.Count() == 29");
-            Console.WriteLine("{" + $"\"QuotesJson\" : {await quotes.SerializeObjectToJsonAsync()}" + "}");
+            
+            //Console.WriteLine("{" + $"\"QuotesJson\" : {await quotes.SerializeObjectToJsonAsync()}" + "}");
+            Console.WriteLine($"{await quotes?.Take(5)?.SerializeObjectToJsonAsync(true)}");
+            Assert.IsTrue(quotes?.Count() == 29, "quotes.Count() == 29");
         }
 
         [TestMethod()]
@@ -46,8 +48,9 @@ namespace LewisFam.Stocks.Tests
         {
             _stock = StocksUtil.StockList2021.GetRandomElements(1).First();
             Console.WriteLine(_stock);
-            _chartDatas = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m1);
-            Assert.IsNotNull(_chartDatas, "_chartDatas == null");
+            _chartDataItems = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m1);
+            Assert.IsNotNull(_chartDataItems, "_chartDatas == null");
+            Console.WriteLine(await _chartDataItems.SerializeObjectToJsonAsync());
         }
 
         [TestMethod()]
@@ -55,8 +58,8 @@ namespace LewisFam.Stocks.Tests
         {
             _stock = StocksUtil.StockList2021.GetRandomElements(1).First();
             Console.WriteLine(_stock);
-            _chartDatas = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m120);
-            Assert.IsNotNull(_chartDatas, "_chartDatas == null");
+            _chartDataItems = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m120);
+            Assert.IsNotNull(_chartDataItems, "_chartDatas == null");
         }
 
         [TestMethod()]
@@ -64,27 +67,27 @@ namespace LewisFam.Stocks.Tests
         {                                                                     
             _stock = StocksUtil.StockList2021.GetRandomElements(1).First();
             Console.WriteLine(_stock);
-            _chartDatas = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m240);
-            Assert.IsNotNull(_chartDatas, "_chartDatas == null");
+            _chartDataItems = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m240);
+            Assert.IsNotNull(_chartDataItems, "_chartDatas == null");
             
         }
 
         [TestMethod()]
         public async Task GetStockChartDataAsync_ChartTypeM5_Test()
         {
-            _stock = StocksUtil.StockList2021.GetRandomElements().First();
+            _stock = StocksUtil.StockList2021.GetRandomElements(1).First();
             Console.WriteLine(_stock);
-            _chartDatas = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m5);
-            Assert.IsNotNull(_chartDatas, "_chartDatas == null");
+            _chartDataItems = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m5);
+            Assert.IsNotNull(_chartDataItems, "_chartDatas == null");
             
         }
 
         [TestMethod()]
         public async Task GetStockChartDataAsync_Invalid_TickerId_Test()
         {
-            _chartDatas = await StocksUtil.GetStockChartDataAsync(_invalidTickerId, ChartDataType.m120);
-            Assert.IsNotNull(_chartDatas, "_chartDatas == null");
-            Assert.IsTrue(!_chartDatas.Any(), "_chartDatas.Any() is not true.");
+            _chartDataItems = await StocksUtil.GetStockChartDataAsync(InvalidTickerId, ChartDataType.m120);
+            Assert.IsNotNull(_chartDataItems, "_chartDatas == null");
+            Assert.IsTrue(!_chartDataItems.Any(), "_chartDatas.Any() is not true.");
         }
 
         [TestMethod()]

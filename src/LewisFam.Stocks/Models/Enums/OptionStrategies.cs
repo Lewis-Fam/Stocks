@@ -1,6 +1,9 @@
-﻿namespace LewisFam.Stocks.Models.Enums
+﻿using System;
+
+namespace LewisFam.Stocks.Models.Enums
 {
     /// <summary>The option strategy.</summary>
+    [Serializable]
     public enum OptionStrategy
     {
         /// <summary>

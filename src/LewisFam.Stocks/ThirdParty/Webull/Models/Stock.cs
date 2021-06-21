@@ -9,7 +9,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="Stock"/> class.
         /// </summary>
-        public Stock()
+        protected Stock()
         {
         }
 
@@ -44,7 +44,12 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         /// <summary>
         /// Gets or sets the ticker id.
         /// </summary>
-        public virtual long TickerId { get; set; }
+        public long TickerId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the price.
+        /// </summary>
+        public virtual decimal Price { get; set; }
 
         /////// <summary>
         /////// Gets the vendor.

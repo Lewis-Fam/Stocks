@@ -7,6 +7,7 @@ namespace LewisFam.Stocks.Models.Enums
     /// </summary>
     /// <remarks>DirectionType will be removed. Use <see cref="Slide"/></remarks>            
     [Obsolete("DirectionType will be removed. Use Slide.")]
+    [Serializable]
     public enum DirectionType
     {
         //ToDo: Remove Lowercases.

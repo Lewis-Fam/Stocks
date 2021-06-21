@@ -1,5 +1,8 @@
-﻿namespace LewisFam.Stocks.Models.Enums
+﻿using System;
+
+namespace LewisFam.Stocks.Models.Enums
 {
+    [Serializable]
     public enum Slide
     {
         Call,
@@ -11,6 +14,7 @@
 
     }
 
+    [Serializable]
     public enum SearchBy
     {
         Strike,
