@@ -11,12 +11,28 @@ LewisFam.Stocks is a free and simple stock and option prices API. The API can cu
 
 ### Dependency Injection
 
-#### asp
-```c
+#### Startup.cs
+```csharp
+using LewisFam.Stocks.ThirdParty.Services;
+using LewisFam.Stocks.ThirdParty.Cnbc;
+using LewisFam.Stocks.ThirdParty.Webull;
+
+public void ConfigureServices(IServiceCollection services)
+{            
+    services.AddTransient<IWebullDataService, WebullDataService>();
+    services.AddTransient<ICnbcDataService, CnbcDataService>();
+    
+    services.AddControllersWithViews();            
+    services.AddRazorPages();
+    //..
+}
 
 ```
 
 ### StocksUtil
+```csharp
+var stock = await StocksUtil.FindStockAsync("MSFT");
+```
 
 ## Demo / Tests
 [LewisFam.Stocks.Test]

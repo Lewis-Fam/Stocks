@@ -55,11 +55,22 @@ namespace LewisFam.Stocks
             new Stock("ANTM", 913324548),
         };
 
+        /// <summary>
+        /// Extension Method. Gets random elements of T.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <param name="elementsCount">The elements count.</param>
+        /// <returns>A random list of T.</returns>
         public static IEnumerable<T> GetRandomElements<T>(this IEnumerable<T> items, int elementsCount = int.MaxValue)
         {
             return items.OrderBy(x => Guid.NewGuid()).Take(elementsCount).ToList();
         }
 
+        /// <summary>
+        /// Gets the all stock options.
+        /// </summary>
+        /// <param name="tickerId">The ticker id.</param>
+        /// <returns>A Task.</returns>
         public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptions(long tickerId)
         {
             try
@@ -75,6 +86,39 @@ namespace LewisFam.Stocks
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Gets the all stock options.
+        /// </summary>
+        /// <param name="stock">The stock.</param>
+        /// <returns>A Task.</returns>
+        public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptions(Stock stock)
+        {
+            try
+            {
+
+                using var wb = new WebullDataService();
+                return await wb.GetAllOptionsAsync(stock.TickerId);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Finds the stock async.
+        /// </summary>
+        /// <param name="symbol">The symbol.</param>
+        /// <returns>A Task.</returns>
+        public static async Task<Stock> FindStockAsync(string symbol)
+        {
+            using var wb = new WebullDataService();
+            return await wb.FindStockAsync(symbol);
         }
 
         /// <summary>Gets the real time quote async.</summary>
@@ -118,7 +162,7 @@ namespace LewisFam.Stocks
         /// <param name="tickerId">The ticker id.</param>
         /// <param name="type">The type.</param>
         /// <param name="count">The count.</param>
-        /// <returns>A list of IChartData.</returns>
+        /// <returns>A list of <see cref="IChartData"/>.</returns>
         public static async Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId, ChartDataType type = ChartDataType.d1, int count = 800)
         {
             try
@@ -134,17 +178,17 @@ namespace LewisFam.Stocks
             return null;
         }
 
-        /// <summary>Tos the symbol list.</summary>
+        /// <summary>Extension method. Stocks to symbol list.</summary>
         /// <param name="webullStocks">The webull stocks.</param>
-        /// <returns>A list of string.</returns>
+        /// <returns>A list of symbols.</returns>
         public static ICollection<string> ToSymbolList(this IEnumerable<Stock> webullStocks)
         {
             return webullStocks?.Select(s => s?.Symbol).ToList();
         }
 
-        /// <summary>Tos the ticker id list.</summary>
+        /// <summary>Extension method. Stocks to tickerId list.</summary>
         /// <param name="webullStocks">The webull stocks.</param>
-        /// <returns>A list of long.</returns>
+        /// <returns>A list of tickerIds.</returns>
         public static ICollection<long> ToTickerIdList(this IEnumerable<Stock> webullStocks)
         {
             return webullStocks?.Select(s => s.TickerId).ToList();
