@@ -71,7 +71,7 @@ namespace LewisFam.Stocks
         /// </summary>
         /// <param name="tickerId">The ticker id.</param>
         /// <returns>A Task.</returns>
-        public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptions(long tickerId)
+        public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptionsAsync(long tickerId)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace LewisFam.Stocks
         /// </summary>
         /// <param name="stock">The stock.</param>
         /// <returns>A Task.</returns>
-        public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptions(Stock stock)
+        public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptionsAsync(Stock stock)
         {
             try
             {
