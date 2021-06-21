@@ -1,18 +1,25 @@
-﻿# LewisFam.Stocks
-## _The Last Markdown Editor, Ever_
-
+# LewisFam.Stocks
 
 LewisFam.Stocks is a free and simple stock and option prices API. The API can currently gets real-time pricing from CNBC.com and Webull.com.
-
-- Type some Markdown on the left
-- See HTML in the right
-- ✨Magic ✨
 
 ## Features
 
 - Get real time stock quotes from both [Cnbc] & [Webull]
 - Stock option prices from [Webull]
 
+## Usage
+
+### Dependency Injection
+
+#### asp
+```c
+
+```
+
+### StocksUtil
+
+## Demo / Tests
+[LewisFam.Stocks.Test]
 
 ## Tech
 
@@ -59,6 +66,7 @@ MIT
    [CNbc]: <https://cnbc.com>
    [Webull]: <https://webull.com>
    [LewisFam.Common]: <https://github.com/Lewis-Fam/LewisFam.Common>
+   [LewisFam.Stocks.Test]: <https://github.com/Lewis-Fam/Stocks/tree/main/src/LewisFam.Stocks.Tests>
 
    [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
    [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
