@@ -1,4 +1,4 @@
-﻿# LewisFam.Stocks
+# LewisFam.Stocks
 
 LewisFam.Stocks is a free and simple stock and option prices API. The API can currently gets real-time pricing from CNBC.com and Webull.com.
 
