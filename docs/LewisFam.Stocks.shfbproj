@@ -18,10 +18,10 @@
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
     <OutputPath>.\Help\</OutputPath>
-    <HtmlHelpName>Documentation</HtmlHelpName>
+    <HtmlHelpName>LewisFam.Stocks.Help</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\stocks\src\LewisFam.Stocks\LewisFam.Stocks.csproj" xmlns="" />
+      <DocumentationSource sourceFile="..\src\LewisFam.Stocks\LewisFam.Stocks.csproj" />
     </DocumentationSources>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <SyntaxFilters>C#</SyntaxFilters>
@@ -34,12 +34,12 @@
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <HelpTitle>LewisFam.Stocks Class Library</HelpTitle>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
-    <NamingMethod>HashedMemberName</NamingMethod>
+    <NamingMethod>MemberName</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceContainer>False</RootNamespaceContainer>
-    <NamespaceGrouping>False</NamespaceGrouping>
+    <NamespaceGrouping>True</NamespaceGrouping>
     <MaximumGroupParts>2</MaximumGroupParts>
-    <Preliminary>False</Preliminary>
+    <Preliminary>True</Preliminary>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <HtmlSdkLinkType>Msdn</HtmlSdkLinkType>
     <BinaryTOC>True</BinaryTOC>
