@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
 using LewisFam.Stocks.Internal.Models;
+using LewisFam.Utils.Json;
 
-namespace LewisFam.Stocks.ThirdParty.Webull.Models
+namespace LewisFam.Stocks.Models
 {
     /// <summary>A stock class.</summary>
     public class Stock : BaseStock // LewisFam.Stocks.Models.Stock
@@ -9,7 +10,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="Stock"/> class.
         /// </summary>
-        protected Stock()
+        protected Stock() 
         {
         }
 
@@ -18,7 +19,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         /// </summary>
         /// <param name="symbol"></param>
         /// <param name="tickerId"></param>
-        public Stock(string symbol, long tickerId)
+        public Stock(string symbol, long tickerId) 
         {
             Symbol = symbol;
             TickerId = tickerId;            
@@ -27,7 +28,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         ///<inheritdoc/>
         public override string ToString()
         {
-            return $"{Symbol},{TickerId}";
+            return $"{this?.ToJson()}";
         }
 
         private string _symbol;
@@ -41,15 +42,12 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
             set { _symbol = value.ToUpper(); }
         }
 
-        /// <summary>
-        /// Gets or sets the ticker id.
-        /// </summary>
-        public long TickerId { get; set; }
+        
 
-        /// <summary>
-        /// Gets or sets the price.
-        /// </summary>
-        public virtual decimal Price { get; set; }
+        ///// <summary>
+        ///// Gets or sets the price.
+        ///// </summary>
+        //public virtual decimal Price { get; set; }
 
         /////// <summary>
         /////// Gets the vendor.

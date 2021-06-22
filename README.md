@@ -4,36 +4,61 @@ LewisFam.Stocks is a free and simple stock and option prices API. The API can cu
 
 ## Features
 
-- Get real time stock quotes from both [Cnbc] & [Webull]
-- Stock option prices from [Webull]
+- Get real-time stock quotes from [Cnbc] & [Webull]
+- Get real-time stock option prices from [Webull] (delayed 15 minutes.)
+
+## Installation
+
+LewisFam.Stocks is free and open source comman class libary using. 
+
+```sh
+dotnet add package LewisFam.Stocks --version 1.0.0
+```
 
 ## Usage
+
+### StocksUtil
+```csharp
+using LewisFam.Stocks;
+using LewisFam.Stocks.ThirdParty.Webull.Models;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+var stock = await StocksUtil.FindStockAsync("MSFT");
+var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
+
+```
+
+```csharp
+var tmpStocks = new List<Stock>();
+tmpStocks.Add(stock);
+var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(tmpStocks.ToTickerIdList());
+```
 
 ### Dependency Injection
 
 #### Startup.cs
 ```csharp
-using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Cnbc;
+using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull;
 
 public void ConfigureServices(IServiceCollection services)
-{            
-    services.AddTransient<IWebullDataService, WebullDataService>();
-    services.AddTransient<ICnbcDataService, CnbcDataService>();
+{       
+    //..
+    services.AddTransient<IWebullDataService, WebullDataService>();    
+    services.AddTransient<ICnbcDataService, CnbcDataService>();    
     
-    services.AddControllersWithViews();            
-    services.AddRazorPages();
+    //services.AddControllersWithViews();                
+    //services.AddRazorPages();
     //..
 }
 
 ```
 
-### StocksUtil
-```csharp
-var stock = await StocksUtil.FindStockAsync("MSFT");
-var options = await StocksUtil.GetAllStockOptions
-```
+
 
 ## Demo / Tests
 [LewisFam.Stocks.Test]
@@ -49,13 +74,6 @@ The LewisFam library uses a number of open source projects to work properly:
 And of course Dillinger itself is open source with a [public repository][dill]
  on GitHub.
 
-## Installation
-
-LewisFam.Stocks is a comman class libary using dotnet v and C#. 
-
-```sh
-dotnet add package LewisFam.Stocks --version 1.0.0
-```
 
 ## Usage
 

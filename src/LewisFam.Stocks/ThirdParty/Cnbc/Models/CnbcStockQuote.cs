@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using LewisFam.Stocks.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Cnbc.Models
 {
-    public partial class CnbcStockQuote  : LewisFam.Stocks.ThirdParty.Cnbc.Models.ICnbcRealTimeStockQuote
+    public partial class CnbcStockQuote  : Stock, ICnbcRealTimeStockQuote
     {
         public CnbcStockQuote()
         {
@@ -87,8 +88,6 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc.Models
         public virtual double Price {get; set;}
 
         public virtual double? PricePrevious {get; set;}
-
-        
 
         public override string ToString()
         {

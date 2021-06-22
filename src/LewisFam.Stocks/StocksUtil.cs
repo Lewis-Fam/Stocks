@@ -70,7 +70,7 @@ namespace LewisFam.Stocks
         /// Gets the all stock options.
         /// </summary>
         /// <param name="tickerId">The ticker id.</param>
-        /// <returns>A Task.</returns>
+        /// <returns>An IEnumerable of <inheritdoc cref="IWebullOptionQuote"/>.</returns>
         public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptionsAsync(long tickerId)
         {
             try
@@ -92,15 +92,13 @@ namespace LewisFam.Stocks
         /// Gets the all stock options.
         /// </summary>
         /// <param name="stock">The stock.</param>
-        /// <returns>A Task.</returns>
+        /// <returns>An IEnumerable of <inheritdoc cref="IWebullOptionQuote"/>.</returns>
         public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptionsAsync(Stock stock)
         {
             try
             {
-
                 using var wb = new WebullDataService();
                 return await wb.GetAllOptionsAsync(stock.TickerId);
-
             }
             catch (Exception e)
             {
@@ -114,11 +112,22 @@ namespace LewisFam.Stocks
         /// Finds the stock async.
         /// </summary>
         /// <param name="symbol">The symbol.</param>
-        /// <returns>A Task.</returns>
+        /// <returns>A <see cref="Stock"/>.</returns>
         public static async Task<Stock> FindStockAsync(string symbol)
         {
             using var wb = new WebullDataService();
             return await wb.FindStockAsync(symbol);
+        }
+
+        /// <summary>
+        /// Gets the cnbc stock quotes async.
+        /// </summary>
+        /// <param name="symbols">The symbols.</param>
+        /// <returns>A Task.</returns>
+        public static async Task<IEnumerable<ICnbcRealTimeStockQuote>> GetCnbcStockQuotesAsync(ICollection<string> symbols)
+        {
+            using var nbc = new CnbcDataService();
+            return await nbc.GetRealTimeMarketQuotesAsync(symbols);
         }
 
         /// <summary>Gets the real time quote async.</summary>
@@ -143,7 +152,6 @@ namespace LewisFam.Stocks
         {
             using var wb = new WebullDataService();
             return await wb.GetRealTimeMarketQuoteAsync(tickerId);
-            //return await _webull.GetRealTimeMarketQuoteAsync(tickerId);
         }
 
         /// <summary>Gets the real time quotes task.</summary>
@@ -153,7 +161,6 @@ namespace LewisFam.Stocks
         {
             using var wb = new WebullDataService();
             return await wb.GetRealTimeMarketQuotesAsync(tickerIds);
-            //return await _webull.GetRealTimeMarketQuotesAsync(tickerIds);
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 using LewisFam.Utils.Json;
 
@@ -37,7 +38,7 @@ namespace LewisFam.Stocks.Tests
         public async Task GetRealTimeQuotesAsyncTest()
         {
             var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(StocksUtil.StockList2021.ToTickerIdList());
-            
+
             //Console.WriteLine("{" + $"\"QuotesJson\" : {await quotes.SerializeObjectToJsonAsync()}" + "}");
             Console.WriteLine($"{await quotes?.Take(5)?.SerializeObjectToJsonAsync(true)}");
             Assert.IsTrue(quotes?.Count() == 29, "quotes.Count() == 29");
@@ -64,12 +65,12 @@ namespace LewisFam.Stocks.Tests
 
         [TestMethod()]
         public async Task GetStockChartDataAsync_ChartTypeM240_Test()
-        {                                                                     
+        {
             _stock = StocksUtil.StockList2021.GetRandomElements(1).First();
             Console.WriteLine(_stock);
             _chartDataItems = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m240);
             Assert.IsNotNull(_chartDataItems, "_chartDatas == null");
-            
+
         }
 
         [TestMethod()]
@@ -79,7 +80,7 @@ namespace LewisFam.Stocks.Tests
             Console.WriteLine(_stock);
             _chartDataItems = await StocksUtil.GetStockChartDataAsync(_stock.TickerId, ChartDataType.m5);
             Assert.IsNotNull(_chartDataItems, "_chartDatas == null");
-            
+
         }
 
         [TestMethod()]
@@ -98,6 +99,28 @@ namespace LewisFam.Stocks.Tests
             var options = (await StocksUtil.GetAllStockOptionsAsync(_stock.TickerId));
             //Assert.IsNotNull(options, "options == null");
             Console.WriteLine(await options.Take(2).SerializeObjectToJsonAsync());
+        }
+
+        [TestMethod()]
+        public async Task FindStockAsync_Null_Test()
+        {
+            var stock = await StocksUtil.FindStockAsync("spc");
+            Assert.IsNull(stock);
+        }
+
+        [TestMethod()]
+        public async Task FindStockAsync_NotNull_Test()
+        {
+            var stock = await StocksUtil.FindStockAsync("spce");
+            Assert.IsNotNull(stock);
+            Console.WriteLine(stock);
+        }
+
+        [TestMethod()]
+        public async Task GetCnbcStockQuotesAsyncTest()
+        {
+            var quotes = await StocksUtil.GetCnbcStockQuotesAsync(StocksUtil.StockList2021.ToSymbolList());
+            Console.WriteLine(await quotes.SerializeObjectToJsonAsync());
         }
     }
 }
