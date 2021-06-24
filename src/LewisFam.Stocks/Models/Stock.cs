@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using LewisFam.Stocks.Internal.Models;
-using LewisFam.Utils.Json;
+using LewisFam.Utils;
 
 namespace LewisFam.Stocks.Models
 {

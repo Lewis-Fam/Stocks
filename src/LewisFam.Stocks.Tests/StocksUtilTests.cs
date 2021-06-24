@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
-using LewisFam.Utils.Json;
+using LewisFam.Utils;
 
 namespace LewisFam.Stocks.Tests
 {
