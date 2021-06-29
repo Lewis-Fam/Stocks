@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using LewisFam.Stocks.Models;
-using LewisFam.Utils.File;
-using LewisFam.Utils.Json;
+using LewisFam.Utils;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
@@ -12,6 +12,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         {
         }
 
+        [Key]
         public virtual Guid? Id { get; set; } = Guid.NewGuid();
 
         public virtual DateTime? LastUpdated { get; set; } = DateTime.Now;

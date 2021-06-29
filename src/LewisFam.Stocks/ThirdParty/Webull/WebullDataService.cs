@@ -11,7 +11,7 @@ using LewisFam.Stocks.Internal.Models;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
-using LewisFam.Utils.Json;
+using LewisFam.Utils;
 
 using Newtonsoft.Json.Linq;
 
@@ -20,7 +20,9 @@ namespace LewisFam.Stocks.ThirdParty.Webull
     /// <summary>The webull data service.</summary>
     public sealed partial class WebullDataService : BaseDataService, IWebullDataService
     {
-        public IEnumerable<IWebullOptionQuote> AllOptions { get; private set; }
+        public ICollection<IWebullOptionQuote> AllOptions { get; set; } = new List<IWebullOptionQuote>();
+        public ICollection<Stock> StockCollection { get; } = new List<Stock>();
+
 
         ///<inheritdoc/>
         public async Task<Stock> FindStockAsync(string symbol)
@@ -30,6 +32,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             var jsonString = await Client.GetJsonAsync(Uri, "stockAndEtfs");
             var result = JToken.Parse(jsonString).ToObject<IEnumerable<Stock>>();
             var stock = result?.FirstOrDefault();
+            StockCollection.Add(stock);
             return string.Equals(stock?.Symbol, symbol, StringComparison.CurrentCultureIgnoreCase) ? stock : null;
         }
 
@@ -45,9 +48,10 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         public async Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(long tickerId)
         {
             Debug.WriteLine($"{nameof(GetAllOptionsAsync)} : {nameof(tickerId)}={tickerId}");
-            var rtn = new List<Option>();
+            AllOptions?.Clear();
+            //var rtn = new List<Option>();
 
-            foreach (var expireOn in await getExpireOnListAsync(tickerId))
+            foreach (var expireOn in await GetExpireOnListAsync(tickerId))
             {
                 var data = await GetOptionAsync(tickerId, expireOn.Date);
 
@@ -55,24 +59,22 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                     foreach (var option in data.Data)
                     {
                         option.SpotPrice = data.Close;
-                        rtn.Add(option.Put);
-                        rtn.Add(option.Call);
+                        AllOptions.Add(option.Put);
+                        AllOptions.Add(option.Call);
                     }
             }
 
-            AllOptions = rtn;
-
-            return rtn;
+            return AllOptions;
         }
 
         ///<inheritdoc/>
-        public async Task<IWebullOptionQuote> GetOptionAsync(long tickerId) => (await Client.GetJsonAsync(Helper.BuildUriGetOptions(tickerId)))?.DeserializeObject<Option>();
+        public async Task<IWebullOptionQuote> GetOptionAsync(long tickerId) => (await Client.GetJsonAsync(Helper.BuildUriGetOptions(tickerId)))?.DeserializeObject<WebullOptionQuote>();
 
         ///<inheritdoc/>
         public async Task<IWebullOptionQuote> GetOptionAsync(string symbol)
         {
             var id = await FindStockIdAsync(symbol);
-            return !id.HasValue ? null : (await Client.GetJsonAsync(Helper.BuildUriGetOptions(id.Value)))?.DeserializeObject<Option>();
+            return !id.HasValue ? null : (await Client.GetJsonAsync(Helper.BuildUriGetOptions(id.Value)))?.DeserializeObject<WebullOptionQuote>();
         }
 
         ///<inheritdoc/>
@@ -183,16 +185,11 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             return null;
         }
 
-        // var rtn = new List<OptionData>();
-        //    return rtn;
-        //}
-        /// <summary>Gets the expire on list async.</summary>
-        /// <param name="tickerId">The ticker id.</param>
-        /// <returns>A Task.</returns>
-        private async Task<IEnumerable<ExpireOn>> getExpireOnListAsync(long tickerId)
+        ///<inheritdoc/>
+        public async Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(long tickerId)
         {
             var data = await Client.GetJsonAsync(Helper.BuildUriGetOptions(tickerId));
-            var option = data.DeserializeObject<Option>().ExpireDateList;
+            var option = data.DeserializeObject<WebullOptionQuote>()?.ExpireDateList;
             return option;
         }
 
@@ -200,13 +197,13 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         /// <param name="tickerId">The ticker id.</param>
         /// <param name="expDate"> The exp date.</param>
         /// <returns>A Task.</returns>
-        private async Task<IWebullOptionQuote> GetOptionAsync(long tickerId, DateTimeOffset expDate) => (await Client.GetJsonAsync(Helper.BuildUri(tickerId, expDate)))?.DeserializeObject<Option>();
+        private async Task<IWebullOptionQuote> GetOptionAsync(long tickerId, DateTimeOffset expDate) => (await Client.GetJsonAsync(Helper.BuildUri(tickerId, expDate)))?.DeserializeObject<WebullOptionQuote>();
 
         /// <summary>Gets the option async.</summary>
         /// <param name="stock">  The stock.</param>
         /// <param name="expDate">The exp date.</param>
         /// <returns>A Task.</returns>
-        private async Task<IEnumerable<IWebullOptionQuote>> GetOptionAsync(Stock stock, DateTimeOffset expDate) => (await Client.GetJsonAsync(Helper.BuildUri(stock.TickerId, expDate)))?.DeserializeObject<IList<Option>>();
+        private async Task<IEnumerable<IWebullOptionQuote>> GetOptionAsync(Stock stock, DateTimeOffset expDate) => (await Client.GetJsonAsync(Helper.BuildUri(stock.TickerId, expDate)))?.DeserializeObject<IList<WebullOptionQuote>>();
 
         //Task<IEnumerable<IStockQuoteComplete>> IWebullDataService.GetRealTimeMarketQuotes(IEnumerable<long> tickerIds, int batchSize)
         //{

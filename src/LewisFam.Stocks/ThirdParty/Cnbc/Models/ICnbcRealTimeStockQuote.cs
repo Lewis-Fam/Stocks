@@ -3,7 +3,7 @@ using LewisFam.Stocks.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Cnbc.Models
 {
-    public interface ICnbcRealTimeStockQuote : LewisFam.Stocks.Models.IStockQuoteBase
+    public interface ICnbcRealTimeStockQuote : IStockQuote
     {  
         double Change { get; set; }
 

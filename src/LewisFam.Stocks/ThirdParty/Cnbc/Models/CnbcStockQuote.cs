@@ -3,7 +3,7 @@ using LewisFam.Stocks.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Cnbc.Models
 {
-    public partial class CnbcStockQuote  : Stock, ICnbcRealTimeStockQuote
+    public partial class CnbcStockQuote  : StockQuote, ICnbcRealTimeStockQuote
     {
         public CnbcStockQuote()
         {

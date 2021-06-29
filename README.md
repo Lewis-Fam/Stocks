@@ -19,22 +19,23 @@ dotnet add package LewisFam.Stocks --version 1.0.0
 
 ### StocksUtil
 ```csharp
-using LewisFam.Stocks;
-using LewisFam.Stocks.ThirdParty.Webull.Models;
-
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 var stock = await StocksUtil.FindStockAsync("MSFT");
-var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
+var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
 
+//or
+// quote = await StocksUtil.GetRealTimeMarketQuoteAsync("MSFT");
+
+//Multiple quotes.
+var stockList = new List<Stock>();
+stockList.Add(stock);
+var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList.ToTickerIdList());
+
+var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
 ```
 
 ```csharp
-var tmpStocks = new List<Stock>();
-tmpStocks.Add(stock);
-var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(tmpStocks.ToTickerIdList());
+
+
 ```
 
 ### Dependency Injection

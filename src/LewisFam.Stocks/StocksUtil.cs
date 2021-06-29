@@ -15,46 +15,6 @@ namespace LewisFam.Stocks
     /// <summary>Stocks</summary>
     public static partial class StocksUtil
     {
-        /// <summary>Gets a sample stock list.</summary>
-        public static IReadOnlyList<Stock> StockList2021 => new List<Stock>
-        {
-            new Stock("SPCE", 950052430),
-            new Stock("ROKU", 925376726),
-            new Stock("MSFT", 913323997),
-            new Stock("NVDA", 913257561),
-            new Stock("BA", 913254998),
-
-            new Stock("U", 950172451),
-            new Stock("RBLX", 950178170),
-            new Stock("AEVA", 950157726),
-            new Stock("CCIV", 950173643),
-            new Stock("FIVE", 913255714),
-
-            new Stock("RIOT", 925163605),
-            new Stock("SNOW", 950173560),
-            new Stock("CRSP", 913433908),
-            new Stock("DIS", 913255192),
-            new Stock("WMT", 913324551),
-
-            new Stock("BYND", 950104120),
-            new Stock("MGM", 913323750),
-            new Stock("LAZR", 950118834),
-            new Stock("AMD", 913254235),
-            new Stock("TSLA", 913255598),
-
-            new Stock("ATRO", 913255598),
-            new Stock("CMG", 913255105),
-            new Stock("DRI", 913255208),
-            new Stock("HD", 913255369),
-            new Stock("AMZN", 913256180),
-
-            new Stock("GOOGL", 913257299),
-            new Stock("AAPL", 913256135),
-            new Stock("MAXR", 950052426),
-            new Stock("SRAC", 950151334),
-            new Stock("ANTM", 913324548),
-        };
-
         /// <summary>
         /// Extension Method. Gets random elements of T.
         /// </summary>
@@ -148,10 +108,10 @@ namespace LewisFam.Stocks
         /// <summary>Gets the real time quote async.</summary>
         /// <param name="tickerId">The ticker id.</param>
         /// <returns>A IRealTimeStockQuote.</returns>
-        public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(long tickerId)
+        public static Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(long tickerId)
         {
             using var wb = new WebullDataService();
-            return await wb.GetRealTimeMarketQuoteAsync(tickerId);
+            return wb.GetRealTimeMarketQuoteAsync(tickerId);
         }
 
         /// <summary>Gets the real time quotes task.</summary>
@@ -198,11 +158,51 @@ namespace LewisFam.Stocks
         /// <returns>A list of tickerIds.</returns>
         public static ICollection<long> ToTickerIdList(this IEnumerable<Stock> webullStocks)
         {
-            return webullStocks?.Select(s => s.TickerId).ToList();
+            return webullStocks.Select(s => s.TickerId).ToList();
         }
         //static async Task<ICnbcRealTimeStockQuote> GetTest()
         //{
         //   return  await _cnbc.GetRealTimeMarketQuoteAsync("spce");
         //}
+
+        /// <summary>Gets a sample stock list.</summary>
+        public static IReadOnlyList<Stock> StockList2021 => new List<Stock>
+        {
+            new Stock("SPCE", 950052430),
+            new Stock("ROKU", 925376726),
+            new Stock("MSFT", 913323997),
+            new Stock("NVDA", 913257561),
+            new Stock("BA", 913254998),
+
+            new Stock("U", 950172451),
+            new Stock("RBLX", 950178170),
+            new Stock("AEVA", 950157726),
+            new Stock("CCIV", 950173643),
+            new Stock("FIVE", 913255714),
+
+            new Stock("RIOT", 925163605),
+            new Stock("SNOW", 950173560),
+            new Stock("CRSP", 913433908),
+            new Stock("DIS", 913255192),
+            new Stock("WMT", 913324551),
+
+            new Stock("BYND", 950104120),
+            new Stock("MGM", 913323750),
+            new Stock("LAZR", 950118834),
+            new Stock("AMD", 913254235),
+            new Stock("TSLA", 913255598),
+
+            new Stock("ATRO", 913255598),
+            new Stock("CMG", 913255105),
+            new Stock("DRI", 913255208),
+            new Stock("HD", 913255369),
+            new Stock("AMZN", 913256180),
+
+            new Stock("GOOGL", 913257299),
+            new Stock("AAPL", 913256135),
+            new Stock("MAXR", 950052426),
+            new Stock("SRAC", 950151334),
+            new Stock("ANTM", 913324548),
+        };
     }
 }

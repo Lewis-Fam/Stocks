@@ -1,11 +1,12 @@
-﻿using System.Reflection;
+﻿using LewisFam.Models;
 using LewisFam.Stocks.Internal.Models;
 using LewisFam.Utils;
 
 namespace LewisFam.Stocks.Models
 {
+
     /// <summary>A stock class.</summary>
-    public class Stock : BaseStock // LewisFam.Stocks.Models.Stock
+    public class Stock : BindableObject // LewisFam.Stocks.Models.Stock
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Stock"/> class.
@@ -14,16 +15,24 @@ namespace LewisFam.Stocks.Models
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Stock"/> class.
-        /// </summary>
-        /// <param name="symbol"></param>
-        /// <param name="tickerId"></param>
-        public Stock(string symbol, long tickerId) 
+        public Stock(Stock stock)
+        { 
+            Symbol = stock.Symbol;
+            TickerId = stock.TickerId;
+        }
+
+        public Stock(string symbol)
         {
             Symbol = symbol;
-            TickerId = tickerId;            
         }
+
+        public Stock(string symbol, long tickerId)
+        {
+            Symbol = symbol;
+            TickerId = tickerId;
+        }
+
+        public long TickerId { get; set; }
 
         ///<inheritdoc/>
         public override string ToString()
@@ -36,7 +45,7 @@ namespace LewisFam.Stocks.Models
         /// <summary>
         /// Gets or sets the symbol.ToUpper()
         /// </summary>
-        public sealed override string Symbol
+        public string Symbol
         {
             get { return _symbol.ToUpper(); }
             set { _symbol = value.ToUpper(); }

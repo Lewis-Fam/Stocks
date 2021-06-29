@@ -82,6 +82,20 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             {
                 return new Uri($"{BaseUri_Search}{symbol}");
             }
+
+            private const string Base_Securities = "https://securitiesapi.webullfintech.com/api/securities/financial";
+
+            public static Uri BuildUriFinancialSimple(long tickerId)
+            {
+                //https://securitiesapi.webullfintech.com/api/securities/financial/simple/950052430?reportType=2&statementType=2
+                return new Uri($"{Base_Securities}/simple/{tickerId}?reportType=2&statementType=2");
+            }
+
+            public static Uri BuildUriFinancialSimpleV2(long tickerId)
+            {
+                //https://securitiesapi.webullfintech.com/api/securities/financial/v2/detail/950052430?statementType=2
+                return new Uri($"{Base_Securities}/v2/detail/{tickerId}?statementType=2");
+            }
         }
     }
 }

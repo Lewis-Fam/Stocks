@@ -10,7 +10,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
     /// </summary>
     public interface IWebullOptionQuote : IOptionQuote
     {
-        public long? TickerId { get; }
+        public long TickerId { get; }
 
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         double? SpotPrice { get; set; }
@@ -39,7 +39,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
 
         long? OpenInterest { get; }
 
-        IEnumerable<Option> Data { get; }        
+        IEnumerable<WebullOptionQuote> Data { get; }        
 
         Guid? BatchId { get; set; }
 

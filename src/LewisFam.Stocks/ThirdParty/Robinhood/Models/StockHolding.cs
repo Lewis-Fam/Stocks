@@ -1,4 +1,6 @@
-﻿namespace LewisFam.Stocks.ThirdParty.Robinhood.Models
+﻿using LewisFam.Stocks.Models;
+
+namespace LewisFam.Stocks.ThirdParty.Robinhood.Models
 {
     /// <summary>
     /// The stock holding.

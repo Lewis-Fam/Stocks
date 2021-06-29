@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>LewisFam.Stocks.EntityFrameworkCore</AssemblyName>
+    <RootNamespace>LewisFam.Stocks.EntityFrameworkCore</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Repository\**" />
+    <EmbeddedResource Remove="Repository\**" />
+    <None Remove="Repository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="results.xlsx" />
+    <None Remove="results_U_1017818461.xlsx" />
+    <None Remove="results_U_160_calls.xlsx" />
+    <None Remove="SQLQuery1.sql" />
+    <None Remove="viewQuery.sql" />
+    <None Remove="__complete.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\LewisFamPrivate.git\src\LewisFam.EntityFrameworkCore\LewisFam.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\LewisFam.Stocks\LewisFam.Stocks.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,5 +1,4 @@
 ﻿using System;
-using LewisFam.Models;
 using LewisFam.Stocks.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
@@ -7,7 +6,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
     /// <summary>
     /// The webull stock quote.
     /// </summary>
-    public class WebullStockQuote : Stock, IRealTimeStockQuote
+    public class WebullStockQuote : StockQuote, IRealTimeStockQuote
     {
         private long _tickerId;
         private int _exchangeId;
@@ -67,7 +66,25 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         private string _limitUp;
         private string _limitDown;
 
-        public override long TickerId
+        public WebullStockQuote()
+        {
+        }
+
+        public WebullStockQuote(string symbol)
+        {
+            Symbol = symbol;
+        }
+
+        public WebullStockQuote(string symbol, double high, double low, double open, double price)
+        {
+            Symbol = symbol;
+            High = high;
+            Low = low;
+            Open = open;
+            Price = price;
+        }
+
+        public long TickerId
         {
             get => _tickerId;
             set => SetProperty(ref _tickerId, value);
@@ -115,7 +132,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
             set => SetProperty(ref _name, value);
         }
 
-        public string Symbol
+        public sealed override string Symbol
         {
             get => _symbol;
             set => SetProperty(ref _symbol, value);
@@ -407,6 +424,13 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         {
             get => _limitDown;
             set => SetProperty(ref _limitDown, value);
+        }
+
+        private double _price;
+        public virtual double Price
+        {
+            get { return _price; }
+            set { SetProperty(ref _price, value); }
         }
     }
 }

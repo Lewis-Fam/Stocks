@@ -2,7 +2,7 @@
 
 namespace LewisFam.Stocks.Models
 {   
-    public interface IRealTimeStockQuote : IStockQuote
+    public interface IRealTimeStockQuote : IRealTimeStockQuoteSlim, IStockQuote
     {
         long TickerId { get; set; }
         int ExchangeId { get; set; }
@@ -61,5 +61,7 @@ namespace LewisFam.Stocks.Models
         string TradeStatus { get; set; }
         string LimitUp { get; set; }
         string LimitDown { get; set; }
+
+        double Price {get; set; }
     }
 }

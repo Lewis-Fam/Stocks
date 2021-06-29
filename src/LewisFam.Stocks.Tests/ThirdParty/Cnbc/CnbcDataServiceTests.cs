@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using LewisFam.Utils.Json;
+using LewisFam.Utils;
 
 namespace LewisFam.Stocks.ThirdParty.Cnbc.Tests
 {

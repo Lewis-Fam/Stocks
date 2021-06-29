@@ -1,6 +1,4 @@
-﻿using LewisFam.Stocks.Internal.Models;
-
-namespace LewisFam.Stocks.Models
+﻿namespace LewisFam.Stocks.Models
 {
     //public class Stock : BaseStock
     //{
@@ -52,7 +50,7 @@ namespace LewisFam.Stocks.Models
 
     public interface IStock
     {
-        public string Symbol { get; set; }
-        public long TickerId { get; set; }
+        public string Symbol { get; }
+        public long TickerId { get; }
     }
 }

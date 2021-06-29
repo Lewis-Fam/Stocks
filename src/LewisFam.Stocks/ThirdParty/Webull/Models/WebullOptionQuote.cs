@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using LewisFam.Stocks.Internal.Models;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.Models.Enums;
@@ -10,17 +11,20 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
     /// <summary>
     /// The option.
     /// </summary>
-    public sealed class Option : BaseOption, IWebullOptionQuote
+    public sealed class WebullOptionQuote : BaseOption, IWebullOptionQuote
     {
-        public long? TickerId { get; set; }
+        [Key]
+        public long Id { get; set; }
 
-        ///<inheritdoc cref="BaseOption.Slide"/>
-        public override Slide? Slide { get; set; }
+        //public long TickerId { get; set; }
 
-        public override DateTime? ExpireDate { get; set; }
+        /////<inheritdoc cref="BaseOption.Slide"/>
+        //public override Slide? Slide { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
-        public override double? StrikePrice { get; set; }
+        //public override DateTime? ExpireDate { get; set; }
+
+        //[DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        //public override double? StrikePrice { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public double? AskPrice
@@ -80,15 +84,19 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         public Guid? BatchId { get; set; }
         private IList<BidAsk> AskList { get; set; }
         private IList<BidAsk> BidList { get; set; }
-        public IEnumerable<Option> Data { get; set; }
+        [NotMapped]
+        public IEnumerable<WebullOptionQuote> Data { get; set; }
+        [NotMapped]
         public IEnumerable<ExpireOn> ExpireDateList { get; set; }
-        public Option Call { get; set; }
-        public Option Put { get; set; }
+        [NotMapped]
+        public WebullOptionQuote Call { get; set; }
+        [NotMapped]
+        public WebullOptionQuote Put { get; set; }
         public DateTimeOffset UpdatedOn { get; private set; } = DateTime.UtcNow;
         //protected override IGreeks Greeks { get; set; }        
         public override string ToString()
         {
-            return $"{UnSymbol}|{StrikePrice:C}|{ExpireDate:yyyy-MM-dd}|{Direction}|{TickerId}";
+            return $"{Direction}|{TickerId}|{ExpireDate:yyyy-MM-dd}|{StrikePrice:C}|{UnSymbol}";
         }
     }
 }

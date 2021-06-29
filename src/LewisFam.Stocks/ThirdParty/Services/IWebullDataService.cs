@@ -9,7 +9,7 @@ namespace LewisFam.Stocks.ThirdParty.Services
 {
     public interface IWebullDataService : IDataService
     {
-        IEnumerable<IWebullOptionQuote> AllOptions { get; }
+        ICollection<IWebullOptionQuote> AllOptions { get; }
 
         /// <summary>Finds a stock async.</summary>
         /// <param name="symbol">The symbol.</param>
@@ -60,5 +60,10 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <param name="symbol">The symbol.</param>
         /// <returns>A list of stocks.</returns>
         Task<IEnumerable<Stock>> SearchSymbolAsync(string symbol);
+
+        /// <summary>Gets the expire on list async.</summary>
+        /// <param name="tickerId">The ticker id.</param>
+        /// <returns>A Task.</returns>
+        Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(long tickerId);
     }
 }

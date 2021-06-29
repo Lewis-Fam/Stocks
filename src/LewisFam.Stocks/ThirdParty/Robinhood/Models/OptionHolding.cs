@@ -19,7 +19,7 @@ namespace LewisFam.Stocks.ThirdParty.Robinhood.Models
             //TodayReturnPerc = todayReturnPerc;
         }
 
-        public override string Symbol { get; set; }
+        public string Symbol { get; set; }
 
         public double StrikePrice { get; set; }
 
@@ -37,7 +37,7 @@ namespace LewisFam.Stocks.ThirdParty.Robinhood.Models
 
         public virtual double TodayReturnPerc { get; }
 
-        protected override Vendor? Vendor => LewisFam.Stocks.Models.Enums.Vendor.Robinhood;
+        protected Vendor? Vendor => LewisFam.Stocks.Models.Enums.Vendor.Robinhood;
 
         //public override Greeks Greeks { get; set; }
     }

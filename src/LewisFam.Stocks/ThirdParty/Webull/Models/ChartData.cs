@@ -1,5 +1,4 @@
 ﻿using System;
-using LewisFam.Stocks.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
