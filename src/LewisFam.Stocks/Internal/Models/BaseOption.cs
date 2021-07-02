@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.Models.Enums;
 
@@ -26,7 +25,7 @@ namespace LewisFam.Stocks.Internal.Models
         /////<inheritdoc cref="IGreeks"/>
         //public virtual IGreeks Greeks { get; set; }
 
-        public long TickerId { get; }
+        public long TickerId { get; set; }
 
         private string _symbol;
 
@@ -42,7 +41,7 @@ namespace LewisFam.Stocks.Internal.Models
         ///<inheritdoc/>
         public override string ToString()
         {
-            return $"{Symbol}|{Slide}|{ExpireDate}|{StrikePrice}";
+            return $"{Symbol}|{Direction}|{ExpireDate}|{StrikePrice}";
         }
     }
 }

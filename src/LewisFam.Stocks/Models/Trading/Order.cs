@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using LewisFam.Stocks.Models.Enums;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 

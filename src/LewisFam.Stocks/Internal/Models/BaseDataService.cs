@@ -10,7 +10,7 @@ namespace LewisFam.Stocks.Internal.Models
         /// </summary>
         protected BaseDataService()
         {
-            Debug.WriteLine($"{nameof(BaseDataService)}");
+            Debug.WriteLine($"{nameof(BaseDataService)} created.");
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace LewisFam.Stocks.Internal.Models
         /// <inheritdoc cref="Dispose()"/>
         protected virtual void Dispose(bool disposing)
         {
-            Debug.WriteLine($"BaseDataService : Dispose : {disposing}");
+            Debug.WriteLine($"{nameof(BaseDataService)}.{nameof(Dispose)}:{nameof(disposing)}={disposing}");
             if (disposing)
             {
                 Client?.Dispose();
@@ -36,7 +36,7 @@ namespace LewisFam.Stocks.Internal.Models
         ///<inheritdoc/>
         public void Dispose()
         {
-            Debug.WriteLine("BaseDataService : Dispose");
+            Debug.WriteLine($"{nameof(BaseDataService)}.{nameof(Dispose)}");
             Dispose(true);
             GC.SuppressFinalize(this);
         }

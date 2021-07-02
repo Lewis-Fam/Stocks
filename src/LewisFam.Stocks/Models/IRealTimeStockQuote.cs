@@ -2,7 +2,7 @@
 
 namespace LewisFam.Stocks.Models
 {   
-    public interface IRealTimeStockQuote : IRealTimeStockQuoteSlim, IStockQuote
+    public interface IRealTimeStockQuote : IRealTimeStockQuoteSlim
     {
         long TickerId { get; set; }
         int ExchangeId { get; set; }

@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using LewisFam.Stocks.Internal.Models;
 using LewisFam.Stocks.Models;
-using LewisFam.Stocks.Models.Enums;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
@@ -13,7 +12,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
     /// </summary>
     public sealed class WebullOptionQuote : BaseOption, IWebullOptionQuote
     {
-        [Key]
         public long Id { get; set; }
 
         //public long TickerId { get; set; }

@@ -1,31 +1,86 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using LewisFam.Utils;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using LewisFam.Utils;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Tests
 {
     [TestClass()]
     public class WebullDataServiceTests
     {
+        #region Methods
+
         [TestMethod()]
         public async Task FindStockAsyncTest()
         {
             using var webull = new WebullDataService();
             var stock = await webull.FindStockAsync("spce");
             Assert.IsNotNull(stock, "stock == null");
-            Console.WriteLine(stock); 
+            Console.WriteLine(stock);
         }
 
         [TestMethod()]
         public async Task GetAllOptionsAsyncTest()
         {
             using var webull = new WebullDataService();
-            var options = await webull.GetAllOptionsAsync(950052430);
-            Console.WriteLine(await options.Take(5).SerializeObjectToJsonAsync());
+            var options = await webull.GetAllOptionsAsync(StocksUtil.StockList2021[0].TickerId);
+            //File.WriteAllText("allOptions.json", await options.SerializeObjectToJsonAsync());
+            Console.WriteLine(await options.Take(5).SerializeObjectToJsonAsync(true));
+        }
+
+        [TestMethod()]
+        public async Task GetOptionStratListTest()
+        {
+            using var webull = new WebullDataService();
+            var data = await webull.GetOptionStratList(StocksUtil.StockList2021[0].TickerId);
+            Console.WriteLine(data);
+        }
+
+        [TestMethod()]
+        public async Task GetRealTimeMarketQuotesTest()
+        {
+            using var webull = new WebullDataService();
+            var quotes = await webull.GetRealTimeMarketQuotesAsync(StocksUtil.StockList2021.ToTickerIdList());
+            Assert.IsTrue(quotes.Any(), "!quotes.Any()");
+            Console.WriteLine(await quotes.SerializeObjectToJsonAsync());
+        }
+
+        [TestMethod()]
+        public async Task GetRealTimeMarketQuoteTest()
+        {
+            using var webull = new WebullDataService();
+            var stock = StocksUtil.StockList2021.GetRandomElements(1).First();
+            var quote = await webull.GetRealTimeMarketQuoteAsync(stock.TickerId);
+            Console.WriteLine(await quote.SerializeObjectToJsonAsync());
+        }
+
+        [TestMethod()]
+        public async Task GetRealTimeOptionQuotesAsyncTest()
+        {
+            using var webull = new WebullDataService();
+            var data = await webull.GetRealTimeOptionQuotesAsync(1019075592);
+            Console.WriteLine(await data.SerializeObjectToJsonAsync(true));
+        }
+
+        [TestMethod()]
+        public async Task GetRealTimeOptionQuotesAsyncTest_IncorrectId()
+        {
+            using var webull = new WebullDataService();
+            var data = await webull.GetRealTimeOptionQuotesAsync(StocksUtil.StockList2021[0].TickerId);
+            Console.WriteLine(await data.SerializeObjectToJsonAsync(true));
+        }
+
+        [TestMethod()]
+        public async Task GetStockChartDataAsyncTest()
+        {
+            using var webull = new WebullDataService();
+            var stock = StocksUtil.StockList2021.GetRandomElements(1).First();
+            var data = await webull.GetStockChartDataAsync(stock.TickerId);
+            Console.WriteLine(await data.SerializeObjectToJsonAsync());
         }
 
         [TestMethod()]
@@ -37,30 +92,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Tests
                 Console.WriteLine(await stock.SerializeObjectToJsonAsync());
         }
 
-        [TestMethod()]
-        public async Task GetRealTimeMarketQuoteTest()
-        {
-            using var webull = new WebullDataService();
-            var stock = StocksUtil.StockList2021.GetRandomElements(1).First();
-            var quote = await webull.GetRealTimeMarketQuoteAsync(stock.TickerId);
-            Console.WriteLine(quote.Symbol);
-        }
-
-
-        [TestMethod()]
-        public async Task GetRealTimeMarketQuotesTest()
-        {
-            using var webull = new WebullDataService();
-            var quotes = await webull.GetRealTimeMarketQuotesAsync(StocksUtil.StockList2021.ToTickerIdList());
-        }
-
-        [TestMethod()]
-        public async Task GetStockChartDataAsyncTest()
-        {
-           using var webull = new WebullDataService();
-           var stock = StocksUtil.StockList2021.GetRandomElements(1).First();
-           var data = await webull.GetStockChartDataAsync(stock.TickerId);
-           Console.WriteLine(await data.SerializeObjectToJsonAsync());
-        }
+        #endregion Methods
     }
 }

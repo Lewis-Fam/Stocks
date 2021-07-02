@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LewisFam.Utils;
 
 namespace LewisFam.Stocks.Models.Tests
 {
@@ -17,8 +18,10 @@ namespace LewisFam.Stocks.Models.Tests
         {
             var so = new StockOption(StocksUtil.StockList2021[0], null);
             var data = await so.GetAllStockOptionsAsync();
-            var d = data.ToList();
-            Console.WriteLine(d.Count);
+
+            //var json = await data.SerializeObjectToJsonAsync(true);
+            //FileUtil.WriteAllText("alloptions.json", json);
+            //Console.WriteLine(d.Count);
             Assert.Fail();
         }
     }

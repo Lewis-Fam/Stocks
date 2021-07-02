@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LewisFam.Stocks.Models
+﻿namespace LewisFam.Stocks.Models
 {
     public abstract class StockQuote : Stock, IStockQuote
     {

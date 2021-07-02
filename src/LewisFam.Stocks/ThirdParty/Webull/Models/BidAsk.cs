@@ -1,6 +1,6 @@
 ﻿namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
-    internal class BidAsk
+    public class BidAsk
     {
         public virtual double? Price { get; set; }
 

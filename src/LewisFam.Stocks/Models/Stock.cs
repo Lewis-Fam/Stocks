@@ -1,5 +1,4 @@
 ﻿using LewisFam.Models;
-using LewisFam.Stocks.Internal.Models;
 using LewisFam.Utils;
 
 namespace LewisFam.Stocks.Models

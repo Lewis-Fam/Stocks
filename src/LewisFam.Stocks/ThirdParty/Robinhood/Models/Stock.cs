@@ -1,6 +1,4 @@
-﻿using LewisFam.Stocks.Internal.Models;
-
-namespace LewisFam.Stocks.ThirdParty.Robinhood.Models
+﻿namespace LewisFam.Stocks.ThirdParty.Robinhood.Models
 {
     //public class Stock : BaseStock
     //{

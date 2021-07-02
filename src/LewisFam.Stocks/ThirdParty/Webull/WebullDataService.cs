@@ -12,8 +12,9 @@ using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 using LewisFam.Utils;
-
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using NLog;
 
 namespace LewisFam.Stocks.ThirdParty.Webull
 {
@@ -22,6 +23,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
     {
         public ICollection<IWebullOptionQuote> AllOptions { get; set; } = new List<IWebullOptionQuote>();
         public ICollection<Stock> StockCollection { get; } = new List<Stock>();
+        private Logger _logger = LogManager.GetCurrentClassLogger();
 
 
         ///<inheritdoc/>
@@ -68,10 +70,12 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         }
 
         ///<inheritdoc/>
+        [Obsolete]
         public async Task<IWebullOptionQuote> GetOptionAsync(long tickerId) => (await Client.GetJsonAsync(Helper.BuildUriGetOptions(tickerId)))?.DeserializeObject<WebullOptionQuote>();
 
         ///<inheritdoc/>
-        public async Task<IWebullOptionQuote> GetOptionAsync(string symbol)
+        [Obsolete]
+      public async Task<IWebullOptionQuote> GetOptionAsync(string symbol)
         {
             var id = await FindStockIdAsync(symbol);
             return !id.HasValue ? null : (await Client.GetJsonAsync(Helper.BuildUriGetOptions(id.Value)))?.DeserializeObject<WebullOptionQuote>();
@@ -197,6 +201,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         /// <param name="tickerId">The ticker id.</param>
         /// <param name="expDate"> The exp date.</param>
         /// <returns>A Task.</returns>
+        [Obsolete]
         private async Task<IWebullOptionQuote> GetOptionAsync(long tickerId, DateTimeOffset expDate) => (await Client.GetJsonAsync(Helper.BuildUri(tickerId, expDate)))?.DeserializeObject<WebullOptionQuote>();
 
         /// <summary>Gets the option async.</summary>
