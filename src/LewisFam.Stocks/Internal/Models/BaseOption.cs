@@ -13,17 +13,12 @@ namespace LewisFam.Stocks.Internal.Models
         public virtual DateTime? ExpireDate { get; set; }
         public virtual DirectionType? Direction { get; set; }
 
-        //public virtual Stock Stock { get; set; }
-
         /// <summary>
         /// Gets or sets the <see cref="LewisFam.Stocks.Models.Enums.Slide"/>.
         /// </summary>
         public virtual Slide? Slide { get; set; }
 
         public virtual double Multiplier => 100.0;
-        
-        /////<inheritdoc cref="IGreeks"/>
-        //public virtual IGreeks Greeks { get; set; }
 
         public long TickerId { get; set; }
 
@@ -34,8 +29,8 @@ namespace LewisFam.Stocks.Internal.Models
         /// </summary>
         public string Symbol
         {
-            get { return _symbol.ToUpper(); }
-            set { _symbol = value.ToUpper(); }
+            get { return _symbol?.ToUpper(); }
+            set { _symbol = value?.ToUpper(); }
         }
 
         ///<inheritdoc/>

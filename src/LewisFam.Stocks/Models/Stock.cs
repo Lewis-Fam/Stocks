@@ -23,6 +23,7 @@ namespace LewisFam.Stocks.Models
         public Stock(string symbol)
         {
             Symbol = symbol;
+            TickerId = -1;
         }
 
         public Stock(string symbol, long tickerId)
@@ -36,7 +37,7 @@ namespace LewisFam.Stocks.Models
         ///<inheritdoc/>
         public override string ToString()
         {
-            return $"{this?.ToJson()}";
+            return $"{this.SerializeObjectToJson()}";
         }
 
         private string _symbol;
@@ -46,8 +47,8 @@ namespace LewisFam.Stocks.Models
         /// </summary>
         public string Symbol
         {
-            get { return _symbol.ToUpper(); }
-            set { _symbol = value.ToUpper(); }
+            get { return _symbol?.ToUpper(); }
+            set { _symbol = value?.ToUpper(); }
         }
 
         

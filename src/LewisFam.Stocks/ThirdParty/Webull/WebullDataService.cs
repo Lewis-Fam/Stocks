@@ -12,9 +12,7 @@ using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 using LewisFam.Utils;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
-using NLog;
 
 namespace LewisFam.Stocks.ThirdParty.Webull
 {
@@ -23,7 +21,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull
     {
         public ICollection<IWebullOptionQuote> AllOptions { get; set; } = new List<IWebullOptionQuote>();
         public ICollection<Stock> StockCollection { get; } = new List<Stock>();
-        private Logger _logger = LogManager.GetCurrentClassLogger();
 
 
         ///<inheritdoc/>

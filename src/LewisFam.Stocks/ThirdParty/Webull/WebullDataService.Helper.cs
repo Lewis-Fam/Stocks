@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using LewisFam.Stocks.ThirdParty.Webull.Models;
-using NLog;
 
 namespace LewisFam.Stocks.ThirdParty.Webull
 {

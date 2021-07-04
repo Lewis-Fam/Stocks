@@ -9,6 +9,8 @@ namespace LewisFam.Stocks.ThirdParty.Services
 {
     public interface IWebullDataService : IDataService
     {
+        Task<ICollection<WebullRealTimeOptionQuote>> GetRealTimeOptionQuotesAsync(long derivedId);
+
         Task<object> GetOptionStratList(long tickerId);
 
         ICollection<IWebullOptionQuote> AllOptions { get; }

@@ -20,7 +20,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull
 
         public async Task<object> GetOptionStratList(long tickerId)
         {
-            _logger.Debug("Test");
             Uri = Helper.BuildUriOptionStratList();
             var payLoad = new WebullOptionStratRequestBody(tickerId);
             var json = await payLoad.SerializeObjectToJsonAsync();
