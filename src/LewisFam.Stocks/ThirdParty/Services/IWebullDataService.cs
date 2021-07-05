@@ -11,6 +11,8 @@ namespace LewisFam.Stocks.ThirdParty.Services
     {
         Task<ICollection<WebullRealTimeOptionQuote>> GetRealTimeOptionQuotesAsync(long derivedId);
 
+        Task<ICollection<WebullRealTimeOptionQuote>> GetRealTimeOptionQuotesAsync(ICollection<long> derivedId);
+
         Task<object> GetOptionStratList(long tickerId);
 
         ICollection<IWebullOptionQuote> AllOptions { get; }

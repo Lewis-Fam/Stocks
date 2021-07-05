@@ -1,4 +1,13 @@
-﻿using System;
+﻿using LewisFam.Extensions;
+using LewisFam.Stocks.Internal.Models;
+using LewisFam.Stocks.Models;
+using LewisFam.Stocks.ThirdParty.Services;
+using LewisFam.Stocks.ThirdParty.Webull.Models;
+using LewisFam.Utils;
+
+using Newtonsoft.Json.Linq;
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -6,22 +15,14 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-using LewisFam.Extensions;
-using LewisFam.Stocks.Internal.Models;
-using LewisFam.Stocks.Models;
-using LewisFam.Stocks.ThirdParty.Services;
-using LewisFam.Stocks.ThirdParty.Webull.Models;
-using LewisFam.Utils;
-using Newtonsoft.Json.Linq;
-
 namespace LewisFam.Stocks.ThirdParty.Webull
 {
     /// <summary>The webull data service.</summary>
     public sealed partial class WebullDataService : BaseDataService, IWebullDataService
-    {
+    {  
         public ICollection<IWebullOptionQuote> AllOptions { get; set; } = new List<IWebullOptionQuote>();
-        public ICollection<Stock> StockCollection { get; } = new List<Stock>();
 
+        public ICollection<Stock> StockCollection { get; } = new List<Stock>();
 
         ///<inheritdoc/>
         public async Task<Stock> FindStockAsync(string symbol)
@@ -48,6 +49,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         {
             Debug.WriteLine($"{nameof(GetAllOptionsAsync)} : {nameof(tickerId)}={tickerId}");
             AllOptions?.Clear();
+
             //var rtn = new List<Option>();
 
             foreach (var expireOn in await GetExpireOnListAsync(tickerId))
@@ -72,7 +74,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
 
         ///<inheritdoc/>
         [Obsolete]
-      public async Task<IWebullOptionQuote> GetOptionAsync(string symbol)
+        public async Task<IWebullOptionQuote> GetOptionAsync(string symbol)
         {
             var id = await FindStockIdAsync(symbol);
             return !id.HasValue ? null : (await Client.GetJsonAsync(Helper.BuildUriGetOptions(id.Value)))?.DeserializeObject<WebullOptionQuote>();
@@ -107,9 +109,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                 var data = await Client.GetAsync<List<WebullStockQuote>>(Uri);
                 rtn.AddRange(data);
                 batchIndex++;
-            } 
-            
-            
+            }
+
             return rtn;
         }
 
@@ -120,13 +121,13 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             Uri = Helper.BuildUriStockChartData(tickerId, type, count);
             Debug.WriteLine($"{nameof(GetStockChartDataAsync)} : {nameof(tickerId)}={tickerId} : {nameof(type)}={type} : {nameof(count)}={count} : {nameof(Uri)}={Uri}");
             var data = await Client.GetAsync<List<ChartData>>(Uri);
-            if (data != null) 
+            if (data != null)
                 rtn.AddRange(data);
-            
+
             return rtn;
         }
 
-        void ProcessOption(ProcessOptionDelegate processOption)
+        private void ProcessOption(ProcessOptionDelegate processOption)
         {
             foreach (var item in AllOptions)
                 processOption(item);

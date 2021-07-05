@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\LewisFamPrivate.git\src\LewisFam.EntityFrameworkCore\LewisFam.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\LewisFam.Stocks\LewisFam.Stocks.csproj" />
+    <ProjectReference Include="..\..\..\LewisFamPrivate.git\src\stocks\LewisFam.Stocks.Models\LewisFam.Stocks.Models.csproj" />
   </ItemGroup>
 
 </Project>

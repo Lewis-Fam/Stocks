@@ -194,10 +194,5 @@ namespace LewisFam.Stocks
         }
 
         #endregion Methods
-
-        //static async Task<ICnbcRealTimeStockQuote> GetTest()
-        //{
-        //   return  await _cnbc.GetRealTimeMarketQuoteAsync("spce");
-        //}
     }
 }

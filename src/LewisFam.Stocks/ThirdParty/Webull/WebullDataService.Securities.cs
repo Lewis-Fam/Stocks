@@ -42,6 +42,12 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             Uri = Helper.BuilUriOptionQuote(derivedId);
             return await Client.GetAsync<List<WebullRealTimeOptionQuote>>(Uri);
         }
+
+        public async Task<ICollection<WebullRealTimeOptionQuote>> GetRealTimeOptionQuotesAsync(ICollection<long> derivedIds)
+        {
+            Uri = Helper.BuilUriOptionQuotes(derivedIds);
+            return await Client.GetAsync<List<WebullRealTimeOptionQuote>>(Uri);
+        }
     }
 
 
