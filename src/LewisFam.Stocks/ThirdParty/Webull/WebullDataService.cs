@@ -93,6 +93,14 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             var data = await Client.GetAsync<List<WebullStockQuote>>(Uri);
             return data?.FirstOrDefault();
         }
+        public async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol)
+        {
+            var stock = await FindStockIdAsync(symbol);
+            if (stock.HasValue)
+                return await GetRealTimeMarketQuoteAsync(stock.Value);
+
+            return null;
+        }
 
         ///<inheritdoc/>
         public async Task<IList<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<long> tickerIds, int batchSize = 50)

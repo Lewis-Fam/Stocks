@@ -47,6 +47,13 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <returns>A Task.</returns>
         Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(long tickerId);
 
+        /// <summary>
+        /// Gets the real time market quote async.
+        /// </summary>
+        /// <param name="symbol">The symbol.</param>
+        /// <returns>A Task.</returns>
+        Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol);
+
         /// <summary>Gets the real time market quotes.</summary>
         /// <param name="tickerIds">The ticker ids.</param>
         /// <param name="batchSize">The batch size.</param>
