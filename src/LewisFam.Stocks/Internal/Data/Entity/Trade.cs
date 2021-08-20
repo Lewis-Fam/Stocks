@@ -28,12 +28,12 @@ namespace LewisFam.Stocks.Data.Entity
     [Table("Trades", Schema = "trading")]
     public class Trade : ITrade
     {
-        [Key]
+        //[Key]
         public virtual Guid Id { get; set; } = Guid.NewGuid();
 
         public virtual Portfolio Portfolio { get; set; }
 
-        public virtual DirectionType Direction { get; set; }
+        public virtual CallPut Direction { get; set; }
 
         public virtual Vendor Broker { get; set; }
         public virtual Market Market { get; set; }
@@ -52,7 +52,5 @@ namespace LewisFam.Stocks.Data.Entity
         public virtual double Price { get; set; }
         public virtual double Size { get; set; }
         public virtual double Commission { get; set; }
-
-
     }
 }

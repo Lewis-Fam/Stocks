@@ -19,7 +19,7 @@
 //            TickerId = tickerId;
 //        }
 
-//        [Key]
+//        //[Key]
 //        public virtual long Id { get; set; }
 
 //        [StringLength(255)]

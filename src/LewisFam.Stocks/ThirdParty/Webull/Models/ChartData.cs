@@ -6,21 +6,21 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
     public class ChartData //: IMetaData<object>
         : IChartData
     {
-        public long TickerId { get; set; }
-        public string TimeZone { get; set; }
-        public double PreClose { get; set; }
-        public bool HasMore { get; set; }
-        public bool ExchangeStatus { get; set; }
-        public Date[] Dates { get; set; }
-        public long Timestamp { get; set; }
-        public object[] Data { get; set; }
+        public virtual long TickerId { get; set; }
+        public virtual string TimeZone { get; set; }
+        public virtual double PreClose { get; set; }
+        public virtual bool HasMore { get; set; }
+        public virtual bool ExchangeStatus { get; set; }
+        public virtual ChartDate[] Dates { get; set; }
+        public virtual long Timestamp { get; set; }
+        public virtual object[] Data { get; set; }
 
-        public class Date
+        public class ChartDate
         {
-            public string Type { get; set; }
-            public TimeSpan Start { get; set; }
-            public TimeSpan End { get; set; }
-            public int AvgShow { get; set; }
+            public virtual string Type { get; set; }
+            public virtual TimeSpan Start { get; set; }
+            public virtual TimeSpan End { get; set; }
+            public virtual int AvgShow { get; set; }
         }
     }
 }

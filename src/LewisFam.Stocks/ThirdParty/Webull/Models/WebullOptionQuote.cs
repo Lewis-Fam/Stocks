@@ -4,14 +4,28 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using LewisFam.Stocks.Internal.Models;
 using LewisFam.Stocks.Models;
+using LewisFam.Stocks.Options;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
     /// <summary>
     /// The option.
     /// </summary>
-    public sealed class WebullOptionQuote : BaseOption, IWebullOptionQuote
+    [Serializable]
+    public sealed class WebullOptionQuote : RealTimeOptionQuote, IWebullOptionQuote
     {
+        public WebullOptionQuote()
+        {
+        }
+
+        [NotMapped]
+        public override Stock Stock { get; set; }
+
+        public WebullOptionQuote(Stock stock)
+        {
+            Stock = stock;
+        }
+        
         public long Id { get; set; }
 
         //public long TickerId { get; set; }
@@ -58,10 +72,10 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         }
 
         public double? Last => Close;
-        public double? Change { get; set; }
-        public double? ChangeRatio { get; set; }
+        //public double? Change { get; set; }
+        //public double? ChangeRatio { get; set; }
         public long? Volume { get; set; }
-        public double? Close { get; set; }
+        public override double? Close { get; set; }
         public double? High { get; set; }
         public double? Low { get; set; }
         public double? Open { get; set; }

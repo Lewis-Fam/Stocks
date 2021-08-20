@@ -14,7 +14,7 @@ namespace LewisFam.Stocks.Data.Models
         [Display(Name = "Symbol"), StringLength(20)]
         public virtual string UnSymbol { get; set; }
         public virtual long TickerId { get; set; }
-        public override double? StrikePrice { get; set; }
+        public double? StrikePrice { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTimeOffset? ExpireDate { get; set; }
         public new DirectionType Direction { get; set; }

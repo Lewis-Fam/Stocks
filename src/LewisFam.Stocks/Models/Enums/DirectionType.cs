@@ -5,7 +5,7 @@ namespace LewisFam.Stocks.Models.Enums
     /// <summary>
     /// DirectionType
     /// </summary>
-    /// <remarks>DirectionType will be removed. Use <see cref="Slide"/></remarks>            
+    /// <remarks>DirectionType will be removed. Use <see cref="DirectionSlide"/></remarks>            
     [Obsolete("DirectionType will be removed. Use Slide.")]
     [Serializable]
     public enum DirectionType

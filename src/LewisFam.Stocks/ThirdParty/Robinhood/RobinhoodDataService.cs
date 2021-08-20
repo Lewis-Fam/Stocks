@@ -95,7 +95,7 @@ namespace LewisFam.Stocks.ThirdParty.Robinhood
                     double strikePrice = double.Parse(line0?[1], NumberStyles.AllowCurrencySymbol | NumberStyles.Any);
                     double strikePrice1 = -1;
 
-                    Slide direction = Slide.Call;
+                    CallPut direction = CallPut.Call;
                     BuySell optionType = BuySell.Buy;
 
                     DateTime expireDate = DateTime.Parse(line1?[0]);
@@ -103,14 +103,14 @@ namespace LewisFam.Stocks.ThirdParty.Robinhood
 
                     if (line0.Length == 3)
                     {
-                        direction = line0[2].Trim('s').ToEnum<Slide>();
+                        direction = line0[2].Trim('s').ToEnum<CallPut>();
                         optionType = line1[4].Trim('s').ToEnum<BuySell>();
                     }
 
                     if (line0.Length >= 4)
                     {
                         strikePrice1 = double.Parse(line0?[3], NumberStyles.AllowCurrencySymbol | NumberStyles.Any);
-                        direction = line0[4].Trim('s').ToEnum<Slide>();
+                        direction = line0[4].Trim('s').ToEnum<CallPut>();
                     }
 
                     if (line1.Length == 6)
@@ -188,7 +188,7 @@ namespace LewisFam.Stocks.ThirdParty.Robinhood
                 var z = x[0].Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 var symbol = z[0];
                 var strikePrice = double.Parse(z[1], NumberStyles.Any);
-                var directionType = Enum.Parse<Slide>(z[2], true);
+                var directionType = Enum.Parse<CallPut>(z[2], true);
                 var lastPrice = double.Parse(x[2], NumberStyles.Any);
                 var y = x[1].Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 var expireDate = DateTime.Parse(y[0]);

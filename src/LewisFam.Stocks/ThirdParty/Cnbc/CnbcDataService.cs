@@ -25,7 +25,7 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc
             if (string.IsNullOrEmpty(symbol)) return null;
                        
             Uri = Helper.BuildUri(symbol);
-            var data = await Client.GetAsync<JObject>(Uri);
+            var data = await Client.GetJsonAsync<JObject>(Uri);
             var rtn = data.SelectToken(Helper.TokenQuickQuote)?.ToObject<CnbcStockQuote>();
             return rtn?.CachedTime != null ? rtn : null;
         }
@@ -50,7 +50,7 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc
             foreach (var b in batches)
             {
                 Uri = Helper.BuildUri(b.Select(symbol => symbol));
-                var data = await Client.GetAsync<JObject>(Uri);
+                var data = await Client.GetJsonAsync<JObject>(Uri);
                 rtn.AddRange(data.SelectToken(Helper.TokenQuickQuote)?.ToObject<IEnumerable<CnbcStockQuote>>() ?? Array.Empty<CnbcStockQuote>());
             }
 
@@ -84,7 +84,7 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc
             }
 
             Uri = new Uri($"{Helper.BaseUriCharts}/{symbol}/{durationString}/{start}/{end}/{Helper.ChartQuery}");
-            var data = await Client.GetAsync<JObject>(Uri);
+            var data = await Client.GetJsonAsync<JObject>(Uri);
 
             var s = data.SelectToken(Helper.TokenBarData);
 
@@ -117,7 +117,7 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc
             //}
 
             //Uri = new Uri($"{Helper.BaseUriCharts}/{symbol}/{durationString}/{start}/{end}/{Helper.ChartQuery}");
-            var data = await Client.GetAsync<JObject>(Uri);
+            var data = await Client.GetJsonAsync<JObject>(Uri);
 
             var s = data.SelectToken(Helper.TokenBarData);
 
@@ -129,7 +129,7 @@ namespace LewisFam.Stocks.ThirdParty.Cnbc
             if (string.IsNullOrEmpty(symbol)) throw new ArgumentNullException(nameof(symbol));
 
             Uri = Helper.BuildUri(symbol);
-            var data = await Client.GetAsync<JObject>(Uri);
+            var data = await Client.GetJsonAsync<JObject>(Uri);
             return token != null ? data.SelectToken(token) : data;
         }
     }

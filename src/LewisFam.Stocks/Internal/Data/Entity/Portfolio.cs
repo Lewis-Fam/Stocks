@@ -10,7 +10,7 @@ namespace LewisFam.Stocks.Data.Entity
     [Table("Portfolios", Schema = "trading")]
     public class Portfolio
     {
-        [Key]
+        //[Key]
         public virtual Guid Id {get; set;}   
         public virtual string Name {get; set;}        
         public virtual ICollection<Trade> Trades {get; set; }

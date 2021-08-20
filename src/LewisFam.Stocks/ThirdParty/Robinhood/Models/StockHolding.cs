@@ -16,13 +16,14 @@ namespace LewisFam.Stocks.ThirdParty.Robinhood.Models
         /// <param name="price">The price.</param>
         /// <param name="averageCost">The average cost.</param>
         /// <param name="equity">The equity.</param>
-        public StockHolding(string name, string symbol, double shares, double price, double averageCost, double equity) : base(symbol)  //(string symbol, string name, double shares, double averageCost, double totalReturn, double equity) : base(symbol) //: this(symbol)
+        public StockHolding(string name, string symbol, double shares, double price, double averageCost, double equity) : base(symbol) //(string symbol, string name, double shares, double averageCost, double totalReturn, double equity) : base(symbol) //: this(symbol)
         {
             Name = name;
             Shares = shares;
             Price = price;
             AverageCost = averageCost;
             Equity = equity;
+            Symbol = symbol;
         }
 
         /// <summary>

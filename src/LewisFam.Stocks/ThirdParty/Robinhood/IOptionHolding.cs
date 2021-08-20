@@ -6,7 +6,7 @@ namespace LewisFam.Stocks.ThirdParty.Robinhood
 {
     public interface IOptionHolding : IStock
     {
-        Slide Slide { get; }
+        CallPut Slide { get; }
 
         DateTime ExpireDate { get; }
 

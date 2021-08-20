@@ -22,7 +22,7 @@ namespace LewisFam.Stocks.Data.Models
         public DirectionType? Direction { get; set; }
 
         [StringLength(4), Column(TypeName = "nvarchar(4)")]
-        public Slide? Slide { get; set; }
+        public CallPut? Slide { get; set; }
         public long? OpenInterest { get; set; }
         public long? OpenIntChange { get; set; }
 

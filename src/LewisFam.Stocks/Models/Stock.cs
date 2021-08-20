@@ -1,43 +1,59 @@
-﻿using LewisFam.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+using LewisFam.Models;
+using LewisFam.Stocks.ThirdParty.Webull.Models;
 using LewisFam.Utils;
 
 namespace LewisFam.Stocks.Models
 {
-
     /// <summary>A stock class.</summary>
-    public class Stock : BindableObject // LewisFam.Stocks.Models.Stock
+    [Serializable, Table("Stocks")]
+    public class Stock : BindableObject, IStock // LewisFam.Stocks.Models.Stock
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Stock"/> class.
-        /// </summary>
-        protected Stock() 
+        public Stock()
         {
         }
 
-        public Stock(Stock stock)
-        { 
+        public Stock(IStock stock)
+        {
             Symbol = stock.Symbol;
             TickerId = stock.TickerId;
         }
 
-        public Stock(string symbol)
+        public Stock(string symbol, long? tickerId = null)
         {
             Symbol = symbol;
-            TickerId = -1;
+            TickerId = tickerId ?? -1;
         }
 
-        public Stock(string symbol, long tickerId)
+        public long FindTickerId()
         {
-            Symbol = symbol;
-            TickerId = tickerId;
+            var stock = StocksUtil.FindStockAsync(Symbol).Result;
+            TickerId = stock.TickerId;
+            return TickerId;
+        }
+
+        public async Task<long> FindTickerIdAsync()
+        {
+            var stock = await StocksUtil.FindStockAsync(Symbol);
+            TickerId = stock.TickerId;
+            return TickerId;
         }
 
         public long TickerId { get; set; }
 
+        public string Name { get; set; }
+
+        public bool HasTickerId => TickerId > 0;
+
         ///<inheritdoc/>
         public override string ToString()
         {
-            return $"{this.SerializeObjectToJson()}";
+            return $"{Symbol}|{TickerId}";
         }
 
         private string _symbol;
@@ -45,22 +61,11 @@ namespace LewisFam.Stocks.Models
         /// <summary>
         /// Gets or sets the symbol.ToUpper()
         /// </summary>
+        [MaxLength(50)]
         public string Symbol
         {
-            get { return _symbol?.ToUpper(); }
-            set { _symbol = value?.ToUpper(); }
+            get => _symbol?.ToUpper();
+            set => _symbol = value?.ToUpper();
         }
-
-        
-
-        ///// <summary>
-        ///// Gets or sets the price.
-        ///// </summary>
-        //public virtual decimal Price { get; set; }
-
-        /////// <summary>
-        /////// Gets the vendor.
-        /////// </summary>
-        //protected override Vendor? Vendor => Stocks.Data.Enums.Vendor.Webull;
     }
 }

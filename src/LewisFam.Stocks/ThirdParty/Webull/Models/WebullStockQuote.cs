@@ -6,7 +6,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
     /// <summary>
     /// The webull stock quote.
     /// </summary>
-    public class WebullStockQuote : StockQuote, IRealTimeStockQuote
+    public sealed class WebullStockQuote : StockQuote, IRealTimeStockQuote
     {
         private long _tickerId;
         private int _exchangeId;
@@ -66,16 +66,21 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         private string _limitUp;
         private string _limitDown;
 
-        public WebullStockQuote()
+        public WebullStockQuote() : base()
+        {
+        }
+       
+
+        public WebullStockQuote(IStock stock) : base(stock)
         {
         }
 
-        public WebullStockQuote(string symbol)
-        {
-            Symbol = symbol;
-        }
+        //public WebullStockQuote(string symbol) : base(new Stock(symbol)) 
+        //{
+        //    Symbol = symbol;
+        //}
 
-        public WebullStockQuote(string symbol, double high, double low, double open, double price)
+        public WebullStockQuote(string symbol, double high, double low, double open, double price) : base(new Stock(symbol))
         {
             Symbol = symbol;
             High = high;
@@ -427,7 +432,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         }
 
         private double _price;
-        public virtual double Price
+        public double Price
         {
             get { return _price; }
             set { SetProperty(ref _price, value); }

@@ -9,6 +9,7 @@
     <Description>A free and open source C# common library that returns real-time stock and option pricing from CNBC and Webull.</Description>
     <PackageTags>2021, stocks, api, dependency injection, web, command-line, utilities, utils, helper, helpers, common, shared, extension, api, json, newtonsoft.json, c#, csharp, free, MIT, lewisfam, lewisfam.network</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -37,7 +38,12 @@
 
   <ItemGroup>
     <PackageReference Include="LewisFam.Common" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.8" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Orders\" />
   </ItemGroup>
 
 </Project>

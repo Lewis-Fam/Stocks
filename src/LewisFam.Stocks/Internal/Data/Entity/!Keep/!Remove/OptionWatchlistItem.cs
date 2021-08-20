@@ -16,7 +16,7 @@
 //    [Table("OptionWatchlistItems", Schema = "trading")]
 //    public class OptionWatchlistItem
 //    {
-//        [Key]
+//        //[Key]
 //        public virtual long Id { get; set; }
 //        public virtual string Symbol { get; set; }
 //        public virtual DirectionType Direction { get; set; }
