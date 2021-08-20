@@ -28,14 +28,18 @@ var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
 //Multiple quotes.
 var stockList = new List<Stock>();
 stockList.Add(stock);
+
 var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList);
+//or extension method.
+quotes = await stockList.GetGetRealTimeMarketQuotesAsync();
 
-var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
+
 ```
-
+##### Stock Options
 ```csharp
-
-
+var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
+//or extension method.
+options = await stock.GetAllStockOptionsAsync();
 ```
 
 ### Dependency Injection
@@ -59,7 +63,18 @@ public void ConfigureServices(IServiceCollection services)
 
 ```
 
+#### StocksController.cs
+```csharp
+StocksController : Controller
+{
+public StocksController(IWebullDataService service)
+{
+}
 
+public void GetOptions(){
+}
+}
+```
 
 ## Demo / Tests
 [LewisFam.Stocks.Test]
@@ -75,11 +90,7 @@ The LewisFam library uses a number of open source projects to work properly:
 And of course Dillinger itself is open source with a [public repository][dill]
  on GitHub.
 
-
-## Usage
-
 ## License
-
 MIT
 
 **Free Software, Hell Yeah!**
