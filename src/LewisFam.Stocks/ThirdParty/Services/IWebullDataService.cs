@@ -1,21 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using LewisFam.Interfaces;
+﻿using LewisFam.Interfaces;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using LewisFam.Stocks.Options;
 
 namespace LewisFam.Stocks.ThirdParty.Services
 {
-    public interface IWebullDataService : IDataService
+    public partial interface IWebullDataService : IDataService
     {
-        Task<ICollection<WebullRealTimeOptionQuote>> GetRealTimeOptionQuotesAsync(long derivedId);
+        //Task<ICollection<WebullOptionQuote>> GetRealTimeOptionQuotesAsync(long derivedId);
 
-        Task<ICollection<WebullRealTimeOptionQuote>> GetRealTimeOptionQuotesAsync(ICollection<long> derivedId);
+        //Task<ICollection<WebullOptionQuote>> GetRealTimeOptionQuotesAsync(ICollection<long> derivedId);
 
-        Task<object> GetOptionStratList(long tickerId);
+        //Task<object> GetOptionStratList(long tickerId);
+
+        #region Properties
 
         ICollection<IWebullOptionQuote> AllOptions { get; }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>Finds a stock async.</summary>
         /// <param name="symbol">The symbol.</param>
@@ -32,6 +39,18 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <returns>A Task.</returns>
         Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(long tickerId);
 
+        /// <summary>Gets the all options async.</summary>
+        /// <param name="stock">The stock.</param>
+        /// <returns>A Task.</returns>
+        Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(Stock stock);
+
+        /// <summary>Gets the expire on list async.</summary>
+        /// <param name="tickerId">The ticker id.</param>
+        /// <returns>A Task.</returns>
+        Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(long tickerId);
+
+        Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(Stock stock);
+
         /// <summary>Gets the option async.</summary>
         /// <param name="tickerId">The ticker id.</param>
         /// <returns>A Task.</returns>
@@ -47,9 +66,7 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <returns>A Task.</returns>
         Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(long tickerId);
 
-        /// <summary>
-        /// Gets the real time market quote async.
-        /// </summary>
+        /// <summary>Gets the real time market quote async.</summary>
         /// <param name="symbol">The symbol.</param>
         /// <returns>A Task.</returns>
         Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol);
@@ -58,25 +75,33 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <param name="tickerIds">The ticker ids.</param>
         /// <param name="batchSize">The batch size.</param>
         /// <returns>A list of IStockQuoteDataGrid.</returns>
-        Task<IList<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<long> tickerIds, int batchSize = 50);
+        Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeStockQuotesAsync(IEnumerable<long> tickerIds, int batchSize = 50);
 
-        /// <summary>
-        /// Gets the stock chart data async.
-        /// </summary>
+        /// <summary>Gets the real time market quotes async.</summary>
+        /// <param name="stocks">   The stocks.</param>
+        /// <param name="batchSize">The batch size.</param>
+        /// <returns>A Task.</returns>
+        Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeStockQuotesAsync(IEnumerable<Stock> stocks, int batchSize = 50);
+
+        /// <summary>Gets the stock chart data async.</summary>
         /// <param name="tickerId">The ticker id.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="count">The max count.</param>
+        /// <param name="type">    The type.</param>
+        /// <param name="count">   The max count.</param>
         /// <returns>A list of IChartData.</returns>
         Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId, ChartDataType type = ChartDataType.d1, int count = 800);
 
-        /// <summary>Searches the symbol async.</summary>
-        /// <param name="symbol">The symbol.</param>
-        /// <returns>A list of stocks.</returns>
-        Task<IEnumerable<Stock>> SearchSymbolAsync(string symbol);
+        /// <summary>Gets the stock chart data async.</summary>
+        /// <param name="stock"></param>
+        /// <param name="type"> </param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        Task<IEnumerable<IChartData>> GetStockChartDataAsync(Stock stock, ChartDataType type = ChartDataType.d1, int count = 800);
 
-        /// <summary>Gets the expire on list async.</summary>
-        /// <param name="tickerId">The ticker id.</param>
-        /// <returns>A Task.</returns>
-        Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(long tickerId);
+        /// <summary>Searches the symbol async.</summary>
+        /// <param name="symbolSearch">The symbol search.</param>
+        /// <returns>A list of stocks.</returns>
+        Task<IEnumerable<Stock>> SearchSymbolAsync(string symbolSearch);
+
+        #endregion Methods
     }
 }

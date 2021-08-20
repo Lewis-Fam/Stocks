@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using LewisFam.Stocks.Models;
+using LewisFam.Stocks.Options;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
     /// <summary>
     /// The option.
     /// </summary>
-    public interface IWebullOptionQuote : IOptionQuote
+    public interface IWebullOptionQuote : IRealTimeOptionQuote, IGreeks
     {
+        Stock Stock { get; }
+
         public long TickerId { get; }
 
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]

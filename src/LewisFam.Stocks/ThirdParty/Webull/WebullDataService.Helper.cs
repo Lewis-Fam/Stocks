@@ -104,7 +104,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                 return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds={derivedId}");
             }
 
-            public static Uri BuilUriOptionQuotes(ICollection<long> derivedIds)
+            public static Uri BuilUriOptionQuotes(IEnumerable<long> derivedIds)
             {
                 //https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds=1019075592
                 return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds={parseIds_Trim(derivedIds)}");

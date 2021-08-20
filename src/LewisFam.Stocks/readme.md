@@ -1,4 +1,4 @@
-﻿# LewisFam.Stocks
+﻿# LewisFam.Stocks - Version 1.0.1
 
 LewisFam.Stocks is a free and simple stock and option prices API. The API can currently gets real-time pricing from CNBC.com and Webull.com.
 
@@ -12,7 +12,7 @@ LewisFam.Stocks is a free and simple stock and option prices API. The API can cu
 LewisFam.Stocks is free and open source comman class libary using. 
 
 ```sh
-dotnet add package LewisFam.Stocks --version 1.0.0
+dotnet add package LewisFam.Stocks --version 1.0.1
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
 //Multiple quotes.
 var stockList = new List<Stock>();
 stockList.Add(stock);
-var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList.ToTickerIdList());
+var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList);
 
 var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
 ```

@@ -14,7 +14,7 @@ namespace LewisFam.Stocks.Entity
             //Vendor = Models.Enums.Vendor.Cnbc;
         }
 
-        [Key]
+        //[Key]
         public virtual long QuoteId { get; protected set; }
         public virtual double Change { get; set; }
         public virtual double Close { get; set; }

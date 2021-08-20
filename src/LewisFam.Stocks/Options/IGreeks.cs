@@ -1,4 +1,4 @@
-﻿namespace LewisFam.Stocks.Models
+﻿namespace LewisFam.Stocks.Options
 {
     /// <remarks>
     /// "Greeks" is a term used in the options market to describe the different dimensions of risk involved in taking an options position. These variables are called Greeks

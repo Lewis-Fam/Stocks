@@ -2,6 +2,18 @@
 {
     public abstract class StockQuote : Stock, IStockQuote
     {
+        protected StockQuote()
+        {
+        }
+
+        protected StockQuote(IStock stock) : base(stock)
+        {
+        }
+
+        protected StockQuote(string symbol, long? tickerId) : base(symbol, tickerId)
+        {
+        }
+
         #region Properties
 
         public virtual double Close { get; set; }

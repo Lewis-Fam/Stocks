@@ -6,7 +6,7 @@ namespace LewisFam.Stocks.ThirdParty.Robinhood.Models
 {
     public class OptionHolding : BaseOption, IOptionHolding
     {
-        public OptionHolding(string symbol, Slide slide, BuySell buySell, int qty, DateTime expireDate, double lastPrice, double strikePrice0, double strikePrice1 = -1)
+        public OptionHolding(string symbol, CallPut slide, BuySell buySell, int qty, DateTime expireDate, double lastPrice, double strikePrice0, double strikePrice1 = -1)
         {
             Symbol = symbol;
             Slide = slide;
@@ -25,7 +25,7 @@ namespace LewisFam.Stocks.ThirdParty.Robinhood.Models
 
         public DateTime ExpireDate { get; set; }
 
-        public virtual Slide Slide { get; set; }
+        public CallPut Slide { get; set; }
 
         public virtual BuySell BuySell { get; }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using LewisFam.Stocks.Models;
 using LewisFam.Utils;
 
@@ -12,7 +13,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         {
         }
 
-        [Key]
+        //[Key]
         public virtual Guid? Id { get; set; } = Guid.NewGuid();
 
         public virtual DateTime? LastUpdated { get; set; } = DateTime.Now;
@@ -31,21 +32,23 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
             return new Watchlist
             {
                 Name = "Mock Watchlist",
-                Stocks = new List<Stock>
-                {
-                    //new Stock("MSFT", 913323997),
-                    //new Stock("SPCE",950052430),
-                    //new Stock("NVDA",913257561),
-                    //new Stock("AMD",913254235),
-                    //new Stock("GE", 913255327),
-                    //new Stock("ROKU", 925376726),
-                    //new Stock("CMG", 913255105),
-                    //new Stock("GD", 913255326),
-                    //new Stock("LMT", 913255490),
-                    //new Stock("DIS", 913255192),
-                    //new Stock("MAXR", 950052426),
-                    //new Stock("BA", 913254998)
-                }
+
+                //Stocks = new List<Stock>
+                //{
+                //    //new Stock("MSFT", 913323997),
+                //    //new Stock("SPCE",950052430),
+                //    //new Stock("NVDA",913257561),
+                //    //new Stock("AMD",913254235),
+                //    //new Stock("GE", 913255327),
+                //    //new Stock("ROKU", 925376726),
+                //    //new Stock("CMG", 913255105),
+                //    //new Stock("GD", 913255326),
+                //    //new Stock("LMT", 913255490),
+                //    //new Stock("DIS", 913255192),
+                //    //new Stock("MAXR", 950052426),
+                //    //new Stock("BA", 913254998)
+                //}
+                Stocks = StocksUtil.StockList2021 as ICollection<Stock>
             };
         }
 
@@ -57,7 +60,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         /// <param name="format">If true, format.</param>
         public static void WriteToFile(Watchlist watchlist, string path, bool format = false)
         {
-            FileUtil.WriteAllText(path, watchlist.ToJson(format));
+            FileUtil.WriteAllText(path, watchlist.SerializeObjectToJson(format));
         }
 
         /// <inheritdoc/>

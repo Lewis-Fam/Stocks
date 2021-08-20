@@ -7,7 +7,7 @@
         double PreClose { get; set; }
         bool HasMore { get; set; }
         bool ExchangeStatus { get; set; }
-        ChartData.Date[] Dates { get; set; }
+        ChartData.ChartDate[] Dates { get; set; }
         long Timestamp { get; set; }
         object[] Data { get; set; }
     }

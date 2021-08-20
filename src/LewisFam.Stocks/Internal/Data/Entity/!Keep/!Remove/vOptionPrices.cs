@@ -11,7 +11,7 @@
 //{
 //     public partial class vOptionPrices
 //    {
-//        [Key]
+//        //[Key]
 //        public virtual long Id { get; set; }
 
 //        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]

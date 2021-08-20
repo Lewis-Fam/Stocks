@@ -13,7 +13,7 @@
 //        /// <summary>
 //        /// Gets or sets the id.
 //        /// </summary>
-//        [Key]
+//        //[Key]
 //        public virtual long Id { get; set; }
 
 //        /// <summary>

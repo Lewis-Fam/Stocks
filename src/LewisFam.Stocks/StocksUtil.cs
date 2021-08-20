@@ -1,64 +1,111 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-using LewisFam.Stocks.Models;
+﻿using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Cnbc;
 using LewisFam.Stocks.ThirdParty.Cnbc.Models;
 using LewisFam.Stocks.ThirdParty.Webull;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using LewisFam.Stocks.Entity;
+using LewisFam.Stocks.Options;
+using LewisFam.Stocks.ThirdParty.Services;
+using LewisFam.Utils;
+
 namespace LewisFam.Stocks
 {
+    public static partial class StocksUtil
+    {
+        /// <summary>
+        /// Writes the watchlist as json to file.
+        /// </summary>
+        /// <param name="watchlist">The watchlist.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="format">If true, format.</param>
+        public static void SaveToFile(this Watchlist watchlist, string path, bool format = false)
+        {
+            FileUtil.WriteAllText(path, watchlist.SerializeObjectToJson(format));
+        }
+
+        //public static string SaveToJsonFile(this IEnumerable<IWebullOptionQuote> optionQuotes, string path = "optionQuotes.json", bool format = false)
+        //{
+        //    var _path = Path.Combine($"{DateTime.Now:yyyy-MM-dd}_{path}");
+        //    Debug.WriteLine(_path);
+        //    FileUtil.WriteAllText(_path, optionQuotes.SerializeObjectToJson(format));
+        //    //SaveToJsonFile(optionQuotes, _path, format);
+        //    return path;
+        //}
+
+        public static void SaveToFile<T>(T t, string path = "_path.json", bool format = false, bool addDate = false)
+        {
+            path = addDate switch
+            {
+                false => Path.Combine(path),
+                true => Path.Combine($"{DateTime.Now:yyyy-MM-dd}_{path}"),
+            };
+            Debug.WriteLine($"{nameof(path)}={path}");
+            Debug.WriteLine($"Saved file to FilePath={Path.GetFullPath(path)}");
+            FileUtil.WriteAllText(path, t.SerializeObjectToJson(format)); }
+
+        /// <summary>
+        /// ReadFileAsync
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
+        public static async Task<T> ReadFileAsync<T>(string path)
+        {
+            if (!File.Exists(path)) throw new FileNotFoundException(path);
+            var file = await FileUtil.ReadAllTextAsync(path);
+            return file.DeserializeObject<T>();
+        }
+    }
+
     /// <summary>Stocks</summary>
     public static partial class StocksUtil
     {
-        #region Properties
-
-        /// <summary>Gets a sample stock list.</summary>
         public static IReadOnlyList<Stock> StockList2021 => new List<Stock>
         {
-            new Stock(symbol: "SPCE", tickerId: 950052430),
-            new Stock(symbol: "ROKU", tickerId: 925376726),
-            new Stock(symbol: "MSFT", tickerId: 913323997),
-            new Stock(symbol: "NVDA", tickerId: 913257561),
-            new Stock(symbol: "BA", tickerId: 913254998),
+            new Stock("SPCE", 950052430),
+            new Stock("ROKU", 925376726),
+            new Stock("MSFT", 913323997),
+            new Stock("NVDA", 913257561),
+            new Stock("BA", 913254998),
 
-            new Stock(symbol: "U", tickerId: 950172451),
-            new Stock(symbol: "RBLX", tickerId: 950178170),
-            new Stock(symbol: "AEVA", tickerId: 950157726),
-            new Stock(symbol: "CCIV", tickerId: 950173643),
-            new Stock(symbol: "FIVE", tickerId: 913255714),
+            new Stock("U", 950172451),
+            new Stock("RBLX", 950178170),
+            new Stock("AEVA", 950157726),
+            new Stock("CCIV", 950173643),
+            new Stock("FIVE", 913255714),
 
-            new Stock(symbol: "RIOT", tickerId: 925163605),
-            new Stock(symbol: "SNOW", tickerId: 950173560),
-            new Stock(symbol: "CRSP", tickerId: 913433908),
-            new Stock(symbol: "DIS", tickerId: 913255192),
-            new Stock(symbol: "WMT", tickerId: 913324551),
+            new Stock("RIOT", 925163605),
+            new Stock("SNOW", 950173560),
+            new Stock("CRSP", 913433908),
+            new Stock("DIS", 913255192),
+            new Stock("WMT", 913324551),
 
-            new Stock(symbol: "BYND", tickerId: 950104120),
-            new Stock(symbol: "MGM", tickerId: 913323750),
-            new Stock(symbol: "LAZR", tickerId: 950118834),
-            new Stock(symbol: "AMD", tickerId: 913254235),
-            new Stock(symbol: "TSLA", tickerId: 913255598),
+            new Stock("BYND", 950104120),
+            new Stock("MGM", 913323750),
+            new Stock("LAZR", 950118834),
+            new Stock("AMD", 913254235),
+            new Stock("TSLA", 913255598),
 
-            new Stock(symbol: "ATRO", tickerId: 913255598),
-            new Stock(symbol: "CMG", tickerId: 913255105),
-            new Stock(symbol: "DRI", tickerId: 913255208),
-            new Stock(symbol: "HD", tickerId: 913255369),
-            new Stock(symbol: "AMZN", tickerId: 913256180),
+            new Stock("ATRO", 913255598),
+            new Stock("CMG", 913255105),
+            new Stock("DRI", 913255208),
+            new Stock("HD", 913255369),
+            new Stock("AMZN", 913256180),
 
-            new Stock(symbol: "GOOGL", tickerId: 913257299),
-            new Stock(symbol: "AAPL", tickerId: 913256135),
-            new Stock(symbol: "MAXR", tickerId: 950052426),
-            new Stock(symbol: "SRAC", tickerId: 950151334),
-            new Stock(symbol: "ANTM", tickerId: 913324548),
+            new Stock("GOOGL", 913257299),
+            new Stock("AAPL", 913256135),
+            new Stock("MAXR", 950052426),
+            new Stock("SRAC", 950151334),
+            new Stock("ANTM", 913324548),
         };
-
-        #endregion Properties
-
         #region Methods
 
         /// <summary>Finds the stock async.</summary>
@@ -66,8 +113,16 @@ namespace LewisFam.Stocks
         /// <returns>A <see cref="Stock"/>.</returns>
         public static async Task<Stock> FindStockAsync(string symbol)
         {
+            Debug.WriteLine($"{nameof(FindStockAsync)} {nameof(symbol)}={symbol}");
             using var wb = new WebullDataService();
-            return await wb.FindStockAsync(symbol: symbol);
+            return await wb.FindStockAsync(symbol);
+        }
+
+        public static async Task<IEnumerable<Stock>> SearchSymbolAsync(string searchSymbol)
+        {
+            Debug.WriteLine($"{nameof(SearchSymbolAsync)} {nameof(searchSymbol)}={searchSymbol}");
+            using var wb = new WebullDataService();
+            return await wb.SearchSymbolAsync(searchSymbol);
         }
 
         /// <summary>Gets the all stock options.</summary>
@@ -78,11 +133,11 @@ namespace LewisFam.Stocks
             try
             {
                 using var wb = new WebullDataService();
-                return await wb.GetAllOptionsAsync(tickerId: tickerId);
+                return await wb.GetAllOptionsAsync(tickerId);
             }
             catch (Exception e)
             {
-                Console.WriteLine(value: e);
+                Debug.WriteLine(e);
             }
 
             return null;
@@ -91,16 +146,17 @@ namespace LewisFam.Stocks
         /// <summary>Gets the all stock options.</summary>
         /// <param name="stock">The stock.</param>
         /// <returns>An IEnumerable of <inheritdoc cref="IWebullOptionQuote"/>.</returns>
-        public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptionsAsync(Stock stock)
+        public static async Task<IEnumerable<IWebullOptionQuote>> GetAllStockOptionsAsync(this Stock stock)
         {
             try
             {
                 using var wb = new WebullDataService();
-                return await wb.GetAllOptionsAsync(tickerId: stock.TickerId);
+                return await wb.GetAllOptionsAsync(stock.TickerId);
             }
             catch (Exception e)
             {
-                Console.WriteLine(value: e);
+                Debug.WriteLine(e);
+                Console.WriteLine(e);
             }
 
             return null;
@@ -111,8 +167,8 @@ namespace LewisFam.Stocks
         /// <returns>A Task.</returns>
         public static async Task<IEnumerable<ICnbcRealTimeStockQuote>> GetCnbcStockQuotesAsync(ICollection<string> symbols)
         {
-            using var nbc = new CnbcDataService();
-            return await nbc.GetRealTimeMarketQuotesAsync(symbols: symbols);
+            using var cnbc = new CnbcDataService();
+            return await cnbc.GetRealTimeMarketQuotesAsync(symbols);
         }
 
         /// <summary>Extension Method. Gets random elements of T.</summary>
@@ -121,7 +177,7 @@ namespace LewisFam.Stocks
         /// <returns>A random list of T.</returns>
         public static IEnumerable<T> GetRandomElements<T>(this IEnumerable<T> items, int elementsCount = int.MaxValue)
         {
-            return items.OrderBy(keySelector: x => Guid.NewGuid()).Take(count: elementsCount).ToList();
+            return items.OrderBy(x => Guid.NewGuid()).Take(elementsCount).ToList();
         }
 
         /// <summary>Gets the real time quote async.</summary>
@@ -134,10 +190,22 @@ namespace LewisFam.Stocks
         public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol)
         {
             using var wb = new WebullDataService();
-            var id = await wb.FindStockIdAsync(symbol: symbol);
-            if (id != null) return await GetRealTimeMarketQuoteAsync(tickerId: id.Value);
+            var id = await wb.FindStockIdAsync(symbol);
+            if (id != null) return await GetRealTimeMarketQuoteAsync(id.Value);
             return null;
         }
+
+        public static Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(this Stock stock)
+        {
+            using var wb = new WebullDataService();
+            return wb.GetExpireOnListAsync(stock);
+        }
+
+        public static void Get(this Stock stock)
+        {
+            //stock.GetFinancialsSimpleAsync()
+        }
+            
 
         /// <summary>Gets the real time quote async.</summary>
         /// <param name="tickerId">The ticker id.</param>
@@ -145,16 +213,39 @@ namespace LewisFam.Stocks
         public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(long tickerId)
         {
             using var wb = new WebullDataService();
-            return await wb.GetRealTimeMarketQuoteAsync(tickerId: tickerId);
+            return await wb.GetRealTimeMarketQuoteAsync(tickerId);
         }
 
         /// <summary>Gets the real time quotes task.</summary>
         /// <param name="tickerIds">The ticker ids.</param>
+        /// <param name="batchSize">The batch size.</param>
         /// <returns>A list of IRealTimeStockQuote.</returns>
-        public static async Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<long> tickerIds)
+        public static async Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(ICollection<long> tickerIds, int batchSize = 50)
         {
             using var wb = new WebullDataService();
-            return await wb.GetRealTimeMarketQuotesAsync(tickerIds: tickerIds);
+            return await wb.GetRealTimeStockQuotesAsync(tickerIds, batchSize);
+        }
+
+        public static async Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(this IEnumerable<Stock> stocks, int batchSize = 50)
+        {
+            using var wb = new WebullDataService();
+            return await wb.GetRealTimeStockQuotesAsync(stocks.ToTickerIdList(), batchSize);
+        }
+
+        public static async Task<IEnumerable<IWebullOptionQuote>> GetRealTimeOptionQuotesAsync(IEnumerable<long> derivedIds)
+        {
+            //using var wb = new WebullDataService();
+            return await new WebullDataService().GetRealTimeOptionQuotesAsync(derivedIds);
+        }
+
+        public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(this Stock stock)
+        {
+            return await GetRealTimeMarketQuoteAsync(stock.TickerId);
+        }
+
+        public static async Task<IEnumerable<IChartData>> GetChartDataAsync(this Stock stock, ChartDataType type = ChartDataType.d1, int count = 800)
+        {
+            return await GetChartDataAsync(stock.TickerId, type, count);
         }
 
         /// <summary>Gets the stock chart data async.</summary>
@@ -162,37 +253,93 @@ namespace LewisFam.Stocks
         /// <param name="type">    The type.</param>
         /// <param name="count">   The count.</param>
         /// <returns>A list of <see cref="IChartData"/>.</returns>
-        public static async Task<IEnumerable<IChartData>> GetStockChartDataAsync(long tickerId, ChartDataType type = ChartDataType.d1, int count = 800)
+        public static async Task<IEnumerable<IChartData>> GetChartDataAsync(long tickerId, ChartDataType type = ChartDataType.d1, int count = 800)
         {
             try
             {
                 using var wb = new WebullDataService();
-                return await wb.GetStockChartDataAsync(tickerId: tickerId, type: type, count: count);
+                return await wb.GetStockChartDataAsync(tickerId, type, count);
             }
             catch (ArgumentOutOfRangeException e)
             {
-                Debug.WriteLine(value: e);
+                Debug.WriteLine(e);
             }
 
             return null;
         }
 
+        /// <summary>Extension method. IWebullOptionQuote to derivedTickerId list.</summary>
+        /// <param name="optionQuotes"></param>
+        /// <returns></returns>
+        public static ICollection<long> ToDerivedTickerIdList(this IEnumerable<IWebullOptionQuote> optionQuotes)
+        {
+            return optionQuotes.Select(s => s.TickerId).ToList();
+        }
+
         /// <summary>Extension method. Stocks to symbol list.</summary>
         /// <param name="webullStocks">The webull stocks.</param>
         /// <returns>A list of symbols.</returns>
-        public static ICollection<string> ToSymbolList(this IEnumerable<Stock> webullStocks)
+        public static IReadOnlyCollection<string> ToSymbolList(this IEnumerable<Stock> webullStocks)
         {
-            return webullStocks?.Select(selector: s => s?.Symbol).ToList();
+            return webullStocks?.Select(s => s?.Symbol).ToList();
         }
 
         /// <summary>Extension method. Stocks to tickerId list.</summary>
         /// <param name="webullStocks">The webull stocks.</param>
         /// <returns>A list of tickerIds.</returns>
-        public static ICollection<long> ToTickerIdList(this IEnumerable<Stock> webullStocks)
+        public static IReadOnlyCollection<long> ToTickerIdList(this IEnumerable<Stock> webullStocks)
         {
-            return webullStocks.Select(selector: s => s.TickerId).ToList();
+            return webullStocks.Select(s => s.TickerId).ToList();
         }
 
         #endregion Methods
+
+        public static async Task<object> GetFinancialsSimpleAsync(this Stock stock)
+        {
+            using var wb = new WebullDataService();
+            return await wb.GetFinancialsSimpleAsync(stock.TickerId);
+        }
+
+        public static Task<object> GetOptionChartDataAsync(long derivedId)
+        {
+            using var wb = new WebullDataService();
+            return wb.GetOptionChartDataAsync(derivedId);
+        }
+
+        public static async Task<object> GetOptionQuoteChartDataAsync(this IWebullOptionQuote optionQuote)
+        {
+            using var wb = new WebullDataService();
+            return await wb.GetOptionChartDataAsync(optionQuote.TickerId);
+        }
+
+        public static async Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(this IWebullOptionQuote optionQuote)
+        {
+            using var wb = new WebullDataService();
+            return await wb.GetRealTimeOptionQuoteAsync(optionQuote);
+        }
+
+        public static async Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(long derivedId)
+        {
+            using var wb = new WebullDataService();
+            return await wb.GetRealTimeOptionQuoteAsync(derivedId);
+        }
+
+        public static async Task<IEnumerable<IWebullOptionQuote>> GetRealTimeOptionQuotesAsync(this IEnumerable<IWebullOptionQuote> optionQuotes)
+        {
+            using var wb = new WebullDataService();
+            return await wb.GetRealTimeOptionQuotesAsync(optionQuotes.ToDerivedTickerIdList());
+        }
+
+        public static async Task<object> GetOptionStratListAsync(long tickerId)
+        {
+            using var wb = new WebullDataService();
+            return await wb.GetOptionStratAsync(tickerId);
+        }
+
+        public static async Task<object> GetOptionStratListAsync(this Stock stock)
+        {
+            using var wb = new WebullDataService();
+            return await wb.GetOptionStratAsync(stock);
+        }
     }
 }

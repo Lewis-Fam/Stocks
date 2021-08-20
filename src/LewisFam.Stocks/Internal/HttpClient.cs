@@ -22,7 +22,7 @@ namespace LewisFam.Stocks.Internal
             setCustomHeaders(); 
         }
 
-        public async Task<T> GetAsync<T>(Uri uri) where T : new()
+        public async Task<T> GetJsonAsync<T>(Uri uri) where T : new()
         {
             using var request = await _client.GetAsync(uri);
             var strg = await request.Content.ReadAsStringAsync();

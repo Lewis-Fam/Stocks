@@ -2,19 +2,18 @@
 
 namespace LewisFam.Stocks.Models.Enums
 {
-    [Serializable]
-    public enum Slide
+    //public enum DirectionSlide
+    //{
+    //    Call,
+    //    Put
+    //}
+
+    public enum CallPut
     {
         Call,
         Put
     }
-
-    public enum OptionType
-    {
-
-    }
-
-    [Serializable]
+    
     public enum SearchBy
     {
         Strike,
