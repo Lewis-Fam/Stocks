@@ -1,5 +1,4 @@
 ﻿using LewisFam.Stocks.Models;
-using LewisFam.Stocks.Options.Models;
 using LewisFam.Stocks.ThirdParty.Cnbc;
 using LewisFam.Stocks.ThirdParty.Cnbc.Models;
 using LewisFam.Stocks.ThirdParty.Services;
@@ -9,16 +8,13 @@ using LewisFam.Stocks.ThirdParty.Webull.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LewisFam.Stocks
 {
     public static partial class StocksUtil
     {
-        /// <summary>
-        /// Gets a sample stocks list.
-        /// </summary>
+        /// <summary>Gets a sample stocks list.</summary>
         public static IReadOnlyList<Stock> StockList2021 => new List<Stock>
         {
             new Stock("SPCE", 950052430),
@@ -82,11 +78,9 @@ namespace LewisFam.Stocks
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                throw new ApplicationException("", e);
+                throw new ApplicationException($"{nameof(GetAllOptionsAsync)} {tickerId}", e);
             }
         }
-
-        
 
         /// <summary>Gets the cnbc stock quotes async.</summary>
         /// <param name="symbols">The symbols.</param>
@@ -97,15 +91,7 @@ namespace LewisFam.Stocks
             return await cnbc.GetRealTimeMarketQuotesAsync(symbols);
         }
 
-        
-
-        
-
-        
-
-        /// <summary>
-        /// Gets the option chart data async.
-        /// </summary>
+        /// <summary>Gets the option chart data async.</summary>
         /// <param name="derivedId">The derived id.</param>
         /// <returns>A Task.</returns>
         public static Task<string> GetOptionChartDataAsync(long derivedId)
@@ -114,13 +100,9 @@ namespace LewisFam.Stocks
             return wb.GetOptionChartDataAsync(derivedId);
         }
 
-
-
-        /// <summary>
-        /// Gets the option quote details.
-        /// </summary>
+        /// <summary>Gets the option quote details.</summary>
         /// <param name="derivedIds">The derived ids.</param>
-        /// <param name="tickerId">The ticker id.</param>
+        /// <param name="tickerId">  The ticker id.</param>
         /// <returns>A Task.</returns>
         public static async Task<string> GetOptionQuoteDetails(IEnumerable<long> derivedIds, long tickerId)
         {
@@ -128,9 +110,7 @@ namespace LewisFam.Stocks
             return await wb.GetRealTimeOptionQuoteDetailsAsync(derivedIds, tickerId);
         }
 
-        /// <summary>
-        /// Gets the option strat async.
-        /// </summary>
+        /// <summary>Gets the option strat async.</summary>
         /// <param name="tickerId">The ticker id.</param>
         /// <returns>A Task.</returns>
         public static async Task<object> GetOptionStratAsync(long tickerId)
@@ -139,10 +119,6 @@ namespace LewisFam.Stocks
             return await wb.GetOptionStratAsync(tickerId);
         }
 
-        
-
-       
-
         /// <summary>Gets the real time quote async.</summary>
         /// <param name="symbol">The symbol.</param>
         /// <returns>A IRealTimeStockQuote.</returns>
@@ -150,6 +126,7 @@ namespace LewisFam.Stocks
         /// If possible, please use the <seealso cref="GetRealTimeMarketQuoteAsync(long)"/> method to reduce unnecessary http requests. This method finds the symbol id with an
         /// http request before calling the <seealso cref="GetRealTimeMarketQuoteAsync(long)"/> method.
         /// </remarks>
+        [Obsolete("If possible, please use the GetRealTimeMarketQuoteAsync(long) method to reduce unnecessary http requests")]
         public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol)
         {
             using IWebullDataService wb = new WebullDataService();
@@ -177,13 +154,7 @@ namespace LewisFam.Stocks
             return await wb.GetRealTimeStockQuotesAsync(tickerIds, batchSize);
         }
 
-        
-
-        
-
-        /// <summary>
-        /// Gets the real time option quote async.
-        /// </summary>
+        /// <summary>Gets the real time option quote async.</summary>
         /// <param name="derivedId">The derived id.</param>
         /// <returns>A Task.</returns>
         public static async Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(long derivedId)
@@ -192,9 +163,7 @@ namespace LewisFam.Stocks
             return await wb.GetRealTimeOptionQuoteAsync(derivedId);
         }
 
-        /// <summary>
-        /// Gets the real time option quotes async.
-        /// </summary>
+        /// <summary>Gets the real time option quotes async.</summary>
         /// <param name="derivedIds">The derived ids.</param>
         /// <returns>A Task.</returns>
         public static async Task<IEnumerable<IWebullOptionQuote>> GetRealTimeOptionQuotesAsync(IEnumerable<long> derivedIds)
@@ -202,10 +171,6 @@ namespace LewisFam.Stocks
             using IWebullDataService wb = new WebullDataService();
             return await wb.GetRealTimeOptionQuotesAsync(derivedIds);
         }
-
-     
-
-       
 
         /// <summary>Gets the stock chart data async.</summary>
         /// <param name="tickerId">The ticker id.</param>
@@ -227,9 +192,7 @@ namespace LewisFam.Stocks
             return null;
         }
 
-        /// <summary>
-        /// Searches the symbol async.
-        /// </summary>
+        /// <summary>Searches the symbol async.</summary>
         /// <param name="searchSymbol">The search symbol.</param>
         /// <returns>A Task.</returns>
         public static async Task<IEnumerable<Stock>> SearchSymbolAsync(string searchSymbol)

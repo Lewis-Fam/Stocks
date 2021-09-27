@@ -12,8 +12,7 @@ using LewisFam.Stocks.ThirdParty.Webull.Models;
 
 namespace LewisFam.Stocks
 {
-    /// <summary>A Stocks and Options Utility</summary>
-    public static partial class StocksExtensions
+    public static partial class StocksUtil
     {
         /// <summary>Gets the all stock options.</summary>
         /// <param name="stock">The stock.</param>
@@ -41,7 +40,7 @@ namespace LewisFam.Stocks
         /// </summary>
         /// <param name="stock">The stock.</param>
         /// <returns>A Task.</returns>
-        public static Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(this Stock stock)
+        private static Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(this Stock stock)
         {
             using IWebullDataService wb = new WebullDataService();
             return wb.GetExpireOnListAsync(stock);
