@@ -5,7 +5,7 @@ namespace LewisFam.Stocks.Models.Enums
     [Serializable]
     public enum Market
     {
-        Stock,
+        Shares,
         Options,
         Forex,
         Crypto        

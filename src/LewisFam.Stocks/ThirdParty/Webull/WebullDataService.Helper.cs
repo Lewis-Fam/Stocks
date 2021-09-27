@@ -53,10 +53,40 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                 return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/chart/query?count=800&derivativeId={derivedId}&type=1d");
             }
 
-            public static Uri BuildUriOptionQuoteDetail(long derivedId, long tickerId)
+            public static Uri BuildUriOptionQuoteDetail(IEnumerable<long> derivedIds, long tickerId)
             {
                 //https://quotes-gw.webullfintech.com/api/quote/option/quotes/detail?derivativeIds=1019075592&tickerId=950052430
-                return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/quotes/detail?derivativeIds={derivedId}&tickerId={tickerId}");
+                return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/quotes/detail?derivativeIds={parseIds_Trim(derivedIds)}&tickerId={tickerId}");
+            }
+
+            public static Uri BuilUriOptionQuote(long derivedId)
+            {
+                //https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds=1019075592
+                return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds={derivedId}");
+            }
+
+            public static Uri BuilUriOptionQuotes(IEnumerable<long> derivedIds)
+            {
+                //https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds=1019075592
+                return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds={parseIds_Trim(derivedIds)}");
+            }
+
+            public static Uri BuildUriOptionStratList()
+            {
+                //https://quotes-gw.webullfintech.com/api/quote/option/strategy/list
+                return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/strategy/list");
+            }
+
+            public static Uri BuildUriFinancialSimple(long tickerId)
+            {
+                //https://securitiesapi.webullfintech.com/api/securities/financial/simple/950052430?reportType=2&statementType=2
+                return new Uri($"{Base_Securities}/simple/{tickerId}?reportType=2&statementType=2");
+            }
+
+            public static Uri BuildUriFinancialSimpleV2(long tickerId)
+            {
+                //https://securitiesapi.webullfintech.com/api/securities/financial/v2/detail/950052430?statementType=2
+                return new Uri($"{Base_Securities}/v2/detail/{tickerId}?statementType=2");
             }
 
             #endregion Options
@@ -98,35 +128,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
 
             #region Methods
 
-            public static Uri BuilUriOptionQuote(long derivedId)
-            {
-                //https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds=1019075592
-                return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds={derivedId}");
-            }
-
-            public static Uri BuilUriOptionQuotes(IEnumerable<long> derivedIds)
-            {
-                //https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds=1019075592
-                return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds={parseIds_Trim(derivedIds)}");
-            }
-
-            public static Uri BuildUriOptionStratList()
-            {
-               //https://quotes-gw.webullfintech.com/api/quote/option/strategy/list
-               return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/strategy/list");
-            }
-
-            public static Uri BuildUriFinancialSimple(long tickerId)
-            {
-                //https://securitiesapi.webullfintech.com/api/securities/financial/simple/950052430?reportType=2&statementType=2
-                return new Uri($"{Base_Securities}/simple/{tickerId}?reportType=2&statementType=2");
-            }
-
-            public static Uri BuildUriFinancialSimpleV2(long tickerId)
-            {
-                //https://securitiesapi.webullfintech.com/api/securities/financial/v2/detail/950052430?statementType=2
-                return new Uri($"{Base_Securities}/v2/detail/{tickerId}?statementType=2");
-            }
+            
 
             /// <summary>Builds the uri.</summary>
             /// <param name="symbol">The symbol.</param>

@@ -1,11 +1,10 @@
 ﻿using System;
 using LewisFam.Stocks.Internal.Models;
-using LewisFam.Stocks.Models;
 using LewisFam.Stocks.Models.Enums;
 
-namespace LewisFam.Stocks.Options
+namespace LewisFam.Stocks.Options.Models
 {                                   
-    public abstract class Option : BaseOption, IOption
+    public abstract class Option : BaseOption
     {
         protected Option()
         {
@@ -18,8 +17,8 @@ namespace LewisFam.Stocks.Options
             Direction = option.Direction;
         }
 
-        public sealed override double? StrikePrice { get;  set; }
-        public sealed override DateTime? ExpireDate { get;  set; }
-        public sealed override CallPut? Direction { get;  set; }
+        public sealed override double StrikePrice { get; set; }
+        public sealed override DateTime ExpireDate { get; set; }
+        public sealed override CallPut Direction { get; set; }
     }
 }

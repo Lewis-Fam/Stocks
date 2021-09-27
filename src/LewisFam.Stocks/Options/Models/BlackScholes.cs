@@ -1,7 +1,7 @@
 ﻿using System;
 using LewisFam.Stocks.Models.Enums;
 
-namespace LewisFam.Stocks.Options
+namespace LewisFam.Stocks.Options.Models
 {
 
     /// <summary>Summary description for BlackSholes.</summary>

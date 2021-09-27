@@ -1,7 +1,6 @@
 ﻿
 using System;
-using LewisFam.Stocks.Models;
-using LewisFam.Stocks.Options;
+using LewisFam.Stocks.Options.Models;
 
 
 namespace LewisFam.Stocks.Entity
