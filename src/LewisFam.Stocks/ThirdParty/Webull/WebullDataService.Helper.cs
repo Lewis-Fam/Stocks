@@ -71,7 +71,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                 return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/quotes/queryBatch?derivativeIds={parseIds_Trim(derivedIds)}");
             }
 
-            public static Uri BuildUriOptionStratList()
+            public static Uri BuildUriOptionStrategyList()
             {
                 //https://quotes-gw.webullfintech.com/api/quote/option/strategy/list
                 return new Uri($"https://quotes-gw.webullfintech.com/api/quote/option/strategy/list");

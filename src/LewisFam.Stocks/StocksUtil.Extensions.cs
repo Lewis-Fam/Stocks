@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LewisFam.Stocks.Models;
+﻿using LewisFam.Stocks.Models;
 using LewisFam.Stocks.Options.Models;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LewisFam.Stocks
 {
@@ -33,22 +33,9 @@ namespace LewisFam.Stocks
             }
 
             return null;
-        }  
-        
-        /// <summary>
-        /// Gets the expire on list async.
-        /// </summary>
-        /// <param name="stock">The stock.</param>
-        /// <returns>A Task.</returns>
-        private static Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(this Stock stock)
-        {
-            using IWebullDataService wb = new WebullDataService();
-            return wb.GetExpireOnListAsync(stock);
         }
 
-        /// <summary>
-        /// Gets the financials simple async.
-        /// </summary>
+        /// <summary>Gets the financials simple async.</summary>
         /// <param name="stock">The stock.</param>
         /// <returns>A Task.</returns>
         public static async Task<object> GetFinancialsSimpleAsync(this Stock stock)
@@ -57,9 +44,7 @@ namespace LewisFam.Stocks
             return stock.HasTickerId ? await wb.GetFinancialsSimpleAsync(stock.TickerId) : null;
         }
 
-        /// <summary>
-        /// Gets the last close price.
-        /// </summary>
+        /// <summary>Gets the last close price.</summary>
         /// <param name="stock">The stock.</param>
         /// <returns>A double.</returns>
         public static async Task<double> GetLastClosePrice(this IStock stock)
@@ -69,9 +54,7 @@ namespace LewisFam.Stocks
             return stock.Price.Value;
         }
 
-        /// <summary>
-        /// Gets the option chart data async.
-        /// </summary>
+        /// <summary>Gets the option chart data async.</summary>
         /// <param name="optionQuote">The option quote.</param>
         /// <returns>A Task.</returns>
         public static async Task<object> GetOptionChartDataAsync(this IOption optionQuote)
@@ -80,15 +63,22 @@ namespace LewisFam.Stocks
             return await wb.GetOptionChartDataAsync(optionQuote.TickerId);
         }
 
-        /// <summary>
-        /// Gets the option strat list async.
-        /// </summary>
+        /// <summary>Gets the expire on list async.</summary>
         /// <param name="stock">The stock.</param>
         /// <returns>A Task.</returns>
-        public static async Task<object> GetOptionStratListAsync(this Stock stock)
+        public static Task<IEnumerable<ExpireOn>> GetOptionsExpireOnListAsync(this Stock stock)
         {
             using IWebullDataService wb = new WebullDataService();
-            return await wb.GetOptionStratAsync(stock.TickerId);
+            return wb.GetExpireOnListAsync(stock);
+        }
+
+        /// <summary>Gets the option strategy list async.</summary>
+        /// <param name="stock">The stock.</param>
+        /// <returns>A Task.</returns>
+        public static async Task<object> GetOptionStrategyListAsync(this Stock stock)
+        {
+            using IWebullDataService wb = new WebullDataService();
+            return await wb.GetOptionStrategyAsync(stock.TickerId);
         }
 
         /// <summary>Extension Method. Gets random elements of T.</summary>
@@ -100,9 +90,7 @@ namespace LewisFam.Stocks
             return items.OrderBy(x => Guid.NewGuid()).Take(elementsCount);
         }
 
-        /// <summary>
-        /// Gets the real time market quote async.
-        /// </summary>
+        /// <summary>Gets the real time market quote async.</summary>
         /// <param name="stock">The stock.</param>
         /// <returns>A Task.</returns>
         public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(this Stock stock)
@@ -111,13 +99,12 @@ namespace LewisFam.Stocks
 
             using IWebullDataService wb = new WebullDataService();
             return await wb.GetRealTimeMarketQuoteAsync(stock.TickerId);
+
             //return stock.HasTickerId ? await GetRealTimeMarketQuoteAsync(stock.TickerId) : null;
         }
 
-        /// <summary>
-        /// Gets the real time market quotes async.
-        /// </summary>
-        /// <param name="stocks">The stocks.</param>
+        /// <summary>Gets the real time market quotes async.</summary>
+        /// <param name="stocks">   The stocks.</param>
         /// <param name="batchSize">The batch size.</param>
         /// <returns>A Task.</returns>
         public static async Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(this IEnumerable<Stock> stocks, int batchSize = 50)
@@ -126,9 +113,7 @@ namespace LewisFam.Stocks
             return await wb.GetRealTimeStockQuotesAsync(stocks.ToTickerIdList(), batchSize);
         }
 
-        /// <summary>
-        /// Gets the real time option quote async.
-        /// </summary>
+        /// <summary>Gets the real time option quote async.</summary>
         /// <param name="optionQuote">The option quote.</param>
         /// <returns>A Task.</returns>
         public static async Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(this IOption optionQuote)
@@ -137,9 +122,7 @@ namespace LewisFam.Stocks
             return await wb.GetRealTimeOptionQuoteAsync((IWebullOptionQuote)optionQuote);
         }
 
-        /// <summary>
-        /// Gets the real time option quotes async.
-        /// </summary>
+        /// <summary>Gets the real time option quotes async.</summary>
         /// <param name="optionQuotes">The option quotes.</param>
         /// <returns>A Task.</returns>
         public static async Task<IEnumerable<IWebullOptionQuote>> GetRealTimeOptionQuotesAsync(this IEnumerable<IOption> optionQuotes)
@@ -148,11 +131,9 @@ namespace LewisFam.Stocks
             return await wb.GetRealTimeOptionQuotesAsync(optionQuotes.ToDerivedTickerIdList());
         }
 
-        /// <summary>
-        /// Gets the stock chart data async.
-        /// </summary>
+        /// <summary>Gets the stock chart data async.</summary>
         /// <param name="stock">The stock.</param>
-        /// <param name="type">The type.</param>
+        /// <param name="type"> The type.</param>
         /// <param name="count">The count.</param>
         /// <returns>A Task.</returns>
         public static async Task<IEnumerable<IChartData>> GetStockChartDataAsync(this Stock stock, ChartDataType type = ChartDataType.d1, int count = 800)

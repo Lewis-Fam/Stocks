@@ -116,7 +116,7 @@ namespace LewisFam.Stocks
         public static async Task<object> GetOptionStratAsync(long tickerId)
         {
             using IWebullDataService wb = new WebullDataService();
-            return await wb.GetOptionStratAsync(tickerId);
+            return await wb.GetOptionStrategyAsync(tickerId);
         }
 
         /// <summary>Gets the real time quote async.</summary>

@@ -1,4 +1,5 @@
 ﻿using LewisFam.Stocks.Models;
+using LewisFam.Stocks.Options.Models;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 using LewisFam.Utils;
 using LewisFam.Well_Known;
@@ -8,7 +9,6 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using LewisFam.Stocks.Options.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Services
 {
@@ -22,13 +22,13 @@ namespace LewisFam.Stocks.ThirdParty.Services
 
         Task<object> GetOptionChartDataAsync(IOption optionQuote);
 
-        Task<object> GetOptionStratAsync(long tickerId);
-
-        Task<string> GetRealTimeOptionQuoteDetailsAsync(IEnumerable<long> derivedIds, long tickerId);
+        Task<object> GetOptionStrategyAsync(long tickerId);
 
         Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(long derivedId);
 
         Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(IOption optionQuote);
+
+        Task<string> GetRealTimeOptionQuoteDetailsAsync(IEnumerable<long> derivedIds, long tickerId);
 
         Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuotesAsync(IEnumerable<long> derivedIds, int batchSize = 50);
     }
@@ -68,7 +68,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             public int type { get; }
         }
 
-
         public async Task<object> GetFinancialsSimpleAsync(long tickerId)
         {
             Debug.WriteLine($"{nameof(GetFinancialsSimpleAsync)} called with {nameof(tickerId)}={tickerId}");
@@ -93,26 +92,22 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             return await Client.GetJsonAsync(Uri);
         }
 
-        public async Task<object> GetOptionStratAsync(Stock stock)
+        public async Task<object> GetOptionStrategyAsync(Stock stock)
         {
-            return await GetOptionStratAsync(stock.TickerId);
+            return await GetOptionStrategyAsync(stock.TickerId);
         }
 
-        public async Task<string> GetRealTimeOptionQuoteDetailsAsync(IEnumerable<long> derivedIds, long tickerId)
+        /// <inheritdoc/>
+        public async Task<object> GetOptionStrategyAsync(long tickerId)
         {
-            Uri = Helper.BuildUriOptionQuoteDetail(derivedIds, tickerId);
-            return await Client.GetJsonAsync(Uri);
-        }
-
-        public async Task<object> GetOptionStratAsync(long tickerId)
-        {
-            Uri = Helper.BuildUriOptionStratList();
-            Debug.WriteLine($"{nameof(GetOptionStratAsync)} called with {nameof(tickerId)}={tickerId}");
+            Uri = Helper.BuildUriOptionStrategyList();
+            Debug.WriteLine($"{nameof(GetOptionStrategyAsync)} called with {nameof(tickerId)}={tickerId}");
             var payLoad = new WebullOptionStratRequestBody(tickerId);
             var json = await payLoad.SerializeObjectToJsonAsync();
             var response = await Client.PostAsync(Uri, new StringContent(json, Encoding.UTF8, MIME.Application.Json));
             var jsonResponse = await response.Content.ReadAsStringAsync();
             OnDataReceived?.Invoke(this, jsonResponse);
+
             //var rtn = await jsonResponse.DeserializeObjectAsync<object>();
             //Debug.WriteLine($"{jsonResponse}");
             return jsonResponse;
@@ -129,6 +124,12 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         {
             Debug.Assert(optionQuote.TickerId != null, "optionQuote.TickerId != null");
             return await GetRealTimeOptionQuoteAsync(optionQuote.TickerId);
+        }
+
+        public async Task<string> GetRealTimeOptionQuoteDetailsAsync(IEnumerable<long> derivedIds, long tickerId)
+        {
+            Uri = Helper.BuildUriOptionQuoteDetail(derivedIds, tickerId);
+            return await Client.GetJsonAsync(Uri);
         }
 
         public async Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuotesAsync(IEnumerable<long> derivedIds, int batchSize = 50)
