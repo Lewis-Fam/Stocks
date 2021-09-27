@@ -1,6 +1,6 @@
 ﻿
 
-namespace LewisFam.Stocks.Options
+namespace LewisFam.Stocks.Options.Models
 {
     /// <inheritdoc cref="IGreeks"/>
     public class Greeks : IGreeks

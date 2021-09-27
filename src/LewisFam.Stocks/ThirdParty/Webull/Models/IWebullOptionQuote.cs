@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using LewisFam.Stocks.Models;
-using LewisFam.Stocks.Options;
+using LewisFam.Stocks.Options.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
@@ -18,11 +18,11 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         double? SpotPrice { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
-        double? AskPrice { get; }
+        //[DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        //double? AskPrice { get; }
 
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
-        double? BidPrice { get; }
+        //[DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        //double? BidPrice { get; }
 
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         double? Close { get; }
@@ -47,7 +47,5 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         Guid? BatchId { get; set; }
 
         long? ActiveLevel {get;}
-
-        double? Weekly { get; }
     }
 }

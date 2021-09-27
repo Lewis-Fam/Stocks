@@ -1,4 +1,4 @@
-﻿using LewisFam.Stocks.Options;
+﻿using LewisFam.Stocks.Options.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
@@ -31,8 +31,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         long? RegionId { get; set; }
         long? ExchangeId { get; set; }
         string UnSymbol { get; set; }
-        BidAsk[] AskList { get; set; }
-        BidAsk[] BidList { get; set; }
+        BidAsk?[] AskList { get; set; }
+        BidAsk?[] BidList { get; set; }
         long? QuoteMultiplier { get; set; }
         long? QuoteLotSize { get; set; }
         string TradeTime { get; set; }

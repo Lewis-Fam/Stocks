@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LewisFam.Stocks.Options
+namespace LewisFam.Stocks.Options.Models
 {
     public class ExpireOn
     {

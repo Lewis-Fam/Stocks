@@ -18,7 +18,7 @@ namespace LewisFam.Stocks.Data.Entity
         Guid Id { get; set; }
         Market Market { get; set; }
         Portfolio Portfolio { get; set; }
-        double Price { get; set; }
+        double? Price { get; set; }
         double Size { get; set; }
         string Symbol { get; set; }
         long TickerId { get; set; }
@@ -49,7 +49,7 @@ namespace LewisFam.Stocks.Data.Entity
 
         public virtual string Date { get; set; }
         public virtual TimeSpan Time { get; set; }
-        public virtual double Price { get; set; }
+        public virtual double? Price { get; set; }
         public virtual double Size { get; set; }
         public virtual double Commission { get; set; }
     }
