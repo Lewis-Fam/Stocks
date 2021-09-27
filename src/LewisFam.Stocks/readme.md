@@ -24,6 +24,9 @@ dotnet add package LewisFam.Stocks --version 1.0.2
 
 ### StocksUtil
 ```csharp
+using LewisFam.Stocks;
+```
+```csharp
 var stock = await StocksUtil.FindStockAsync("MSFT"); //find
 var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
 ////or extension method.
@@ -34,14 +37,14 @@ var stockList = new List<Stock>();
 stockList.Add(stock);
 
 var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList);
-//or extension method.
+////or extension method.
 //quotes = await stockList.GetGetRealTimeMarketQuotesAsync();
 ```
 ##### Stock Options
 ```csharp
 var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
-//or extension method.
-options = await stock.GetAllStockOptionsAsync();
+////or extension method.
+//options = await stock.GetAllStockOptionsAsync();
 ```
 
 ### Dependency Injection
@@ -64,16 +67,16 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-#### StocksController.cs
+#### SampleStocksController.cs
 ```csharp
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull;
 
-public class StocksController : Controller
+public class SampleStockController : Controller
 {
     private readonly IWebullDataService _webull;
 
-    public StocksController(IWebullDataService webull)
+    public SampleStockController(IWebullDataService webull)
     {
         _webull = webull;
     }
