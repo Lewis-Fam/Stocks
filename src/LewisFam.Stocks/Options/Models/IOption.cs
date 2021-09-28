@@ -10,6 +10,6 @@ namespace LewisFam.Stocks.Options.Models
         double StrikePrice { get;  }
         DateTime ExpireDate { get;  }
         CallPut Direction { get;  }
-    }
+    }                                        
 
 }

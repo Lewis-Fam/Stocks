@@ -1,9 +1,15 @@
-﻿using LewisFam.Stocks.Options.Models;
+﻿using System;
+using LewisFam.Stocks.Models;
+using LewisFam.Stocks.Models.Enums;
+using LewisFam.Stocks.Options.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
     public interface IRealTimeOptionQuote : IOption
     {
+        double StrikePrice { get;  }
+        DateTime ExpireDate { get;  }
+        CallPut Direction { get;  }
         double? Open { get; set; }
         double? High { get; set; }
         double? Low { get; set; }
@@ -39,5 +45,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         string TradeStatus { get; set; }
         long? TradeStamp { get; set; }
         double Multiplier { get; }
+        Stock Stock { get; }
     }
 }
