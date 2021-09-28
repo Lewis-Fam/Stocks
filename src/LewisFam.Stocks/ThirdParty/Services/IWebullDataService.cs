@@ -31,12 +31,12 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <summary>Gets the all options async.</summary>
         /// <param name="tickerId">The ticker id.</param>
         /// <returns>A Task.</returns>
-        Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(long tickerId);
+        Task<IEnumerable<IRealTimeOptionQuote>> GetAllOptionsAsync(long tickerId);
 
         /// <summary>Gets the all options async.</summary>
         /// <param name="stock">The stock.</param>
         /// <returns>A Task.</returns>
-        Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(Stock stock);
+        Task<IEnumerable<IRealTimeOptionQuote>> GetAllOptionsAsync(Stock stock);
 
         /// <summary>Gets the expire on list async.</summary>
         /// <param name="tickerId">The ticker id.</param>
