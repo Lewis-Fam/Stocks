@@ -76,7 +76,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
 
         ///<inheritdoc/>
         [Obsolete]
-        public async Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(long tickerId)
+        public async Task<IEnumerable<IRealTimeOptionQuote>> GetAllOptionsAsync(long tickerId)
         {
             Debug.WriteLine($"{nameof(GetAllOptionsAsync)} : {nameof(tickerId)}={tickerId}");
             AllOptions?.Clear();
@@ -101,7 +101,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         }
 
         ///<inheritdoc/>
-        public async Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(Stock stock)
+        public async Task<IEnumerable<IRealTimeOptionQuote>> GetAllOptionsAsync(Stock stock)
         {
             return await GetAllOptionsAsync(stock.TickerId);
         }

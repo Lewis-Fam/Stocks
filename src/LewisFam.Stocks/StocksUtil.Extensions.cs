@@ -17,7 +17,7 @@ namespace LewisFam.Stocks
         /// <summary>Gets the all stock options.</summary>
         /// <param name="stock">The stock.</param>
         /// <returns>An IEnumerable of <see cref="IWebullOptionQuote"/>.</returns>
-        public static async Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(this Stock stock)
+        public static async Task<IEnumerable<IRealTimeOptionQuote>> GetAllOptionsAsync(this Stock stock)
         {
             try
             {
