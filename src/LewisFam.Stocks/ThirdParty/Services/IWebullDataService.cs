@@ -4,18 +4,12 @@ using LewisFam.Stocks.ThirdParty.Webull.Models;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using LewisFam.Stocks.Options;
+using LewisFam.Stocks.Options.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Services
 {
     public partial interface IWebullDataService : IDataService
     {
-        //Task<ICollection<WebullOptionQuote>> GetRealTimeOptionQuotesAsync(long derivedId);
-
-        //Task<ICollection<WebullOptionQuote>> GetRealTimeOptionQuotesAsync(ICollection<long> derivedId);
-
-        //Task<object> GetOptionStratList(long tickerId);
-
         #region Properties
 
         ICollection<IWebullOptionQuote> AllOptions { get; }

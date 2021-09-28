@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LewisFam.Stocks.Models.Enums
+﻿namespace LewisFam.Stocks.Models.Enums
 {
     //public enum DirectionSlide
     //{

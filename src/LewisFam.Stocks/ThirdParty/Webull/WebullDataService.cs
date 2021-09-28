@@ -14,11 +14,26 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using LewisFam.Stocks.Options;
+using LewisFam.Stocks.Options.Models;
 
 //https://quotes-gw.webullfintech.com/api/quotes/ticker/batchTickerRealTime?includeQuote=1&includeSecu=1&more=1&tickerIds=913243104%2C913243133%2C913243139%2C913243191%2C913243249%2C913243251%2C913243546%2C913243555%2C913244089%2C913244454%2C913244515%2C913244578%2C913244652%2C913244796%2C913246743%2C913247002%2C913247103%2C913247207%2C913247368%2C913247588%2C913286798%2C913419147%2C913419148%2C913419149%2C913419150%2C913419151%2C913424717%2C913732468%2C925179279%2C925412021%2C950097340%2C950116648%2C950121347%2C950176466
 namespace LewisFam.Stocks.ThirdParty.Webull
 {
+    public class MarketAlertArgs : EventArgs
+    {
+        public MarketAlertArgs(Stock stock, IWebullOptionQuote quote)
+        {
+            Stock = stock;
+            OptionQuote = quote;
+            AlertCreatedOn = DateTime.Now;
+            var last = stock.GetLastClosePrice();
+        }
+
+        public IWebullOptionQuote OptionQuote { get; }
+        public IStock Stock { get;  }
+        public DateTime AlertCreatedOn { get; }
+    }
+
     /// <summary>The webull data service.</summary>
     public sealed partial class WebullDataService : BaseDataService, IWebullDataService
     {
@@ -26,18 +41,23 @@ namespace LewisFam.Stocks.ThirdParty.Webull
 
         public ICollection<Stock> StockCollection { get; private set; } = new List<Stock>();
 
+        public event EventHandler<MarketAlertArgs> OnMarketAlert;
+
+        public event EventHandler<object> OnDataReceived;
+
         ///<inheritdoc/>
         public async Task<Stock> FindStockAsync(string symbol)
         {
             try
-            { Debug.WriteLine($"{nameof(FindStockAsync)} : {nameof(symbol)}={symbol}");
+            {
+                Debug.WriteLine($"{nameof(FindStockAsync)} : {nameof(symbol)}={symbol}");
                 Uri = Helper.BuildUriSearchSymbol(symbol);
                 var jsonString = await Client.GetJsonAsync(Uri, "stockAndEtfs");
+                OnDataReceived?.Invoke(this, jsonString);
                 var result = JToken.Parse(jsonString).ToObject<IEnumerable<Stock>>();
                 var stock = result?.FirstOrDefault();
                 StockCollection.Add(stock);
                 return string.Equals(stock?.Symbol, symbol, StringComparison.CurrentCultureIgnoreCase) ? stock : null;
-
             }
             catch (Exception e)
             {
@@ -53,8 +73,9 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             var result = await FindStockAsync(symbol);
             return result?.TickerId;
         }
-        
+
         ///<inheritdoc/>
+        [Obsolete]
         public async Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(long tickerId)
         {
             Debug.WriteLine($"{nameof(GetAllOptionsAsync)} : {nameof(tickerId)}={tickerId}");
@@ -73,8 +94,9 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                         AllOptions.Add(option.Put);
                         AllOptions.Add(option.Call);
                     }
-            }
-
+            } 
+            
+            OnDataReceived?.Invoke(this, AllOptions);
             return AllOptions;
         }
 
@@ -82,6 +104,21 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         public async Task<IEnumerable<IWebullOptionQuote>> GetAllOptionsAsync(Stock stock)
         {
             return await GetAllOptionsAsync(stock.TickerId);
+        }
+
+        ///<inheritdoc/>
+        public async Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(long tickerId)
+        {
+            var data = await Client.GetJsonAsync(Helper.BuildUriGetOptions(tickerId));
+            OnDataReceived?.Invoke(this, data);
+            var option = data.DeserializeObject<WebullOptionQuote>()?.ExpireDateList;
+            return option;
+        }
+
+        ///<inheritdoc/>
+        public async Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(Stock stock)
+        {
+            return await GetExpireOnListAsync(stock.TickerId);
         }
 
         ///<inheritdoc/>
@@ -103,12 +140,13 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             {
                 tickerId
             };
-
             Uri = Helper.BuildUriRealTimeStockQuotes(ids);
             Debug.WriteLine($"{nameof(GetRealTimeMarketQuoteAsync)} : {nameof(tickerId)}={tickerId} : {nameof(Uri)}={Uri}");
             var data = await Client.GetJsonAsync<List<WebullStockQuote>>(Uri);
+            OnDataReceived?.Invoke(this, data);
             return data?.FirstOrDefault();
         }
+
         public async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(string symbol)
         {
             var stock = await FindStockIdAsync(symbol);
@@ -131,14 +169,16 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                 Uri = Helper.BuildUriRealTimeStockQuotes(b.Select(i => i));
                 Debug.WriteLine($"{nameof(GetRealTimeStockQuotesAsync)} : {nameof(batchIndex)}={batchIndex} : {nameof(Uri)}={Uri}");
                 var data = await Client.GetJsonAsync<List<WebullStockQuote>>(Uri);
+                
                 rtn.AddRange(data);
                 batchIndex++;
             }
 
+            OnDataReceived?.Invoke(this, rtn);
             return rtn;
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public async Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeStockQuotesAsync(IEnumerable<Stock> stocks, int batchSize = 50)
         {
             return await GetRealTimeStockQuotesAsync(stocks.ToTickerIdList(), batchSize);
@@ -159,14 +199,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             var data = await Client.GetJsonAsync<List<ChartData>>(Uri);
             if (data != null)
                 rtn.AddRange(data);
-
+            OnDataReceived?.Invoke(this, rtn);
             return rtn;
-        }
-
-        private void ProcessOption(ProcessOptionDelegate processOption)
-        {
-            foreach (var item in AllOptions)
-                processOption(item);
         }
 
         /// <inheritdoc/>
@@ -176,6 +210,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             Debug.WriteLine($"{nameof(WebullDataService)} : {nameof(SearchSymbolAsync)} : {symbolSearch} : {nameof(Uri)}={Uri}");
             var jsonString = await Client.GetJsonAsync(Uri, "stockAndEtfs");
             var result = JToken.Parse(jsonString).ToObject<IEnumerable<Stock>>();
+            OnDataReceived?.Invoke(this, result);
             return result;
         }
 
@@ -224,20 +259,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             return null;
         }
 
-        ///<inheritdoc/>
-        public async Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(long tickerId)
-        {
-            var data = await Client.GetJsonAsync(Helper.BuildUriGetOptions(tickerId));
-            var option = data.DeserializeObject<WebullOptionQuote>()?.ExpireDateList;
-            return option;
-        }
-        
-        ///<inheritdoc/>
-        public async Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(Stock stock)
-        {
-            return await GetExpireOnListAsync(stock.TickerId);
-        }
-
         /// <summary>Gets the option async.</summary>
         /// <param name="tickerId">The ticker id.</param>
         /// <param name="expDate"> The exp date.</param>
@@ -251,6 +272,12 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         /// <returns>A Task.</returns>
         [Obsolete]
         private async Task<IEnumerable<IWebullOptionQuote>> GetOptionAsync(Stock stock, DateTimeOffset expDate) => (await Client.GetJsonAsync(Helper.BuildUri(stock.TickerId, expDate)))?.DeserializeObject<IList<WebullOptionQuote>>();
+
+        private void ProcessOption(ProcessOptionDelegate processOption)
+        {
+            foreach (var item in AllOptions)
+                processOption(item);
+        }
 
         //Task<IEnumerable<IStockQuoteComplete>> IWebullDataService.GetRealTimeMarketQuotes(IEnumerable<long> tickerIds, int batchSize)
         //{

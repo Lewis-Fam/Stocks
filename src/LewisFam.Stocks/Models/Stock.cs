@@ -1,33 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Threading.Tasks;
 using LewisFam.Models;
-using LewisFam.Stocks.ThirdParty.Webull.Models;
-using LewisFam.Utils;
 
 namespace LewisFam.Stocks.Models
 {
     /// <summary>A stock class.</summary>
-    [Serializable, Table("Stocks")]
+    [Serializable]
     public class Stock : BindableObject, IStock // LewisFam.Stocks.Models.Stock
     {
         public Stock()
         {
+            TickerId = -1;
         }
 
         public Stock(IStock stock)
         {
             Symbol = stock.Symbol;
             TickerId = stock.TickerId;
+            Price = stock.Price;
         }
 
-        public Stock(string symbol, long? tickerId = null)
+        public Stock(string symbol, long? tickerId = null, double? lastPrice = null)
         {
             Symbol = symbol;
             TickerId = tickerId ?? -1;
+            Price = lastPrice;
         }
 
         public long FindTickerId()
@@ -47,6 +45,8 @@ namespace LewisFam.Stocks.Models
         public long TickerId { get; set; }
 
         public string Name { get; set; }
+
+        public double? Price { get; set; }
 
         public bool HasTickerId => TickerId > 0;
 

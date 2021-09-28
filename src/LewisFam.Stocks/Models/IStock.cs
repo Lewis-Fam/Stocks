@@ -4,5 +4,6 @@
     {
         public string Symbol { get; }
         public long TickerId { get; }
+        double? Price { get; set; }
     }
 }

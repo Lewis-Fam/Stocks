@@ -4,6 +4,108 @@
         <name>LewisFam.Stocks</name>
     </assembly>
     <members>
+        <member name="T:LewisFam.Stocks.StockExtensions">
+            <summary>A Stocks and Options Utility</summary>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetAllOptionsAsync(LewisFam.Stocks.Models.Stock)">
+            <summary>Gets the all stock options.</summary>
+            <param name="stock">The stock.</param>
+            <returns>An IEnumerable of <see cref="T:LewisFam.Stocks.ThirdParty.Webull.Models.IWebullOptionQuote"/>.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetExpireOnListAsync(LewisFam.Stocks.Models.Stock)">
+            <summary>
+            Gets the expire on list async.
+            </summary>
+            <param name="stock">The stock.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetFinancialsSimpleAsync(LewisFam.Stocks.Models.Stock)">
+            <summary>
+            Gets the financials simple async.
+            </summary>
+            <param name="stock">The stock.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetLastClosePrice(LewisFam.Stocks.Models.IStock)">
+            <summary>
+            Gets the last close price.
+            </summary>
+            <param name="stock">The stock.</param>
+            <returns>A double.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetOptionChartDataAsync(LewisFam.Stocks.Options.Models.IOption)">
+            <summary>
+            Gets the option chart data async.
+            </summary>
+            <param name="optionQuote">The option quote.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetOptionStratListAsync(LewisFam.Stocks.Models.Stock)">
+            <summary>
+            Gets the option strat list async.
+            </summary>
+            <param name="stock">The stock.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetRandomElements``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>Extension Method. Gets random elements of T.</summary>
+            <param name="items">        The items.</param>
+            <param name="elementsCount">The elements count.</param>
+            <returns>A random list of T.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetRealTimeMarketQuoteAsync(LewisFam.Stocks.Models.Stock)">
+            <summary>
+            Gets the real time market quote async.
+            </summary>
+            <param name="stock">The stock.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetRealTimeMarketQuotesAsync(System.Collections.Generic.IEnumerable{LewisFam.Stocks.Models.Stock},System.Int32)">
+            <summary>
+            Gets the real time market quotes async.
+            </summary>
+            <param name="stocks">The stocks.</param>
+            <param name="batchSize">The batch size.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetRealTimeOptionQuoteAsync(LewisFam.Stocks.Options.Models.IOption)">
+            <summary>
+            Gets the real time option quote async.
+            </summary>
+            <param name="optionQuote">The option quote.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetRealTimeOptionQuotesAsync(System.Collections.Generic.IEnumerable{LewisFam.Stocks.Options.Models.IOption})">
+            <summary>
+            Gets the real time option quotes async.
+            </summary>
+            <param name="optionQuotes">The option quotes.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.GetStockChartDataAsync(LewisFam.Stocks.Models.Stock,LewisFam.Stocks.ThirdParty.Webull.Models.ChartDataType,System.Int32)">
+            <summary>
+            Gets the stock chart data async.
+            </summary>
+            <param name="stock">The stock.</param>
+            <param name="type">The type.</param>
+            <param name="count">The count.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.ToDerivedTickerIdList(System.Collections.Generic.IEnumerable{LewisFam.Stocks.Options.Models.IOption})">
+            <summary>Extension method. IWebullOptionQuote to derivedTickerId list.</summary>
+            <param name="optionQuotes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.ToSymbolList(System.Collections.Generic.IEnumerable{LewisFam.Stocks.Models.Stock})">
+            <summary>Extension method. Stocks to symbol list.</summary>
+            <param name="webullStocks">The webull stocks.</param>
+            <returns>A list of symbols.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StockExtensions.ToTickerIdList(System.Collections.Generic.IEnumerable{LewisFam.Stocks.Models.Stock})">
+            <summary>Extension method. Stocks to tickerId list.</summary>
+            <param name="webullStocks">The webull stocks.</param>
+            <returns>A list of tickerIds.</returns>
+        </member>
         <member name="M:LewisFam.Stocks.Internal.Models.BaseDataService.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:LewisFam.Stocks.Internal.Models.BaseDataService"/> class.
@@ -30,27 +132,14 @@
             The base stock option.
             </summary>
         </member>
-        <member name="P:LewisFam.Stocks.Internal.Models.BaseOption.Slide">
-            <summary>
-            Gets or sets the <see cref="T:LewisFam.Stocks.Models.Enums.Slide"/>.
-            </summary>
-        </member>
-        <member name="P:LewisFam.Stocks.Internal.Models.BaseOption.Symbol">
-            <summary>
-            Gets or sets the symbol.ToUpper()
-            </summary>
-        </member>
         <member name="M:LewisFam.Stocks.Internal.Models.BaseOption.ToString">
             <inheritdoc/>
-        </member>
-        <member name="T:LewisFam.Stocks.Models.BlackScholes">
-            <summary>Summary description for BlackSholes.</summary>
         </member>
         <member name="T:LewisFam.Stocks.Models.Enums.DirectionType">
             <summary>
             DirectionType
             </summary>
-            <remarks>DirectionType will be removed. Use <see cref="T:LewisFam.Stocks.Models.Enums.Slide"/></remarks>            
+            <remarks>DirectionType will be removed. Use <see cref="!:DirectionSlide"/></remarks>            
         </member>
         <member name="T:LewisFam.Stocks.Models.Enums.OptionStrategy">
             <summary>The option strategy.</summary>
@@ -225,37 +314,51 @@
             attain the position. The maximum profit is the strike price of the written call minus the strike of the bought call, less the premiums paid.
             </summary>
         </member>
-        <member name="T:LewisFam.Stocks.Models.Greeks">
-            <inheritdoc cref="T:LewisFam.Stocks.Models.IGreeks"/>
+        <member name="T:LewisFam.Stocks.Models.Stock">
+            <summary>A stock class.</summary>
         </member>
-        <member name="P:LewisFam.Stocks.Models.Greeks.Delta">
+        <member name="M:LewisFam.Stocks.Models.Stock.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:LewisFam.Stocks.Models.Stock.Symbol">
+            <summary>
+            Gets or sets the symbol.ToUpper()
+            </summary>
+        </member>
+        <member name="T:LewisFam.Stocks.Options.Models.BlackScholes">
+            <summary>Summary description for BlackSholes.</summary>
+        </member>
+        <member name="T:LewisFam.Stocks.Options.Models.Greeks">
+            <inheritdoc cref="T:LewisFam.Stocks.Options.Models.IGreeks"/>
+        </member>
+        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Delta">
             <inheritdoc />
         </member>
-        <member name="P:LewisFam.Stocks.Models.Greeks.Gamma">
+        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Gamma">
             <inheritdoc />
         </member>
-        <member name="P:LewisFam.Stocks.Models.Greeks.Rho">
+        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Rho">
             <summary>
             Rho (p) represents the rate of change between an option's value and a 1% change in the interest rate. This measures sensitivity to the interest rate. For example,
             assume a call option has a rho of 0.05 and a price of $1.25. If interest rates rise by 1%, the value of the call option would increase to $1.30, all else being
             equal. The opposite is true for put options. Rho is greatest for at-the-money options with long times until expiration.
             </summary>
         </member>
-        <member name="P:LewisFam.Stocks.Models.Greeks.Theta">
+        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Theta">
             <summary>
             Theta (Θ) represents the rate of change between the option price and time, or time sensitivity - sometimes known as an option's time decay. Theta indicates the
             amount an option's price would decrease as the time to expiration decreases, all else equal. For example, assume an investor is long an option with a theta of
             -0.50. The option's price would decrease by 50 cents every day that passes, all else being equal.
             </summary>
         </member>
-        <member name="P:LewisFam.Stocks.Models.Greeks.Vega">
+        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Vega">
             <summary>
             Vega (v) represents the rate of change between an option's value and the underlying asset's implied volatility. This is the option's sensitivity to volatility.
             Vega indicates the amount an option's price changes given a 1% change in implied volatility. For example, an option with a Vega of 0.10 indicates the option's
             value is expected to change by 10 cents if the implied volatility changes by 1%.
             </summary>
         </member>
-        <member name="T:LewisFam.Stocks.Models.IGreeks">
+        <member name="T:LewisFam.Stocks.Options.Models.IGreeks">
             <remarks>
             "Greeks" is a term used in the options market to describe the different dimensions of risk involved in taking an options position. These variables are called Greeks
             because they are typically associated with Greek symbols. Each risk variable is a result of an imperfect assumption or relationship of the option with another
@@ -267,7 +370,7 @@
             or to check if their portfolio needs to be rebalanced. Below are several of the main Greeks traders look at.
             </remarks>
         </member>
-        <member name="P:LewisFam.Stocks.Models.IGreeks.Delta">
+        <member name="P:LewisFam.Stocks.Options.Models.IGreeks.Delta">
             <summary>
             Delta (Δ) represents the rate of change between the option's price and a $1 change in the underlying asset's price. In other words, the price sensitivity of the
             option relative to the underlying. Delta of a call option has a range between zero and one, while the delta of a put option has a range between zero and negative
@@ -275,7 +378,7 @@
             theoretically increase by 50 cents.
             </summary>
         </member>
-        <member name="P:LewisFam.Stocks.Models.IGreeks.Gamma">
+        <member name="P:LewisFam.Stocks.Options.Models.IGreeks.Gamma">
             <summary>
             Gamma (Γ) represents the rate of change between an option's delta and the underlying asset's price. This is called second-order (second-derivative) price
             sensitivity. Gamma indicates the amount the delta would change given a $1 move in the underlying security. For example, assume an investor is long one call option
@@ -283,53 +386,48 @@
             would increase or decrease by 0.10.
             </summary>
         </member>
-        <member name="T:LewisFam.Stocks.Models.Stock">
-            <summary>A stock class.</summary>
-        </member>
-        <member name="M:LewisFam.Stocks.Models.Stock.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:LewisFam.Stocks.Models.Stock"/> class.
-            </summary>
-        </member>
-        <member name="M:LewisFam.Stocks.Models.Stock.ToString">
-            <inheritdoc/>
-        </member>
-        <member name="P:LewisFam.Stocks.Models.Stock.Symbol">
-            <summary>
-            Gets or sets the symbol.ToUpper()
-            </summary>
-        </member>
-        <member name="T:LewisFam.Stocks.StocksUtil">
-            <summary>Stocks</summary>
-        </member>
         <member name="P:LewisFam.Stocks.StocksUtil.StockList2021">
-            <summary>Gets a sample stock list.</summary>
+            <summary>
+            Gets a sample stocks list.
+            </summary>
         </member>
         <member name="M:LewisFam.Stocks.StocksUtil.FindStockAsync(System.String)">
             <summary>Finds the stock async.</summary>
             <param name="symbol">The symbol.</param>
             <returns>A <see cref="T:LewisFam.Stocks.Models.Stock"/>.</returns>
         </member>
-        <member name="M:LewisFam.Stocks.StocksUtil.GetAllStockOptionsAsync(System.Int64)">
+        <member name="M:LewisFam.Stocks.StocksUtil.GetAllOptionsAsync(System.Int64)">
             <summary>Gets the all stock options.</summary>
             <param name="tickerId">The ticker id.</param>
-            <returns>An IEnumerable of <inheritdoc cref="T:LewisFam.Stocks.ThirdParty.Webull.Models.IWebullOptionQuote"/>.</returns>
-        </member>
-        <member name="M:LewisFam.Stocks.StocksUtil.GetAllStockOptionsAsync(LewisFam.Stocks.Models.Stock)">
-            <summary>Gets the all stock options.</summary>
-            <param name="stock">The stock.</param>
-            <returns>An IEnumerable of <inheritdoc cref="T:LewisFam.Stocks.ThirdParty.Webull.Models.IWebullOptionQuote"/>.</returns>
+            <returns>An IEnumerable of <see cref="T:LewisFam.Stocks.ThirdParty.Webull.Models.IWebullOptionQuote"/>.</returns>
+            <exception cref="T:System.ApplicationException">Ignore.</exception>
         </member>
         <member name="M:LewisFam.Stocks.StocksUtil.GetCnbcStockQuotesAsync(System.Collections.Generic.ICollection{System.String})">
             <summary>Gets the cnbc stock quotes async.</summary>
             <param name="symbols">The symbols.</param>
             <returns>A Task.</returns>
         </member>
-        <member name="M:LewisFam.Stocks.StocksUtil.GetRandomElements``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
-            <summary>Extension Method. Gets random elements of T.</summary>
-            <param name="items">        The items.</param>
-            <param name="elementsCount">The elements count.</param>
-            <returns>A random list of T.</returns>
+        <member name="M:LewisFam.Stocks.StocksUtil.GetOptionChartDataAsync(System.Int64)">
+            <summary>
+            Gets the option chart data async.
+            </summary>
+            <param name="derivedId">The derived id.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StocksUtil.GetOptionQuoteDetails(System.Collections.Generic.IEnumerable{System.Int64},System.Int64)">
+            <summary>
+            Gets the option quote details.
+            </summary>
+            <param name="derivedIds">The derived ids.</param>
+            <param name="tickerId">The ticker id.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StocksUtil.GetOptionStratAsync(System.Int64)">
+            <summary>
+            Gets the option strat async.
+            </summary>
+            <param name="tickerId">The ticker id.</param>
+            <returns>A Task.</returns>
         </member>
         <member name="M:LewisFam.Stocks.StocksUtil.GetRealTimeMarketQuoteAsync(System.String)">
             <summary>Gets the real time quote async.</summary>
@@ -345,10 +443,25 @@
             <param name="tickerId">The ticker id.</param>
             <returns>A IRealTimeStockQuote.</returns>
         </member>
-        <member name="M:LewisFam.Stocks.StocksUtil.GetRealTimeMarketQuotesAsync(System.Collections.Generic.ICollection{System.Int64})">
+        <member name="M:LewisFam.Stocks.StocksUtil.GetRealTimeMarketQuotesAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Int32)">
             <summary>Gets the real time quotes task.</summary>
             <param name="tickerIds">The ticker ids.</param>
+            <param name="batchSize">The batch size.</param>
             <returns>A list of IRealTimeStockQuote.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StocksUtil.GetRealTimeOptionQuoteAsync(System.Int64)">
+            <summary>
+            Gets the real time option quote async.
+            </summary>
+            <param name="derivedId">The derived id.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.StocksUtil.GetRealTimeOptionQuotesAsync(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Gets the real time option quotes async.
+            </summary>
+            <param name="derivedIds">The derived ids.</param>
+            <returns>A Task.</returns>
         </member>
         <member name="M:LewisFam.Stocks.StocksUtil.GetStockChartDataAsync(System.Int64,LewisFam.Stocks.ThirdParty.Webull.Models.ChartDataType,System.Int32)">
             <summary>Gets the stock chart data async.</summary>
@@ -357,15 +470,24 @@
             <param name="count">   The count.</param>
             <returns>A list of <see cref="T:LewisFam.Stocks.ThirdParty.Webull.Models.IChartData"/>.</returns>
         </member>
-        <member name="M:LewisFam.Stocks.StocksUtil.ToSymbolList(System.Collections.Generic.IEnumerable{LewisFam.Stocks.Models.Stock})">
-            <summary>Extension method. Stocks to symbol list.</summary>
-            <param name="webullStocks">The webull stocks.</param>
-            <returns>A list of symbols.</returns>
+        <member name="M:LewisFam.Stocks.StocksUtil.SearchSymbolAsync(System.String)">
+            <summary>
+            Searches the symbol async.
+            </summary>
+            <param name="searchSymbol">The search symbol.</param>
+            <returns>A Task.</returns>
         </member>
-        <member name="M:LewisFam.Stocks.StocksUtil.ToTickerIdList(System.Collections.Generic.IEnumerable{LewisFam.Stocks.Models.Stock})">
-            <summary>Extension method. Stocks to tickerId list.</summary>
-            <param name="webullStocks">The webull stocks.</param>
-            <returns>A list of tickerIds.</returns>
+        <member name="M:LewisFam.Stocks.StocksUtil.ReadFileAsync``1(System.String)">
+            <summary>ReadFileAsync</summary>
+            <param name="path"></param>
+            <returns></returns>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+        </member>
+        <member name="M:LewisFam.Stocks.StocksUtil.SaveToFile(LewisFam.Stocks.ThirdParty.Webull.Models.Watchlist,System.String,System.Boolean)">
+            <summary>Writes the watchlist as json to file.</summary>
+            <param name="watchlist">The watchlist.</param>
+            <param name="path">     The path.</param>
+            <param name="format">   If true, format.</param>
         </member>
         <member name="T:LewisFam.Stocks.ThirdParty.Cnbc.CnbcDataService">
             <summary>
@@ -501,6 +623,16 @@
             <param name="tickerId">The ticker id.</param>
             <returns>A Task.</returns>
         </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetAllOptionsAsync(LewisFam.Stocks.Models.Stock)">
+            <summary>Gets the all options async.</summary>
+            <param name="stock">The stock.</param>
+            <returns>A Task.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetExpireOnListAsync(System.Int64)">
+            <summary>Gets the expire on list async.</summary>
+            <param name="tickerId">The ticker id.</param>
+            <returns>A Task.</returns>
+        </member>
         <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetOptionAsync(System.Int64)">
             <summary>Gets the option async.</summary>
             <param name="tickerId">The ticker id.</param>
@@ -517,36 +649,40 @@
             <returns>A Task.</returns>
         </member>
         <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetRealTimeMarketQuoteAsync(System.String)">
-            <summary>
-            Gets the real time market quote async.
-            </summary>
+            <summary>Gets the real time market quote async.</summary>
             <param name="symbol">The symbol.</param>
             <returns>A Task.</returns>
         </member>
-        <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetRealTimeMarketQuotesAsync(System.Collections.Generic.ICollection{System.Int64},System.Int32)">
+        <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetRealTimeStockQuotesAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Int32)">
             <summary>Gets the real time market quotes.</summary>
             <param name="tickerIds">The ticker ids.</param>
             <param name="batchSize">The batch size.</param>
             <returns>A list of IStockQuoteDataGrid.</returns>
         </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetRealTimeStockQuotesAsync(System.Collections.Generic.IEnumerable{LewisFam.Stocks.Models.Stock},System.Int32)">
+            <summary>Gets the real time market quotes async.</summary>
+            <param name="stocks">   The stocks.</param>
+            <param name="batchSize">The batch size.</param>
+            <returns>A Task.</returns>
+        </member>
         <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetStockChartDataAsync(System.Int64,LewisFam.Stocks.ThirdParty.Webull.Models.ChartDataType,System.Int32)">
-            <summary>
-            Gets the stock chart data async.
-            </summary>
+            <summary>Gets the stock chart data async.</summary>
             <param name="tickerId">The ticker id.</param>
-            <param name="type">The type.</param>
-            <param name="count">The max count.</param>
+            <param name="type">    The type.</param>
+            <param name="count">   The max count.</param>
             <returns>A list of IChartData.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetStockChartDataAsync(LewisFam.Stocks.Models.Stock,LewisFam.Stocks.ThirdParty.Webull.Models.ChartDataType,System.Int32)">
+            <summary>Gets the stock chart data async.</summary>
+            <param name="stock"></param>
+            <param name="type"> </param>
+            <param name="count"></param>
+            <returns></returns>
         </member>
         <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.SearchSymbolAsync(System.String)">
             <summary>Searches the symbol async.</summary>
-            <param name="symbol">The symbol.</param>
+            <param name="symbolSearch">The symbol search.</param>
             <returns>A list of stocks.</returns>
-        </member>
-        <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetExpireOnListAsync(System.Int64)">
-            <summary>Gets the expire on list async.</summary>
-            <param name="tickerId">The ticker id.</param>
-            <returns>A Task.</returns>
         </member>
         <member name="T:LewisFam.Stocks.ThirdParty.Webull.Models.IWebullOptionQuote">
             <summary>
@@ -592,6 +728,15 @@
         <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetAllOptionsAsync(System.Int64)">
             <inheritdoc/>
         </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetAllOptionsAsync(LewisFam.Stocks.Models.Stock)">
+            <inheritdoc/>
+        </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetExpireOnListAsync(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetExpireOnListAsync(LewisFam.Stocks.Models.Stock)">
+            <inheritdoc/>
+        </member>
         <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetOptionAsync(System.Int64)">
             <inheritdoc/>
         </member>
@@ -601,7 +746,13 @@
         <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetRealTimeMarketQuoteAsync(System.Int64)">
             <inheritdoc/>
         </member>
-        <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetRealTimeMarketQuotesAsync(System.Collections.Generic.ICollection{System.Int64},System.Int32)">
+        <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetRealTimeStockQuotesAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetRealTimeStockQuotesAsync(System.Collections.Generic.IEnumerable{LewisFam.Stocks.Models.Stock},System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetStockChartDataAsync(LewisFam.Stocks.Models.Stock,LewisFam.Stocks.ThirdParty.Webull.Models.ChartDataType,System.Int32)">
             <inheritdoc/>
         </member>
         <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetStockChartDataAsync(System.Int64,LewisFam.Stocks.ThirdParty.Webull.Models.ChartDataType,System.Int32)">
@@ -611,9 +762,6 @@
             <inheritdoc/>
         </member>
         <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.Dispose(System.Boolean)">
-            <inheritdoc/>
-        </member>
-        <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetExpireOnListAsync(System.Int64)">
             <inheritdoc/>
         </member>
         <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.GetOptionAsync(System.Int64,System.DateTimeOffset)">
@@ -652,6 +800,10 @@
             <summary>Builds the uri.</summary>
             <param name="symbol">The symbol.</param>
             <returns>An Uri.</returns>
+        </member>
+        <member name="M:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.WebullOptionStratRequestBody.#ctor(System.Int64)">
+            <summary>Initializes a new instance of the <see cref="T:LewisFam.Stocks.ThirdParty.Webull.WebullDataService.WebullOptionStratRequestBody"/> class.</summary>
+            <param name="tickerId">The ticker id.</param>
         </member>
     </members>
 </doc>

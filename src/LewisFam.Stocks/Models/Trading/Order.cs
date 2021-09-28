@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LewisFam.Stocks.Models.Trading
+﻿namespace LewisFam.Stocks.Models.Trading
 {
     public class DemoOrderCreator
     {

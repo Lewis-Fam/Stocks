@@ -1,41 +1,50 @@
-﻿# LewisFam.Stocks - Version 1.0.1
+﻿# LewisFam.Stocks - Version 1.0.2
 
-LewisFam.Stocks is a free and simple stock and option prices API. The API can currently gets real-time pricing from CNBC.com and Webull.com.
+LewisFam.Stocks is a free and simple stock and option prices API. The API can currently get real-time pricing from CNBC.com and Webull.com.
 
 ## Features
 
 - Get real-time stock quotes from [Cnbc] & [Webull]
 - Get real-time stock option prices from [Webull] (delayed 15 minutes.)
+- Strongly-Typed Objects
 
 ## Installation
 
 LewisFam.Stocks is free and open source comman class libary using. 
 
 ```sh
-dotnet add package LewisFam.Stocks --version 1.0.1
+Install-Package LewisFam.Stocks --version 1.0.2
+```
+
+```sh
+dotnet add package LewisFam.Stocks --version 1.0.2
 ```
 
 ## Usage
 
 ### StocksUtil
 ```csharp
-var stock = await StocksUtil.FindStockAsync("MSFT");
+using LewisFam.Stocks;
+```
+```csharp
+var stock = await StocksUtil.FindStockAsync("MSFT"); //find
 var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
-
-//or
-// quote = await StocksUtil.GetRealTimeMarketQuoteAsync("MSFT");
+////or extension method.
+//quote = await stock.GetRealTimeMarketQuoteAsync();
 
 //Multiple quotes.
 var stockList = new List<Stock>();
 stockList.Add(stock);
+
 var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList);
-
-var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
+////or extension method.
+//quotes = await stockList.GetGetRealTimeMarketQuotesAsync();
 ```
-
+##### Stock Options
 ```csharp
-
-
+var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
+////or extension method.
+//options = await stock.GetAllStockOptionsAsync();
 ```
 
 ### Dependency Injection
@@ -56,10 +65,30 @@ public void ConfigureServices(IServiceCollection services)
     //services.AddRazorPages();
     //..
 }
-
 ```
 
+#### SampleStocksController.cs
+```csharp
+using LewisFam.Stocks.ThirdParty.Services;
+using LewisFam.Stocks.ThirdParty.Webull;
 
+public class SampleStockController : Controller
+{
+    private readonly IWebullDataService _webull;
+
+    public SampleStockController(IWebullDataService webull)
+    {
+        _webull = webull;
+    }
+
+    public async Task<IActionResult> GetAllOptions(long tickerId)
+    {
+        var data = await _wb.GetAllStockOptionsAsync(tickerId);
+        if (data == null) return BadRequest(tickerId);
+        return Ok(data);
+    }
+}
+```
 
 ## Demo / Tests
 [LewisFam.Stocks.Test]
@@ -72,28 +101,16 @@ The LewisFam library uses a number of open source projects to work properly:
 - [Cnbc] - Real-Time stock quotes.
 - [Webull] - Real-Time stock quotes and option prices.
 
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
-
-
-## Usage
+And of course LewisFam.Stocks itself is open source with a [public repository] on GitHub.
 
 ## License
-
 MIT
 
-**Free Software, Hell Yeah!**
+**Free Software, Yay!**
 
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-   
+[//]: #    
    [CNbc]: <https://cnbc.com>
    [Webull]: <https://webull.com>
    [LewisFam.Common]: <https://github.com/Lewis-Fam/LewisFam.Common>
    [LewisFam.Stocks.Test]: <https://github.com/Lewis-Fam/Stocks/tree/main/src/LewisFam.Stocks.Tests>
-
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
+   [public repository]: <https://github.com/Lewis-Fam>
