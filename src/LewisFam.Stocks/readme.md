@@ -3,12 +3,10 @@
 LewisFam.Stocks is a free and simple stock and option prices API written in C#. The API can currently get real-time pricing from CNBC.com and Webull.com.
 
 ## Features
-
+- Fast and Free!
 - Get real-time stock quotes from [Cnbc] & [Webull]
 - Get real-time stock option prices from [Webull] (delayed 15 minutes.)
-- Dependency Injection / Microservice
 - .NET Cross-Platform
-- Strongly-Typed Objects
 
 ## Installation
 
