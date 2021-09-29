@@ -83,9 +83,9 @@ public class SampleStockController : Controller
 
     public async Task<IActionResult> GetAllOptions(long tickerId)
     {
-        var data = await _wb.GetAllStockOptionsAsync(tickerId);
+        var data = await _webulll.GetAllStockOptionsAsync(tickerId);
         if (data == null) return BadRequest(tickerId);
-        return Ok(data);
+        return View(data);
     }
 }
 ```

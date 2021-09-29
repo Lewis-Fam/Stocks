@@ -7,9 +7,9 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
     public interface IRealTimeOptionQuote : IOption
     {
-        double StrikePrice { get;  }
-        DateTime ExpireDate { get;  }
-        CallPut Direction { get;  }
+        double StrikePrice { get; set; }
+        DateTime ExpireDate { get; set; }
+        CallPut Direction { get; set; }
         double? Open { get; set; }
         double? High { get; set; }
         double? Low { get; set; }

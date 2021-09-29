@@ -20,7 +20,7 @@ namespace LewisFam.Stocks.ThirdParty.Services
 
         /// <summary>Finds a stock async.</summary>
         /// <param name="symbol">The symbol.</param>
-        /// <returns>A Task.</returns>
+        /// <returns><see cref="Stock"/>.</returns>
         Task<Stock> FindStockAsync(string symbol);
 
         /// <summary>Finds the stock id async.</summary>
@@ -43,6 +43,11 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <returns>A Task.</returns>
         Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(long tickerId);
 
+        /// <summary>
+        /// Gets the expire on list async.
+        /// </summary>
+        /// <param name="stock">The stock.</param>
+        /// <returns>A Task.</returns>
         Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(Stock stock);
 
         /// <summary>Gets the option async.</summary>
