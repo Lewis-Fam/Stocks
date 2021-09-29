@@ -31,7 +31,7 @@ namespace LewisFam.Stocks.Tests
         {
             var options = await _sampleStock_MSFT.GetAllOptionsAsync();
             Assert.IsNotNull(options, "options == null");
-            Console.WriteLine(await options.Take(3).SerializeObjectToJsonAsync());
+            Console.WriteLine(await options.Take(3).SerializeObjectToJsonAsync(true));
         }
 
         [TestMethod()]

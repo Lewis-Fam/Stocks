@@ -65,7 +65,7 @@ namespace LewisFam.Stocks
 
         /// <summary>Gets the expire on list async.</summary>
         /// <param name="stock">The stock.</param>
-        /// <returns>A Task.</returns>
+        /// <returns>An IEnumerable of <see cref="ExpireOn"/>.</returns>
         public static Task<IEnumerable<ExpireOn>> GetOptionsExpireOnListAsync(this Stock stock)
         {
             using IWebullDataService wb = new WebullDataService();
@@ -92,21 +92,19 @@ namespace LewisFam.Stocks
 
         /// <summary>Gets the real time market quote async.</summary>
         /// <param name="stock">The stock.</param>
-        /// <returns>A Task.</returns>
+        /// <returns><see cref="IRealTimeOptionQuote"/>.</returns>
         public static async Task<IRealTimeStockQuote> GetRealTimeMarketQuoteAsync(this Stock stock)
         {
             if (!stock.HasTickerId) return null;
 
             using IWebullDataService wb = new WebullDataService();
-            return await wb.GetRealTimeMarketQuoteAsync(stock.TickerId);
-
-            //return stock.HasTickerId ? await GetRealTimeMarketQuoteAsync(stock.TickerId) : null;
+            return await wb.GetRealTimeMarketQuoteAsync(stock.TickerId);                                
         }
 
         /// <summary>Gets the real time market quotes async.</summary>
         /// <param name="stocks">   The stocks.</param>
         /// <param name="batchSize">The batch size.</param>
-        /// <returns>A Task.</returns>
+        /// <returns>An IEnumerable of <see cref="IRealTimeOptionQuote"/>.</returns>
         public static async Task<IEnumerable<IRealTimeStockQuote>> GetRealTimeMarketQuotesAsync(this IEnumerable<Stock> stocks, int batchSize = 50)
         {
             using IWebullDataService wb = new WebullDataService();
@@ -115,7 +113,7 @@ namespace LewisFam.Stocks
 
         /// <summary>Gets the real time option quote async.</summary>
         /// <param name="optionQuote">The option quote.</param>
-        /// <returns>A Task.</returns>
+        /// <returns>An IEnumerable of <see cref="WebullOptionQuote"/>.</returns>
         public static async Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(this IOption optionQuote)
         {
             using IWebullDataService wb = new WebullDataService();
@@ -124,7 +122,7 @@ namespace LewisFam.Stocks
 
         /// <summary>Gets the real time option quotes async.</summary>
         /// <param name="optionQuotes">The option quotes.</param>
-        /// <returns>A Task.</returns>
+        /// <returns>An IEnumerable of <see cref="IWebullOptionQuote"/>.</returns>
         public static async Task<IEnumerable<IWebullOptionQuote>> GetRealTimeOptionQuotesAsync(this IEnumerable<IOption> optionQuotes)
         {
             using IWebullDataService wb = new WebullDataService();
@@ -135,7 +133,7 @@ namespace LewisFam.Stocks
         /// <param name="stock">The stock.</param>
         /// <param name="type"> The type.</param>
         /// <param name="count">The count.</param>
-        /// <returns>A Task.</returns>
+        /// <returns>An IEnumerable of <see cref="IChartData"/>.</returns>
         public static async Task<IEnumerable<IChartData>> GetStockChartDataAsync(this Stock stock, ChartDataType type = ChartDataType.d1, int count = 800)
         {
             if (stock.HasTickerId)
