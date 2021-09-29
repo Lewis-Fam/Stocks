@@ -110,7 +110,7 @@ MIT
 
 **Free Software, Yay!**
 
-Testing Github new branch (v1.0.6) >> commit a change >> revert main branch >> commit a change... ?
+Replaced
 
 [//]: #    
    [CNbc]: <https://cnbc.com>
