@@ -30,11 +30,6 @@ using LewisFam.Stocks;
 var stock = await StocksUtil.FindStockAsync("MSFT"); //find
 ```
 ```csharp
-var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
-////or extension method.
-//quote = await stock.GetRealTimeMarketQuoteAsync();
-```
-```csharp
 //Multiple quotes.
 var stockList = new List<Stock>();
 stockList.Add(stock);
@@ -44,6 +39,12 @@ var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList);
 ////or extension method.
 //quotes = await stockList.GetGetRealTimeMarketQuotesAsync();
 ```
+```csharp
+var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
+////or extension method.
+//quote = await stock.GetRealTimeMarketQuoteAsync();
+```
+
 ##### Stock Options
 ```csharp
 var options = await StocksUtil.GetAllStockOptionsAsync(stock.TickerId);
