@@ -17,7 +17,7 @@ namespace LewisFam.Stocks.Tests
         private Stock _sampleStock_MSFT = StocksUtil.StockList2021[2];
 
         [TestMethod()]
-        public async Task FindStockAsync_Test()
+        public async Task FindStockAsync_Test_MSFT()
         {
             var stock = await StocksUtil.FindStockAsync("MSFT");
 
@@ -27,7 +27,7 @@ namespace LewisFam.Stocks.Tests
         }
 
         [TestMethod()]
-        public async Task GetAllOptionsAsync_Test()
+        public async Task GetAllOptionsAsync_Test_MSFT()
         {
             var options = await _sampleStock_MSFT.GetAllOptionsAsync();
             Assert.IsNotNull(options, "options == null");

@@ -8,8 +8,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull
 {
     public sealed partial class WebullDataService
     {
-        #region Classes
-
         private static class Helper
         {
             #region Options
@@ -140,7 +138,5 @@ namespace LewisFam.Stocks.ThirdParty.Webull
 
             #endregion Methods
         }
-
-        #endregion Classes
     }
 }

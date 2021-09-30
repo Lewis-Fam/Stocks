@@ -1,5 +1,5 @@
 ﻿using System;
-using LewisFam.Stocks.Internal.Models;
+using LewisFam.Stocks.Internal;
 using LewisFam.Stocks.Models.Enums;
 
 namespace LewisFam.Stocks.ThirdParty.Robinhood.Models

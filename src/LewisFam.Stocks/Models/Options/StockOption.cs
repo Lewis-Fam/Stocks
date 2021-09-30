@@ -1,10 +1,13 @@
-﻿using LewisFam.Stocks.Internal.Models;
+﻿using LewisFam.Stocks.Internal;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 
 namespace LewisFam.Stocks.Models
 {
+
     public class StockOption : BaseOption
     {
+
+
         private Stock _stock;
         private long _someId;
         private IWebullOptionQuote _option;
