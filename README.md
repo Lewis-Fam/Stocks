@@ -5,7 +5,7 @@ LewisFam.Stocks is a fast, free and simple stock and option prices API written i
 ## Features
 - Fast and Free!
 - Free real-time stock quotes from [Cnbc] & [Webull]
-- Free real-time stock option prices from [Webull] (delayed 15 minutes.)
+- Free real-time stock option prices from [Webull]
 - .NET Cross-Platform
 
 ## Installation
@@ -100,10 +100,12 @@ public class SampleStockController : Controller
 ## Demo / Tests
 [LewisFam.Stocks.Test]
 
-## Tech
+## Tech & Requirements
 
 The LewisFam library uses a number of open source projects to work properly:
 
+- .NET
+- Web access (http)
 - [LewisFam.Common] - a free and open source common library.
 - [Cnbc] - Real-Time stock quotes.
 - [Webull] - Real-Time stock quotes and option prices.
@@ -122,5 +124,6 @@ v1.0.6
    [CNbc]: <https://cnbc.com>
    [Webull]: <https://webull.com>
    [LewisFam.Common]: <https://github.com/Lewis-Fam/LewisFam.Common>
+   [LewisFam.Stocks]: <https://github.com/Lewis-Fam/Stocks>
    [LewisFam.Stocks.Test]: <https://github.com/Lewis-Fam/Stocks/tree/main/src/LewisFam.Stocks.Tests>
-   [public repository]: <https://github.com/Lewis-Fam>
+   [public repository]: <https://github.com/Lewis-Fam/Stocks>
