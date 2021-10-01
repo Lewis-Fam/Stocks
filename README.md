@@ -1,23 +1,23 @@
-# LewisFam.Stocks - Version 1.0.5
-
-LewisFam.Stocks is a free and simple stock and option prices API. The API can currently get real-time pricing from CNBC.com and Webull.com.
+# LewisFam.Stocks - Version 1.0.6
+ 
+LewisFam.Stocks is a fast, free and simple stock and option prices API written in C#. This API can easily be intergrated into any .NET project.
 
 ## Features
-
-- Get real-time stock quotes from [Cnbc] & [Webull]
-- Get real-time stock option prices from [Webull] (delayed 15 minutes.)
-- Strongly-Typed Objects
+- Fast and Free!
+- Free real-time stock quotes from [Cnbc] & [Webull]
+- Free real-time stock option prices from [Webull] (delayed 15 minutes.)
+- .NET Cross-Platform
 
 ## Installation
 
 LewisFam.Stocks is free and open source comman class libary using. 
 
 ```sh
-Install-Package LewisFam.Stocks --version 1.0.5
+Install-Package LewisFam.Stocks
 ```
 
 ```sh
-dotnet add package LewisFam.Stocks --version 1.0.5
+dotnet add package LewisFam.Stocks
 ```
 
 ## Usage
@@ -28,21 +28,26 @@ using LewisFam.Stocks;
 ```
 ```csharp
 var stock = await StocksUtil.FindStockAsync("MSFT"); //find
-var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
-////or extension method.
-//quote = await stock.GetRealTimeMarketQuoteAsync();
-
+```
+```csharp
 //Multiple quotes.
 var stockList = new List<Stock>();
 stockList.Add(stock);
+//stockList.Add(someOtherStock);
 
 var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList);
 ////or extension method.
 //quotes = await stockList.GetGetRealTimeMarketQuotesAsync();
 ```
+```csharp
+var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
+////or extension method.
+//quote = await stock.GetRealTimeMarketQuoteAsync();
+```
+
 ##### Stock Options
 ```csharp
-var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
+var options = await StocksUtil.GetAllStockOptionsAsync(stock.TickerId);
 ////or extension method.
 //options = await stock.GetAllStockOptionsAsync();
 ```
@@ -54,6 +59,7 @@ var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
 using LewisFam.Stocks.ThirdParty.Cnbc;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull;
+public class Startup { 
 
 public void ConfigureServices(IServiceCollection services)
 {       
@@ -64,6 +70,7 @@ public void ConfigureServices(IServiceCollection services)
     //services.AddControllersWithViews();                
     //services.AddRazorPages();
     //..
+}
 }
 ```
 
@@ -83,9 +90,9 @@ public class SampleStockController : Controller
 
     public async Task<IActionResult> GetAllOptions(long tickerId)
     {
-        var data = await _wb.GetAllStockOptionsAsync(tickerId);
+        var data = await _webulll.GetAllStockOptionsAsync(tickerId);
         if (data == null) return BadRequest(tickerId);
-        return Ok(data);
+        return View(data);
     }
 }
 ```
@@ -107,6 +114,9 @@ And of course LewisFam.Stocks itself is open source with a [public repository] o
 MIT
 
 **Free Software, Yay!**
+
+## Version
+v1.0.6
 
 [//]: #    
    [CNbc]: <https://cnbc.com>

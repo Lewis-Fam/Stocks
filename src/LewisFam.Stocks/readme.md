@@ -115,7 +115,8 @@ MIT
 
 **Free Software, Yay!**
 
-Replaced
+## Version
+v1.0.6
 
 [//]: #    
    [CNbc]: <https://cnbc.com>
