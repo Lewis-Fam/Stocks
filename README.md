@@ -1,4 +1,4 @@
-# LewisFam.Stocks - Version 1.0.6
+# LewisFam.Stocks
  
 LewisFam.Stocks is a fast, free and simple stock and option prices API written in C#. This API can easily be intergrated into any .NET project.
 
