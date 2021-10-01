@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using LewisFam.Stocks.Internal.Models;
+using LewisFam.Stocks.Internal;
 using LewisFam.Stocks.Models.Enums;
 
 namespace LewisFam.Stocks.Data.Models

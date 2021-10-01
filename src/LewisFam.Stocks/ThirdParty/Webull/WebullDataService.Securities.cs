@@ -10,29 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LewisFam.Stocks.ThirdParty.Services
-{
-    public partial interface IWebullDataService
-    {
-        Task<object> GetFinancialsSimpleAsync(long tickerId);
 
-        Task<object> GetFinancialsSimpleAsync(Stock stock);
-
-        Task<string> GetOptionChartDataAsync(long derivedId);
-
-        Task<object> GetOptionChartDataAsync(IOption optionQuote);
-
-        Task<object> GetOptionStrategyAsync(long tickerId);
-
-        Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(long derivedId);
-
-        Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(IOption optionQuote);
-
-        Task<string> GetRealTimeOptionQuoteDetailsAsync(IEnumerable<long> derivedIds, long tickerId);
-
-        Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuotesAsync(IEnumerable<long> derivedIds, int batchSize = 50);
-    }
-}
 
 namespace LewisFam.Stocks.ThirdParty.Webull
 {

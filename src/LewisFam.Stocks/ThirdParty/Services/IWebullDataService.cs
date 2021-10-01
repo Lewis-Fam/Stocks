@@ -1,22 +1,37 @@
 ﻿using LewisFam.Interfaces;
 using LewisFam.Stocks.Models;
+using LewisFam.Stocks.Options.Models;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using LewisFam.Stocks.Options.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Services
 {
+    public partial interface IWebullDataService
+    {
+        Task<object> GetFinancialsSimpleAsync(long tickerId);
+
+        Task<object> GetFinancialsSimpleAsync(Stock stock);
+
+        Task<string> GetOptionChartDataAsync(long derivedId);
+
+        Task<object> GetOptionChartDataAsync(IOption optionQuote);
+
+        Task<object> GetOptionStrategyAsync(long tickerId);
+
+        Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(long derivedId);
+
+        Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuoteAsync(IOption optionQuote);
+
+        Task<string> GetRealTimeOptionQuoteDetailsAsync(IEnumerable<long> derivedIds, long tickerId);
+
+        Task<IEnumerable<WebullOptionQuote>> GetRealTimeOptionQuotesAsync(IEnumerable<long> derivedIds, int batchSize = 50);
+    }
+
     public partial interface IWebullDataService : IDataService
     {
-        #region Properties
-
         ICollection<IWebullOptionQuote> AllOptions { get; }
-
-        #endregion Properties
-
-        #region Methods
 
         /// <summary>Finds a stock async.</summary>
         /// <param name="symbol">The symbol.</param>
@@ -43,9 +58,7 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <returns>A Task.</returns>
         Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(long tickerId);
 
-        /// <summary>
-        /// Gets the expire on list async.
-        /// </summary>
+        /// <summary>Gets the expire on list async.</summary>
         /// <param name="stock">The stock.</param>
         /// <returns>A Task.</returns>
         Task<IEnumerable<ExpireOn>> GetExpireOnListAsync(Stock stock);
@@ -100,7 +113,5 @@ namespace LewisFam.Stocks.ThirdParty.Services
         /// <param name="symbolSearch">The symbol search.</param>
         /// <returns>A list of stocks.</returns>
         Task<IEnumerable<Stock>> SearchSymbolAsync(string symbolSearch);
-
-        #endregion Methods
     }
 }

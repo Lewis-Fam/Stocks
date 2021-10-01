@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LewisFam.Extensions;
-using LewisFam.Stocks.Internal.Models;
+using LewisFam.Stocks.Internal;
 using LewisFam.Stocks.ThirdParty.Cnbc.Models;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Well_Known.Enums;

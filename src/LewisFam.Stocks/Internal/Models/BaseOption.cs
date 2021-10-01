@@ -5,7 +5,7 @@ using LewisFam.Stocks.Models;
 using LewisFam.Stocks.Models.Enums;
 using LewisFam.Stocks.Options.Models;
 
-namespace LewisFam.Stocks.Internal.Models
+namespace LewisFam.Stocks.Internal
 {
     /// <summary>
     /// The base stock option.
@@ -18,18 +18,19 @@ namespace LewisFam.Stocks.Internal.Models
 
         public virtual double StrikePrice { get;  set; }
         public virtual DateTime ExpireDate { get;  set; }
+        //[Display(Name = "CallPutSlide")]
         public virtual CallPut Direction { get;  set; }
         [NotMapped]
         public virtual Stock Stock { get;  protected set; }
 
-        public double Multiplier => 100.0;
+        public virtual double Multiplier => 100.0;
 
         public virtual double? Price { get; set; }
 
         ///<inheritdoc/>
         public override string ToString()
         {
-            return $"{Direction}|{ExpireDate:yyyy/MM/dd}|{StrikePrice}|{Symbol}|{TickerId}";
+            return $"{Direction}|{StrikePrice}||{ExpireDate:yyyy/MM/dd}|{TickerId}";
         }
 
         public virtual string Symbol { get; set; }

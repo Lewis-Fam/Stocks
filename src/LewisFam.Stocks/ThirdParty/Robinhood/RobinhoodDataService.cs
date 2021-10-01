@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using LewisFam.Extensions;
-using LewisFam.Stocks.Internal.Models;
+using LewisFam.Stocks.Internal;
 using LewisFam.Stocks.Models.Enums;
 using LewisFam.Stocks.ThirdParty.Robinhood.Models;
 using LewisFam.Stocks.ThirdParty.Services;

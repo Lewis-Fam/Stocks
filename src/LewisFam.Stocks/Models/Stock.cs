@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using LewisFam.Models;
+using LewisFam.Stocks.ThirdParty.Webull.Models;
 
 namespace LewisFam.Stocks.Models
 {
@@ -49,6 +50,8 @@ namespace LewisFam.Stocks.Models
         public double? Price { get; set; }
 
         public bool HasTickerId => TickerId > 0;
+
+        public IRealTimeStockQuote GetQuote() => HasTickerId ? StocksUtil.GetRealTimeMarketQuoteAsync(TickerId).Result : null;
 
         ///<inheritdoc/>
         public override string ToString()

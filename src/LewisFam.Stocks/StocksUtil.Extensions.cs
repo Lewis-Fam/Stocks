@@ -1,5 +1,4 @@
 ﻿using LewisFam.Stocks.Models;
-using LewisFam.Stocks.Options.Models;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
@@ -9,6 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using LewisFam.Stocks.Options.Models;
+using IRealTimeOptionQuote = LewisFam.Stocks.ThirdParty.Webull.Models.IRealTimeOptionQuote;
 
 namespace LewisFam.Stocks
 {
@@ -16,7 +17,7 @@ namespace LewisFam.Stocks
     {
         /// <summary>Gets the all stock options.</summary>
         /// <param name="stock">The stock.</param>
-        /// <returns>An IEnumerable of <see cref="IRealTimeOptionQuote"/>.</returns>
+        /// <returns>An IEnumerable of <see cref="ThirdParty.Webull.Models.IRealTimeOptionQuote"/>.</returns>
         public static async Task<IEnumerable<IRealTimeOptionQuote>> GetAllOptionsAsync(this Stock stock)
         {
             try

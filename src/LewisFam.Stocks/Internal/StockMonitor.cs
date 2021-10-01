@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
 
-namespace LewisFam.Stocks
+namespace LewisFam.Stocks.Internal
 {
-    public class StockMonitor
+    internal class StockMonitor
     {
         public StockMonitor(ThingsToMonitor thingsToMonitor)
         {
@@ -35,7 +35,7 @@ namespace LewisFam.Stocks
         }
     }
 
-    public class ThingsToMonitor
+    internal class ThingsToMonitor
     {
         public ThingsToMonitor()
         {

@@ -1,5 +1,4 @@
 ﻿using LewisFam.Extensions;
-using LewisFam.Stocks.Internal.Models;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
@@ -14,6 +13,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using LewisFam.Stocks.Internal;
 using LewisFam.Stocks.Options.Models;
 
 //https://quotes-gw.webullfintech.com/api/quotes/ticker/batchTickerRealTime?includeQuote=1&includeSecu=1&more=1&tickerIds=913243104%2C913243133%2C913243139%2C913243191%2C913243249%2C913243251%2C913243546%2C913243555%2C913244089%2C913244454%2C913244515%2C913244578%2C913244652%2C913244796%2C913246743%2C913247002%2C913247103%2C913247207%2C913247368%2C913247588%2C913286798%2C913419147%2C913419148%2C913419149%2C913419150%2C913419151%2C913424717%2C913732468%2C925179279%2C925412021%2C950097340%2C950116648%2C950121347%2C950176466
@@ -75,7 +75,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull
         }
 
         ///<inheritdoc/>
-        [Obsolete]
         public async Task<IEnumerable<IRealTimeOptionQuote>> GetAllOptionsAsync(long tickerId)
         {
             Debug.WriteLine($"{nameof(GetAllOptionsAsync)} : {nameof(tickerId)}={tickerId}");
