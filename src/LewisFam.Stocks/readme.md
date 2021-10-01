@@ -1,11 +1,11 @@
-﻿# LewisFam.Stocks - Version 1.0.6
-
-LewisFam.Stocks is a free and simple stock and option prices API written in C#. The API can currently get real-time pricing from CNBC.com and Webull.com.
+# LewisFam.Stocks - Version 1.0.6
+ 
+LewisFam.Stocks is a fast, free and simple stock and option prices API written in C#. This API can easily be intergrated into any .NET project.
 
 ## Features
 - Fast and Free!
-- Get real-time stock quotes from [Cnbc] & [Webull]
-- Get real-time stock option prices from [Webull]
+- Free real-time stock quotes from [Cnbc] & [Webull]
+- Free real-time stock option prices from [Webull] (delayed 15 minutes.)
 - .NET Cross-Platform
 
 ## Installation
@@ -28,21 +28,26 @@ using LewisFam.Stocks;
 ```
 ```csharp
 var stock = await StocksUtil.FindStockAsync("MSFT"); //find
-var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
-////or extension method.
-//quote = await stock.GetRealTimeMarketQuoteAsync();
-
+```
+```csharp
 //Multiple quotes.
 var stockList = new List<Stock>();
 stockList.Add(stock);
+//stockList.Add(someOtherStock);
 
 var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList);
 ////or extension method.
 //quotes = await stockList.GetGetRealTimeMarketQuotesAsync();
 ```
+```csharp
+var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
+////or extension method.
+//quote = await stock.GetRealTimeMarketQuoteAsync();
+```
+
 ##### Stock Options
 ```csharp
-var options = await StocksUtil.GetAllStockOptions(stock.TickerId);
+var options = await StocksUtil.GetAllStockOptionsAsync(stock.TickerId);
 ////or extension method.
 //options = await stock.GetAllStockOptionsAsync();
 ```
@@ -110,7 +115,7 @@ MIT
 
 **Free Software, Yay!**
 
-Testing Github new branch (v1.0.6) >> commit a change >> revert main branch >> commit a change... ?
+Replaced
 
 [//]: #    
    [CNbc]: <https://cnbc.com>
