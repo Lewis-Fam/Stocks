@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using LewisFam.Stocks.Models;
 using LewisFam.Stocks.Models.Enums;
 using LewisFam.Stocks.Options.Models;
-using LewisFam.Stocks.ThirdParty.Webull.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
-    public interface IRealTimeOptionQuote : IOption
+    public interface IRealTimeOptionQuote : IGreeks, IOption
     {
         long TickerId { get; set;}
         double StrikePrice { get; set; }
         DateTime ExpireDate { get; set; }
         CallPut Direction { get; set; }
+        double? SpotPrice { get; set; }
         double? AskPrice { get; }
         long? AskVolume { get; }
         double? BidPrice { get; }
@@ -25,6 +26,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         long? Volume { get; set; }
         long? OpenInterest { get; set; }
         long? LatestPriceVol { get; set; }
+        public double? IntrinsicValue { get; }
         double? Delta { get; set; }
         double? Vega { get; set; }
         double? ImpVol { get; set; }
@@ -42,8 +44,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         long? RegionId { get; set; }
         long? ExchangeId { get; set; }
         string UnSymbol { get; set; }
-        BidAsk?[] AskList { get; set; }
-        BidAsk?[] BidList { get; set; }
+        List<BidAsk> AskList { get; set; }
+        List<BidAsk> BidList { get; set; }
         long? QuoteMultiplier { get; set; }
         long? QuoteLotSize { get; set; }
         string TradeTime { get; set; }

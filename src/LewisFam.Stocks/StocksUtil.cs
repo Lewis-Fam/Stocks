@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using LewisFam.Stocks.Options.Models;
 
 namespace LewisFam.Stocks
 {

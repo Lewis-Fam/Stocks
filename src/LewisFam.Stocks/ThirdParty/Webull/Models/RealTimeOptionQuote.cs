@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using LewisFam.Stocks.Models.Enums;
 using LewisFam.Stocks.Options.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
@@ -15,20 +17,55 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         public virtual long? ActiveLevel { get; set; }
 
         [NotMapped]
-        public virtual BidAsk?[] AskList { get; set; }
+        public virtual List<BidAsk> AskList { get; set; } = new List<BidAsk>();
 
-        public virtual double? AskPrice => AskList[0]?.Price;
+        public virtual double? AskPrice
+        {
+            get
+            {
+                if (AskList.Any())
+                    return AskList[0].Price;
+                return null;
+            }
+        }
 
-        public virtual long? AskVolume => AskList[0]?.Volume;
+        public virtual long? AskVolume
+        {
+            get
+            {
+                if (AskList.Any())
+                    return AskList[0]?.Volume;
+
+                return null;
+            }
+        }
 
         public virtual long? BelongTickerId { get; set; }
 
         [NotMapped]
-        public virtual BidAsk?[] BidList { get; set; }
+        public virtual List<BidAsk> BidList { get; set; } = new List<BidAsk>(); 
 
-        public virtual double? BidPrice => BidList[0]?.Price;
+        public virtual double? BidPrice
+        {
+            get
+            {
+                if (BidList.Any())
+                    return BidList[0]?.Price;
 
-        public virtual long? BidVolume => BidList[0]?.Volume;
+                return null;
+            }
+        }
+
+        public virtual long? BidVolume
+        {
+            get
+            {
+                if (BidList.Any())
+                    return BidList[0]?.Volume;
+
+                return null;
+            }
+        }
 
         public virtual double? Change { get; set; }
 
@@ -49,6 +86,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         public virtual double? High { get; set; }
 
         public virtual double? ImpVol { get; set; }
+
+        public virtual double? IntrinsicValue => calculateIntrinsicValue();
 
         public virtual long? LatestPriceVol { get; set; }
 
@@ -72,6 +111,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
 
         public virtual double? Rho { get; set; }
 
+        public virtual double? SpotPrice { get; set; }
+
         public virtual double? Theta { get; set; }
 
         public virtual long? TradeStamp { get; set; }
@@ -88,6 +129,22 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         
         public virtual long? Weekly { get; set; }
         
+        private double? calculateIntrinsicValue()
+        {
+            if (SpotPrice > 0)
+            {
+                if (Direction == CallPut.Call)
+                {
+                    return (SpotPrice - StrikePrice);
+                }
+                if (Direction == CallPut.Put)
+                {
+                    return (StrikePrice - SpotPrice);
+                }
+            }
+            return null;
+        }
+
         private double? calculateMarkPrice()
         {
             double?[] numbers =

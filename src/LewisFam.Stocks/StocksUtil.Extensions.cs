@@ -1,4 +1,5 @@
 ﻿using LewisFam.Stocks.Models;
+using LewisFam.Stocks.Options.Models;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull;
 using LewisFam.Stocks.ThirdParty.Webull.Models;
@@ -8,8 +9,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using LewisFam.Stocks.Options.Models;
-using IRealTimeOptionQuote = LewisFam.Stocks.ThirdParty.Webull.Models.IRealTimeOptionQuote;
 
 namespace LewisFam.Stocks
 {
@@ -17,7 +16,7 @@ namespace LewisFam.Stocks
     {
         /// <summary>Gets the all stock options.</summary>
         /// <param name="stock">The stock.</param>
-        /// <returns>An IEnumerable of <see cref="ThirdParty.Webull.Models.IRealTimeOptionQuote"/>.</returns>
+        /// <returns>An IEnumerable of <see cref="IRealTimeOptionQuote"/>.</returns>
         public static async Task<IEnumerable<IRealTimeOptionQuote>> GetAllOptionsAsync(this Stock stock)
         {
             try
@@ -47,7 +46,7 @@ namespace LewisFam.Stocks
 
         /// <summary>Gets the last close price.</summary>
         /// <param name="stock">The stock.</param>
-        /// <returns>A double.</returns>
+        /// <returns>A <see cref="double"/>.</returns
         public static async Task<double> GetLastClosePrice(this IStock stock)
         {
             using IWebullDataService wb = new WebullDataService();
@@ -57,7 +56,7 @@ namespace LewisFam.Stocks
 
         /// <summary>Gets the option chart data async.</summary>
         /// <param name="optionQuote">The option quote.</param>
-        /// <returns>A Task.</returns>
+        /// <returns>A <see cref="double"/>.</returns>
         public static async Task<object> GetOptionChartDataAsync(this IOption optionQuote)
         {
             using IWebullDataService wb = new WebullDataService();

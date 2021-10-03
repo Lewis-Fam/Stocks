@@ -6,11 +6,11 @@ LewisFam.Stocks is a fast, free and simple stock and option prices API written i
 - Fast and Free!
 - Free real-time stock quotes from [Cnbc] & [Webull]
 - Free real-time stock option prices from [Webull]
-- .NET Cross-Platform
+- .NET Cross-Platform & Modularity
 
 ## Installation
 
-LewisFam.Stocks is free and open source comman class libary using. 
+- Install via NuGet: https://www.nuget.org/packages/LewisFam.Stocks
 
 ```sh
 Install-Package LewisFam.Stocks
@@ -20,61 +20,62 @@ Install-Package LewisFam.Stocks
 dotnet add package LewisFam.Stocks
 ```
 
-## Usage
+- Install via Repository Clone: [https://github.com/Lewis-Fam/Stocks.git](https://github.com/Lewis-Fam/Stocks.git)
 
-### StocksUtil
+## Simple Usage
+- [Console](###console)
+- [Dependency injection](###dependency-injection-mvc) asp.net core
+
+### Console
 ```csharp
 using LewisFam.Stocks;
 ```
 ```csharp
-var stock = await StocksUtil.FindStockAsync("MSFT"); //find
-```
-```csharp
-//Multiple quotes.
-var stockList = new List<Stock>();
-stockList.Add(stock);
-//stockList.Add(someOtherStock);
+public class Program 
+{
+    private static async Task Main(string[] args)
+    {
+        var stock = await StocksUtil.FindStockAsync("MSFT");
+        var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
 
-var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList);
-////or extension method.
-//quotes = await stockList.GetGetRealTimeMarketQuotesAsync();
-```
-```csharp
-var quote = await StocksUtil.GetRealTimeMarketQuoteAsync(stock);
-////or extension method.
-//quote = await stock.GetRealTimeMarketQuoteAsync();
-```
+        //Multiple quotes.
+        var stockList = new List<Stock>();
+        stockList.Add(stock);
+        //stockList.Add(someOtherStock);
 
-##### Stock Options
-```csharp
-var options = await StocksUtil.GetAllStockOptionsAsync(stock.TickerId);
-////or extension method.
-//options = await stock.GetAllStockOptionsAsync();
+        var quotes = await StocksUtil.GetRealTimeMarketQuotesAsync(stockList);
+        
+        var options = await StocksUtil.GetAllStockOptionsAsync(stock);
+    }
+}
 ```
 
-### Dependency Injection
+### Dependency Injection MVC
+
+.NET CORE ASP MVC example
 
 #### Startup.cs
 ```csharp
 using LewisFam.Stocks.ThirdParty.Cnbc;
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull;
-public class Startup { 
 
-public void ConfigureServices(IServiceCollection services)
-{       
-    //..
-    services.AddTransient<IWebullDataService, WebullDataService>();    
-    services.AddTransient<ICnbcDataService, CnbcDataService>();    
+public class Startup 
+{
+    public void ConfigureServices(IServiceCollection services)
+    {       
+        //..
+        services.AddTransient<IWebullDataService, WebullDataService>();    
+        services.AddTransient<ICnbcDataService, CnbcDataService>();    
     
-    //services.AddControllersWithViews();                
-    //services.AddRazorPages();
-    //..
-}
+        //services.AddControllersWithViews();                
+        //services.AddRazorPages();
+        //..
+    }
 }
 ```
 
-#### SampleStocksController.cs
+#### SampleStockController.cs
 ```csharp
 using LewisFam.Stocks.ThirdParty.Services;
 using LewisFam.Stocks.ThirdParty.Webull;
@@ -99,13 +100,14 @@ public class SampleStockController : Controller
 
 ## Demo / Tests
 [LewisFam.Stocks.Test]
+[Test link](#features)
 
 ## Tech & Requirements
 
 The LewisFam library uses a number of open source projects to work properly:
 
 - .NET
-- Web access (http)
+- Web access
 - [LewisFam.Common] - a free and open source common library.
 - [Cnbc] - Real-Time stock quotes.
 - [Webull] - Real-Time stock quotes and option prices.
@@ -118,12 +120,12 @@ MIT
 **Free Software, Yay!**
 
 ## Version
-v1.0.6
+v1.0.7
 
 [//]: #    
    [CNbc]: <https://cnbc.com>
    [Webull]: <https://webull.com>
    [LewisFam.Common]: <https://github.com/Lewis-Fam/LewisFam.Common>
    [LewisFam.Stocks]: <https://github.com/Lewis-Fam/Stocks>
-   [LewisFam.Stocks.Test]: <https://github.com/Lewis-Fam/Stocks/tree/main/src/LewisFam.Stocks.Tests>
+   [LewisFam.Stocks.Test]: <https://github.com/Lewis-Fam/Stocks/tree/main/src/LewisFam.StocksTests>
    [public repository]: <https://github.com/Lewis-Fam/Stocks>

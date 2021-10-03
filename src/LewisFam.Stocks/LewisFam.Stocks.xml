@@ -4,33 +4,33 @@
         <name>LewisFam.Stocks</name>
     </assembly>
     <members>
-        <member name="M:LewisFam.Stocks.Internal.Models.BaseDataService.#ctor">
+        <member name="M:LewisFam.Stocks.Internal.BaseDataService.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:LewisFam.Stocks.Internal.Models.BaseDataService"/> class.
+            Initializes a new instance of the <see cref="T:LewisFam.Stocks.Internal.BaseDataService"/> class.
             </summary>
         </member>
-        <member name="P:LewisFam.Stocks.Internal.Models.BaseDataService.Client">
+        <member name="P:LewisFam.Stocks.Internal.BaseDataService.Client">
             <summary>
             Gets the client.
             </summary>
         </member>
-        <member name="P:LewisFam.Stocks.Internal.Models.BaseDataService.Uri">
+        <member name="P:LewisFam.Stocks.Internal.BaseDataService.Uri">
             <summary>
             Gets or sets the uri.
             </summary>
         </member>
-        <member name="M:LewisFam.Stocks.Internal.Models.BaseDataService.Dispose(System.Boolean)">
-            <inheritdoc cref="M:LewisFam.Stocks.Internal.Models.BaseDataService.Dispose"/>
+        <member name="M:LewisFam.Stocks.Internal.BaseDataService.Dispose(System.Boolean)">
+            <inheritdoc cref="M:LewisFam.Stocks.Internal.BaseDataService.Dispose"/>
         </member>
-        <member name="M:LewisFam.Stocks.Internal.Models.BaseDataService.Dispose">
+        <member name="M:LewisFam.Stocks.Internal.BaseDataService.Dispose">
             <inheritdoc/>
         </member>
-        <member name="T:LewisFam.Stocks.Internal.Models.BaseOption">
+        <member name="T:LewisFam.Stocks.Internal.BaseOption">
             <summary>
             The base stock option.
             </summary>
         </member>
-        <member name="M:LewisFam.Stocks.Internal.Models.BaseOption.ToString">
+        <member name="M:LewisFam.Stocks.Internal.BaseOption.ToString">
             <inheritdoc/>
         </member>
         <member name="T:LewisFam.Stocks.Models.Enums.DirectionType">
@@ -212,6 +212,64 @@
             attain the position. The maximum profit is the strike price of the written call minus the strike of the bought call, less the premiums paid.
             </summary>
         </member>
+        <member name="T:LewisFam.Stocks.Models.Greeks">
+            <inheritdoc cref="T:LewisFam.Stocks.Models.IGreeks"/>
+        </member>
+        <member name="P:LewisFam.Stocks.Models.Greeks.Delta">
+            <inheritdoc />
+        </member>
+        <member name="P:LewisFam.Stocks.Models.Greeks.Gamma">
+            <inheritdoc />
+        </member>
+        <member name="P:LewisFam.Stocks.Models.Greeks.Rho">
+            <summary>
+            Rho (p) represents the rate of change between an option's value and a 1% change in the interest rate. This measures sensitivity to the interest rate. For example,
+            assume a call option has a rho of 0.05 and a price of $1.25. If interest rates rise by 1%, the value of the call option would increase to $1.30, all else being
+            equal. The opposite is true for put options. Rho is greatest for at-the-money options with long times until expiration.
+            </summary>
+        </member>
+        <member name="P:LewisFam.Stocks.Models.Greeks.Theta">
+            <summary>
+            Theta (Θ) represents the rate of change between the option price and time, or time sensitivity - sometimes known as an option's time decay. Theta indicates the
+            amount an option's price would decrease as the time to expiration decreases, all else equal. For example, assume an investor is long an option with a theta of
+            -0.50. The option's price would decrease by 50 cents every day that passes, all else being equal.
+            </summary>
+        </member>
+        <member name="P:LewisFam.Stocks.Models.Greeks.Vega">
+            <summary>
+            Vega (v) represents the rate of change between an option's value and the underlying asset's implied volatility. This is the option's sensitivity to volatility.
+            Vega indicates the amount an option's price changes given a 1% change in implied volatility. For example, an option with a Vega of 0.10 indicates the option's
+            value is expected to change by 10 cents if the implied volatility changes by 1%.
+            </summary>
+        </member>
+        <member name="T:LewisFam.Stocks.Models.IGreeks">
+            <remarks>
+            "Greeks" is a term used in the options market to describe the different dimensions of risk involved in taking an options position. These variables are called Greeks
+            because they are typically associated with Greek symbols. Each risk variable is a result of an imperfect assumption or relationship of the option with another
+            underlying variable. Traders use different Greek values, such as delta, theta, and others, to assess options risk and manage option portfolios. <br/><br/> Greeks
+            encompass many variables. These include delta, theta, gamma, vega, and rho, among others. Each one of these variables/Greeks has a number associated with it, and that
+            number tells traders something about how the option moves or the risk associated with that option. The primary Greeks (Delta, Vega, Theta, Gamma, and Rho) are
+            calculated each as a first partial derivative of the options pricing model (for instance, the Black-Scholes model). <br/><br/> The number or value associated with a
+            Greek changes over time. Therefore, sophisticated options traders may calculate these values daily to assess any changes which may affect their positions or outlook,
+            or to check if their portfolio needs to be rebalanced. Below are several of the main Greeks traders look at.
+            </remarks>
+        </member>
+        <member name="P:LewisFam.Stocks.Models.IGreeks.Delta">
+            <summary>
+            Delta (Δ) represents the rate of change between the option's price and a $1 change in the underlying asset's price. In other words, the price sensitivity of the
+            option relative to the underlying. Delta of a call option has a range between zero and one, while the delta of a put option has a range between zero and negative
+            one. For example, assume an investor is long a call option with a delta of 0.50. Therefore, if the underlying stock increases by $1, the option's price would
+            theoretically increase by 50 cents.
+            </summary>
+        </member>
+        <member name="P:LewisFam.Stocks.Models.IGreeks.Gamma">
+            <summary>
+            Gamma (Γ) represents the rate of change between an option's delta and the underlying asset's price. This is called second-order (second-derivative) price
+            sensitivity. Gamma indicates the amount the delta would change given a $1 move in the underlying security. For example, assume an investor is long one call option
+            on hypothetical stock XYZ. The call option has a delta of 0.50 and a gamma of 0.10. Therefore, if stock XYZ increases or decreases by $1, the call option's delta
+            would increase or decrease by 0.10.
+            </summary>
+        </member>
         <member name="T:LewisFam.Stocks.Models.Stock">
             <summary>A stock class.</summary>
         </member>
@@ -225,64 +283,6 @@
         </member>
         <member name="T:LewisFam.Stocks.Options.Models.BlackScholes">
             <summary>Summary description for BlackSholes.</summary>
-        </member>
-        <member name="T:LewisFam.Stocks.Options.Models.Greeks">
-            <inheritdoc cref="T:LewisFam.Stocks.Options.Models.IGreeks"/>
-        </member>
-        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Delta">
-            <inheritdoc />
-        </member>
-        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Gamma">
-            <inheritdoc />
-        </member>
-        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Rho">
-            <summary>
-            Rho (p) represents the rate of change between an option's value and a 1% change in the interest rate. This measures sensitivity to the interest rate. For example,
-            assume a call option has a rho of 0.05 and a price of $1.25. If interest rates rise by 1%, the value of the call option would increase to $1.30, all else being
-            equal. The opposite is true for put options. Rho is greatest for at-the-money options with long times until expiration.
-            </summary>
-        </member>
-        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Theta">
-            <summary>
-            Theta (Θ) represents the rate of change between the option price and time, or time sensitivity - sometimes known as an option's time decay. Theta indicates the
-            amount an option's price would decrease as the time to expiration decreases, all else equal. For example, assume an investor is long an option with a theta of
-            -0.50. The option's price would decrease by 50 cents every day that passes, all else being equal.
-            </summary>
-        </member>
-        <member name="P:LewisFam.Stocks.Options.Models.Greeks.Vega">
-            <summary>
-            Vega (v) represents the rate of change between an option's value and the underlying asset's implied volatility. This is the option's sensitivity to volatility.
-            Vega indicates the amount an option's price changes given a 1% change in implied volatility. For example, an option with a Vega of 0.10 indicates the option's
-            value is expected to change by 10 cents if the implied volatility changes by 1%.
-            </summary>
-        </member>
-        <member name="T:LewisFam.Stocks.Options.Models.IGreeks">
-            <remarks>
-            "Greeks" is a term used in the options market to describe the different dimensions of risk involved in taking an options position. These variables are called Greeks
-            because they are typically associated with Greek symbols. Each risk variable is a result of an imperfect assumption or relationship of the option with another
-            underlying variable. Traders use different Greek values, such as delta, theta, and others, to assess options risk and manage option portfolios. <br/><br/> Greeks
-            encompass many variables. These include delta, theta, gamma, vega, and rho, among others. Each one of these variables/Greeks has a number associated with it, and that
-            number tells traders something about how the option moves or the risk associated with that option. The primary Greeks (Delta, Vega, Theta, Gamma, and Rho) are
-            calculated each as a first partial derivative of the options pricing model (for instance, the Black-Scholes model). <br/><br/> The number or value associated with a
-            Greek changes over time. Therefore, sophisticated options traders may calculate these values daily to assess any changes which may affect their positions or outlook,
-            or to check if their portfolio needs to be rebalanced. Below are several of the main Greeks traders look at.
-            </remarks>
-        </member>
-        <member name="P:LewisFam.Stocks.Options.Models.IGreeks.Delta">
-            <summary>
-            Delta (Δ) represents the rate of change between the option's price and a $1 change in the underlying asset's price. In other words, the price sensitivity of the
-            option relative to the underlying. Delta of a call option has a range between zero and one, while the delta of a put option has a range between zero and negative
-            one. For example, assume an investor is long a call option with a delta of 0.50. Therefore, if the underlying stock increases by $1, the option's price would
-            theoretically increase by 50 cents.
-            </summary>
-        </member>
-        <member name="P:LewisFam.Stocks.Options.Models.IGreeks.Gamma">
-            <summary>
-            Gamma (Γ) represents the rate of change between an option's delta and the underlying asset's price. This is called second-order (second-derivative) price
-            sensitivity. Gamma indicates the amount the delta would change given a $1 move in the underlying security. For example, assume an investor is long one call option
-            on hypothetical stock XYZ. The call option has a delta of 0.50 and a gamma of 0.10. Therefore, if stock XYZ increases or decreases by $1, the call option's delta
-            would increase or decrease by 0.10.
-            </summary>
         </member>
         <member name="P:LewisFam.Stocks.StocksUtil.StockList2021">
             <summary>Gets a sample stocks list.</summary>
@@ -371,15 +371,11 @@
             <param name="stock">The stock.</param>
             <returns>A Task.</returns>
         </member>
-        <member name="M:LewisFam.Stocks.StocksUtil.GetLastClosePrice(LewisFam.Stocks.Models.IStock)">
-            <summary>Gets the last close price.</summary>
-            <param name="stock">The stock.</param>
-            <returns>A double.</returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:LewisFam.Stocks.StocksUtil.GetLastClosePrice(LewisFam.Stocks.Models.IStock)" -->
         <member name="M:LewisFam.Stocks.StocksUtil.GetOptionChartDataAsync(LewisFam.Stocks.Options.Models.IOption)">
             <summary>Gets the option chart data async.</summary>
             <param name="optionQuote">The option quote.</param>
-            <returns>A Task.</returns>
+            <returns>A <see cref="T:System.Double"/>.</returns>
         </member>
         <member name="M:LewisFam.Stocks.StocksUtil.GetOptionsExpireOnListAsync(LewisFam.Stocks.Models.Stock)">
             <summary>Gets the expire on list async.</summary>
@@ -597,9 +593,7 @@
             <returns>A Task.</returns>
         </member>
         <member name="M:LewisFam.Stocks.ThirdParty.Services.IWebullDataService.GetExpireOnListAsync(LewisFam.Stocks.Models.Stock)">
-            <summary>
-            Gets the expire on list async.
-            </summary>
+            <summary>Gets the expire on list async.</summary>
             <param name="stock">The stock.</param>
             <returns>A Task.</returns>
         </member>

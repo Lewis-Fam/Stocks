@@ -21,8 +21,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
             Stock = stock;
         }
         
-        public long Id { get; set; }     
-        public double? SpotPrice { get; set; }
+        public long Id { get; set; }
         public Guid? BatchId { get; set; }
 
         [NotMapped]
@@ -35,15 +34,5 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         public WebullOptionQuote Put { get; set; }
 
         public DateTimeOffset UpdatedOn { get; private set; } = DateTime.UtcNow;
-
-        public double? IntrinsicValue => calculateIntrinsicValue();
-        
-        private double? calculateIntrinsicValue()
-        {
-            if (SpotPrice > 0)
-                return (SpotPrice - StrikePrice) * 100.0;
-            
-            return null;
-        }
     }
 }

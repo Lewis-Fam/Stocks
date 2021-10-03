@@ -34,7 +34,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
             /// <param name="tickerId">The ticker id.</param>
             /// <param name="expDate"> The exp date.</param>
             /// <returns>An Uri.</returns>
-            [Obsolete]
+            //[Obsolete]
             public static Uri BuildUri(long tickerId, DateTimeOffset expDate) => new Uri($"{BaseUri_Options}{tickerId}{Params_Options}&expireDate={expDate:yyyy-MM-dd}");
 
             /// <summary>Builds the uri.</summary>

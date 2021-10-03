@@ -105,7 +105,7 @@ public class SampleStockController : Controller
 The LewisFam library uses a number of open source projects to work properly:
 
 - .NET
-- Web access (http)
+- Web access
 - [LewisFam.Common] - a free and open source common library.
 - [Cnbc] - Real-Time stock quotes.
 - [Webull] - Real-Time stock quotes and option prices.
@@ -125,5 +125,5 @@ v1.0.6
    [Webull]: <https://webull.com>
    [LewisFam.Common]: <https://github.com/Lewis-Fam/LewisFam.Common>
    [LewisFam.Stocks]: <https://github.com/Lewis-Fam/Stocks>
-   [LewisFam.Stocks.Test]: <https://github.com/Lewis-Fam/Stocks/tree/main/src/LewisFam.Stocks.Tests>
+   [LewisFam.Stocks.Test]: <https://github.com/Lewis-Fam/Stocks/tree/main/src/LewisFam.StocksTests>
    [public repository]: <https://github.com/Lewis-Fam/Stocks>

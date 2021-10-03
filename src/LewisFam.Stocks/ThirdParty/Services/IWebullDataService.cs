@@ -31,7 +31,7 @@ namespace LewisFam.Stocks.ThirdParty.Services
 
     public partial interface IWebullDataService : IDataService
     {
-        ICollection<IWebullOptionQuote> AllOptions { get; }
+        ICollection<IRealTimeOptionQuote> AllOptions { get; }
 
         /// <summary>Finds a stock async.</summary>
         /// <param name="symbol">The symbol.</param>

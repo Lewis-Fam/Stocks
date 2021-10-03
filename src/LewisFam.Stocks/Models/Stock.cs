@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using LewisFam.Models;
@@ -52,6 +53,11 @@ namespace LewisFam.Stocks.Models
         public bool HasTickerId => TickerId > 0;
 
         public IRealTimeStockQuote GetQuote() => HasTickerId ? StocksUtil.GetRealTimeMarketQuoteAsync(TickerId).Result : null;
+
+        public async Task<IEnumerable<IRealTimeOptionQuote>> GetAllOptions()
+        {
+            return await this.GetAllOptionsAsync();
+        }
 
         ///<inheritdoc/>
         public override string ToString()

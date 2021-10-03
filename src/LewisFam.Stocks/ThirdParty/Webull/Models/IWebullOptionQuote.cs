@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using LewisFam.Stocks.Models;
-using LewisFam.Stocks.Options.Models;
 
 namespace LewisFam.Stocks.ThirdParty.Webull.Models
 {
