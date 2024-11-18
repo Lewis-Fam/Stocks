@@ -2,9 +2,9 @@
 {
     public class BidAsk
     {
-        public virtual double Price { get; set; }
+        public virtual double? Price { get; set; }
 
-        public virtual long Volume { get; set; }
+        public virtual long? Volume { get; set; }
 
         public override string ToString()
         {

@@ -7,47 +7,47 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace LewisFam.Stocks.Internal
+namespace LewisFam.Stocks
 {
-    internal sealed class HttpClient : System.Net.Http.HttpClient
+    internal static class HttpClient //: System.Net.Http.HttpClient
     {
-        public HttpClient() : base()
-        {
-            _client = new System.Net.Http.HttpClient();
-        }
+        //public HttpClient() : base()
+        //{
+        //    _client = new System.Net.Http.HttpClient();
+        //}
 
-        public HttpClient(IList<KeyValuePair<string, string>> customHeaders) : this()
-        {
-            _headers = customHeaders ?? throw new ArgumentNullException(nameof(customHeaders));
-            setCustomHeaders(); 
-        }
+        //public HttpClient(IList<KeyValuePair<string, string>> customHeaders) : this()
+        //{
+        //    _headers = customHeaders ?? throw new ArgumentNullException(nameof(customHeaders));
+        //    setCustomHeaders(); 
+        //}
 
-        public async Task<T> GetJsonAsync<T>(Uri uri) where T : new()
+        public static async Task<T> GetJsonAsync<T>(this System.Net.Http.HttpClient _client, Uri uri) where T : new()
         {
             using var request = await _client.GetAsync(uri);
             var strg = await request.Content.ReadAsStringAsync();
             return JToken.Parse(strg).ToObject<T>();
         }
 
-        public async Task<string> ReadAsStringAsync(Uri uri)
-        {
-            using var request = await _client.GetAsync(uri);
-            return await request.Content.ReadAsStringAsync();
-        }
+        //public async Task<string> ReadAsStringAsync(Uri uri)
+        //{
+        //    using var request = await _client.GetAsync(uri);
+        //    return await request.Content.ReadAsStringAsync();
+        //}
 
-        public async Task<Stream> ReadAsStreamAsync(Uri uri)
-        {
-            using var request = await _client.GetAsync(uri);
-            return await request.Content.ReadAsStreamAsync();
-        }
+        //public async Task<Stream> ReadAsStreamAsync(Uri uri)
+        //{
+        //    using var request = await _client.GetAsync(uri);
+        //    return await request.Content.ReadAsStreamAsync();
+        //}
 
-        public async Task<byte[]> ReadAsByteArrayAsync(Uri uri)
-        {
-            using var request = await _client.GetAsync(uri);
-            return await request.Content.ReadAsByteArrayAsync();
-        }
+        //public async Task<byte[]> ReadAsByteArrayAsync(Uri uri)
+        //{
+        //    using var request = await _client.GetAsync(uri);
+        //    return await request.Content.ReadAsByteArrayAsync();
+        //}
 
-        public async Task<string> GetJsonAsync(Uri uri, string selectToken = "", Formatting format = Formatting.None)
+        public static async Task<string> GetJsonAsync(this System.Net.Http.HttpClient _client, Uri uri, string selectToken = "", Formatting format = Formatting.None)
         {
             try
             {
@@ -66,32 +66,32 @@ namespace LewisFam.Stocks.Internal
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
+        //protected override void Dispose(bool disposing)
+        //{
+        //    base.Dispose(disposing);
 
-            if (disposing)
-            {
-                _client?.Dispose();
-            }
-        }
+        //    if (disposing)
+        //    {
+        //        _client?.Dispose();
+        //    }
+        //}
 
-        private readonly System.Net.Http.HttpClient _client;
+        //private readonly System.Net.Http.HttpClient _client;
 
-        private readonly IList<KeyValuePair<string, string>> _headers;
+        //private readonly IList<KeyValuePair<string, string>> _headers;
 
-        private void setCustomHeaders()
-        {
-            for (var i = 0; i < _headers.Count - 1; i++)
-            {
-                Debug.Assert(_client.DefaultRequestHeaders != null, "_client.DefaultRequestHeaders != null");
-                _client.DefaultRequestHeaders.Add(_headers[i].Key, _headers[i].Value);
-            }
-        }
+        //private void setCustomHeaders()
+        //{
+        //    for (var i = 0; i < _headers.Count - 1; i++)
+        //    {
+        //        Debug.Assert(_client.DefaultRequestHeaders != null, "_client.DefaultRequestHeaders != null");
+        //        _client?.DefaultRequestHeaders.Add(_headers[i].Key, _headers[i].Value);
+        //    }
+        //}
 
-        public void AddAuthToken(string accessToken)
-        {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-        }
+        //public void AddAuthToken(string accessToken)
+        //{
+        //    _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+        //}
     }
 }

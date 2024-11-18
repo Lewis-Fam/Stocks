@@ -26,7 +26,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         long? Volume { get; set; }
         long? OpenInterest { get; set; }
         long? LatestPriceVol { get; set; }
-        public double? IntrinsicValue { get; }
+        double? IntrinsicValue { get; }
         double? Delta { get; set; }
         double? Vega { get; set; }
         double? ImpVol { get; set; }
@@ -51,5 +51,6 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
         string TradeTime { get; set; }
         string TradeStatus { get; set; }
         long? TradeStamp { get; set; }
+        bool? ITM { get; }
     }
 }

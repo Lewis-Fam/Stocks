@@ -1,8 +1,8 @@
 # LewisFam.Stocks
- 
 LewisFam.Stocks is a fast, free and simple stock and option prices API written in C#. This API can easily be intergrated into any .NET project.
 
 ## Features
+
 - Fast and Free!
 - Free real-time stock quotes from [Cnbc] & [Webull]
 - Free real-time stock option prices from [Webull]
@@ -10,8 +10,8 @@ LewisFam.Stocks is a fast, free and simple stock and option prices API written i
 
 ## Installation
 
-- Install via NuGet: https://www.nuget.org/packages/LewisFam.Stocks
-
+Install via NuGet: https://www.nuget.org/packages/LewisFam.Stocks
+    
 ```sh
 Install-Package LewisFam.Stocks
 ```
@@ -22,9 +22,10 @@ dotnet add package LewisFam.Stocks
 
 - Install via Repository Clone: [https://github.com/Lewis-Fam/Stocks.git](https://github.com/Lewis-Fam/Stocks.git)
 
-## Simple Usage
-- [Console](###console)
-- [Dependency injection](###dependency-injection-mvc) asp.net core
+## Sample Usage
+    
+  - [Console](###console)
+  - [Dependency injection](###dependency-injection-mvc) asp.net core
 
 ### Console
 ```csharp

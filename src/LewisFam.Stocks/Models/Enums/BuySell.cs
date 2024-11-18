@@ -2,7 +2,6 @@
 
 namespace LewisFam.Stocks.Models.Enums
 {
-    [Serializable]
     public enum BuySell
     {
         Buy,
@@ -14,5 +13,4 @@ namespace LewisFam.Stocks.Models.Enums
         Open,
         Close
     }
-
 }

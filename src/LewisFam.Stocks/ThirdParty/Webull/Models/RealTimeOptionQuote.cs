@@ -89,6 +89,8 @@ namespace LewisFam.Stocks.ThirdParty.Webull.Models
 
         public virtual double? IntrinsicValue => calculateIntrinsicValue();
 
+        public virtual bool? ITM => IntrinsicValue > 0;
+
         public virtual long? LatestPriceVol { get; set; }
 
         public virtual double? Low { get; set; }

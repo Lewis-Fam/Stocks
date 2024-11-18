@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 
 namespace LewisFam.Stocks.Internal
 {
@@ -10,13 +12,21 @@ namespace LewisFam.Stocks.Internal
         /// </summary>
         protected BaseDataService()
         {
-            Debug.WriteLine($"{nameof(BaseDataService)} created.");
+            //Debug.WriteLine($"{nameof(BaseDataService)} created.");
+        }
+
+        protected BaseDataService(IHttpClientFactory clientFactory)
+        {
+            //Debug.WriteLine($"{nameof(BaseDataService)} IHttpClientFactory created.");
+           // System.Net.Http.HttpClient c = clientFactory.CreateClient();
+           //Client = (HttpClient)c;
+           Client = clientFactory.CreateClient();
         }
 
         /// <summary>
         /// Gets the client.
         /// </summary>
-        internal HttpClient Client { get; } = new HttpClient();
+        internal System.Net.Http.HttpClient Client { get; } // = new System.Net.Http.HttpClient();
 
         /// <summary>
         /// Gets or sets the uri.

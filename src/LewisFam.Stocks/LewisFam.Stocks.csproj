@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>W:\Daddy\Documents\dev\earth\zMe\git\src\LewisFam.Stocks\LewisFam.Stocks.xml</DocumentationFile>
+    <DocumentationFile>LewisFam.Stocks.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,7 +43,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Orders\" />
+    <Reference Include="Microsoft.Extensions.Http">
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\5.0.0\ref\net5.0\Microsoft.Extensions.Http.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

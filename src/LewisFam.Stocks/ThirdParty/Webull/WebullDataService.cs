@@ -45,6 +45,16 @@ namespace LewisFam.Stocks.ThirdParty.Webull
 
         public event EventHandler<object> OnDataReceived;
 
+        public WebullDataService()
+        {
+            Debug.WriteLine($"{nameof(WebullDataService)} created.");
+        }
+
+        public WebullDataService(IHttpClientFactory clientFactory) : base(clientFactory)
+        {
+            Debug.WriteLine($"{nameof(WebullDataService)} IHttpClientFactory created.");
+        }
+
         ///<inheritdoc/>
         public async Task<Stock> FindStockAsync(string symbol)
         {
@@ -96,7 +106,7 @@ namespace LewisFam.Stocks.ThirdParty.Webull
                     }
             } 
             
-            OnDataReceived?.Invoke(this, AllOptions);
+            //OnDataReceived?.Invoke(this, AllOptions);
             return AllOptions;
         }
 
